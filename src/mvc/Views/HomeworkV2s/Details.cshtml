@@ -1,0 +1,125 @@
+﻿@model mvc.Models.HomeworkV2s
+
+@{
+    //ViewData["Title"] = Model.HomeworkType.HomeworkTypeName + " : " + Model.HomeworkV2name + " du " + Model.HomeworkV2date.ToString("yyyy-MM-dd");
+    ViewData["Title"] = Model.HomeworkType.HomeworkTypeName + " : " + Model.HomeworkV2name;
+}
+
+<h1>Details</h1>
+
+
+@*<div>
+        <a asp-action="Edit" asp-route-id="@Model.HomeworkV2id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        @*<h4>Devoir</h4>
+                            <hr />*@
+
+                        <table class="table">
+                            @*<thead class="thead-light">
+                                    <tr>
+                                        <th style="color:black !important;">Cours</th>
+                                        <th style="color:black !important;">Exercice(s) à faire </th>
+                                    </tr>
+                                </thead>*@
+                            <tbody>
+                                @if (Model.Theories.Count() > 0)
+                                {
+                                    int cpt = 1;
+
+                                    @foreach (Theory theory in Model.Theories)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a class="btn btn-info p-1" asp-controller="Theories" asp-action="Details" asp-route-id="@theory.TheoryId">@theory.TheoryName</a>
+                                            </td>
+                                            <td>
+                                                @if (theory.Exercices.Count() > 0)
+                                                {
+                                                    cpt = 1;
+                                                    @foreach (Exercice exercice in theory.Exercices)
+                                                    {
+                                                        <a class="btn btn-info p-1"
+                                                           asp-controller="Exercices"
+                                                           asp-action="Details"
+                                                           asp-route-id="@exercice.ExerciceId"
+                                                           style="background-color:#008fa1">
+                                                            Ex. @cpt
+                                                        </a>
+                                                        cpt++;
+                                                    }
+                                                }
+                                                @if ((bool)ViewData["IsTeacher"])
+                                                {
+                                                    <a class="text-success" asp-controller="Exercices" asp-action="Create" asp-route-theoryId="@theory.TheoryId">Ajouter un ex.</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        @if (Model.ExercicesAlones.Count() > 0)
+                                        {
+                                            int cpt = 1;
+
+                                            @foreach (ExercicesAlone exercice in Model.ExercicesAlones)
+                                            {
+                                                <a class="btn btn-info p-1" asp-controller="ExercicesAlones" asp-action="Details" asp-route-id="@exercice.ExerciceId" style="background-color:#008fa1">@exercice.ExerciceName</a>
+                                                cpt++;
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div>
+                            @if ((bool)ViewData["IsTeacher"])
+                            {
+                                <p>
+                                    <a class="text-success" asp-controller="Theories" asp-action="Create" asp-route-homeworkId="@Model.HomeworkV2id">Ajouter un cours</a>
+                                    <a class="text-success" asp-controller="ExercicesAlones" asp-action="Create" asp-route-homeworkId="@Model.HomeworkV2id">Ajouter un ex. seul</a>
+                                </p>
+                            }
+                        </div>
+
+                        <div>
+                            @if ((bool)ViewData["IsTeacher"])
+                            {
+                                <a asp-controller="Homeworkv2s" asp-action="Index" asp-route-id="@Model.SessionId">Revenir à la liste des devoirs</a>
+                            }
+                            else
+                            {
+                                <a href="javascript:history.back()">Revenir à la page précédente</a>
+                            }
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

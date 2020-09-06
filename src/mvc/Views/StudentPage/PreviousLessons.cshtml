@@ -1,0 +1,88 @@
+﻿@model mvc.Models.AspNetUser
+@{
+    ViewData["Title"] = "Cours précédents";
+}
+
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="about-team team-1">
+            <div class="row">
+                <div class="col-md-12 ml-auto mr-auto text-center d-flex">
+                    <div class="card">
+                        <div class="card-body flex-fill">
+                            <h3 class="title">@ViewData["Title"]</h3>
+                            <div id='calendar'></div>
+                        </div>
+                        <!-- end content-->
+                    </div>
+                    <!--  end card  -->
+                </div>
+            </div>
+        </div>
+</body>
+
+
+@section Scripts{
+    <script src='~/lib/calendar/main.js'></script>
+    <script src='~/lib/calendar/locales/fr-ch.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                weekends: false,
+                eventDisplay: 'block',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridDay,dayGridWeek,dayGridMonth'
+                },
+                initialView: 'dayGridWeek',
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                dayMaxEvents: true, // allow "more" link when too many events
+                locale: 'fr-ch',
+                height: 'auto',
+                displayEventTime: false,
+                eventSources: [
+                    {
+                        url: '@ViewData["URLClientMVC"]api/calendar?userId=@ViewData["USERID"]', // use the `url` property
+                    }
+                    @*{
+                        url: '@ViewData["URLClientMVC"]api/calendar?sessionid=1&homeworktypeid=2', // use the `url` property
+                        color: 'yellow',    // an option!
+                        textColor: 'black'  // an option!
+                    },
+                    {
+                        url: '@ViewData["URLClientMVC"]api/calendar?sessionid=1&homeworktypeid=3', // use the `url` property
+                        color: 'orange',    // an option!
+                        textColor: 'black'  // an option!
+                    }*@
+                    // any other sources...
+                ]
+
+
+            });
+
+            calendar.render();
+
+            var x = document.getElementsByClassName("fc-header-toolbar fc-toolbar fc-toolbar-ltr");
+            //alert(x.length);
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].className += " row";
+            } 
+            var x = document.getElementsByClassName("fc-toolbar-chunk");
+            //alert(x.length);
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].className += " d-block mx-auto";
+            } 
+        });
+
+
+    </script>
+}

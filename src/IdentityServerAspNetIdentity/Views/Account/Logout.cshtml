@@ -1,0 +1,28 @@
+﻿@model LogoutViewModel
+
+<div class="page-header bgImageHome">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                <div class="card card-login card-hidden">
+                    <div class="card-header card-header-primary text-center">
+                        <h4 class="card-title">Voulez-vous vous déconnecter du site ?</h4>
+                    </div>
+                    <div class="card-body text-center">
+
+                    </div>
+                    <div class="card-footer justify-content-center">
+                        <form asp-action="Logout">
+                            <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+                            <fieldset>
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Oui</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

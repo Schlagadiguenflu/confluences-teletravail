@@ -1,0 +1,71 @@
+﻿@model mvc.Models.ExercicesAlone
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ExercicesAlone</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ExerciceId" />
+            <div class="form-group">
+                <label asp-for="ExerciceDate" class="control-label"></label>
+                <input asp-for="ExerciceDate" class="form-control" />
+                <span asp-validation-for="ExerciceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExerciceName" class="control-label"></label>
+                <input asp-for="ExerciceName" class="form-control" />
+                <span asp-validation-for="ExerciceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExerciceLink" class="control-label"></label>
+                <input asp-for="ExerciceLink" class="form-control" />
+                <span asp-validation-for="ExerciceLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AudioLink" class="control-label"></label>
+                <input asp-for="AudioLink" class="form-control" />
+                <span asp-validation-for="AudioLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectionDate" class="control-label"></label>
+                <input asp-for="CorrectionDate" class="form-control" />
+                <span asp-validation-for="CorrectionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectionLink" class="control-label"></label>
+                <input asp-for="CorrectionLink" class="form-control" />
+                <span asp-validation-for="CorrectionLink" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsHomeworkAdditionnal" /> @Html.DisplayNameFor(model => model.IsHomeworkAdditionnal)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeacherId" class="control-label"></label>
+                <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
+                <span asp-validation-for="TeacherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HomeworkV2id" class="control-label"></label>
+                <select asp-for="HomeworkV2id" class="form-control" asp-items="ViewBag.HomeworkV2id"></select>
+                <span asp-validation-for="HomeworkV2id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

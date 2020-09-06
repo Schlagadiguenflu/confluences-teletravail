@@ -1,0 +1,149 @@
+﻿@model LoginViewModel
+
+@if (Model.EnableLocalLogin)
+{
+
+    @*<div class="page-header bgImageHome">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <div class="card card-login card-hidden">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">Login</h4>
+                            </div>
+                            <partial name="_ValidationSummary" />
+                            <div class="card-body ">
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">face</i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" asp-for="Username" autofocus placeholder="Nom d'utilisateur-trice">
+                                    </div>
+                                </span>
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control" placeholder="Mot de passe" asp-for="Password">
+                                    </div>
+                                </span>
+                                @if (Model.AllowRememberLogin)
+                                {
+                                    <span class="bmd-form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons text-white">lock_outline</i>
+                                                </span>
+                                            </div>
+                                            <div class="form-group login-remember">
+                                                <label asp-for="RememberLogin">
+                                                    <input asp-for="RememberLogin">
+                                                    Se souvenir de moi
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </span>
+                                }
+
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" name="button" value="login" type="submit">Se connecter</button>
+                                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Account" asp-action="SignUp">S'enregistrer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>*@
+}
+
+@if (Model.EnableLocalLogin)
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <body data-parallax="true" class="bgImage">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <div class="card card-login card-hidden">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">Login</h4>
+                            </div>
+                            <partial name="_ValidationSummary" />
+                            <div class="card-body ">
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">face</i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" asp-for="Username" autofocus placeholder="Nom d'utilisateur-trice">
+                                    </div>
+                                </span>
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control" placeholder="Mot de passe" asp-for="Password">
+                                    </div>
+                                </span>
+                                @if (Model.AllowRememberLogin)
+                                {
+                                    @*<span class="bmd-form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons text-white">lock_outline</i>
+                                                </span>
+                                            </div>
+                                            <div class="form-group login-remember">
+                                                <label asp-for="RememberLogin">
+                                                    <input asp-for="RememberLogin">
+                                                    Se souvenir de moi
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </span>*@
+                                }
+
+                            </div>
+                            <div class="card-footer justify-content-center mt-3">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" name="button" value="login" type="submit">Se connecter</button>
+                                    @*<a class="btn btn-primary btn-block" asp-area="" asp-controller="Account" asp-action="SignUp">S'enregistrer</a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+}

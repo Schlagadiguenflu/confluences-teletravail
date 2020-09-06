@@ -1,0 +1,103 @@
+﻿@model IEnumerable<mvc.Models.SchoolClassRoom>
+
+@{
+    ViewData["Title"] = "Les classes";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-primary btn-block" asp-action="Details" asp-route-id="@item.SchoolClassRoomId" style="max-width:150px;">
+                                                <h5>
+                                                    @Html.DisplayFor(modelItem => item.SchoolClassRoomName)
+                                                </h5>
+                                            </a>
+                                        </td>
+                                        <td class="text-md-right">
+                                            <a asp-action="Edit" asp-route-id="@item.SchoolClassRoomId" style="font-size:1.0625rem">
+                                                Modifier
+                                            </a> |
+                                            <a class="text-danger blo" asp-action="Delete" asp-route-id="@item.SchoolClassRoomId" style="font-size:1.0625rem">
+                                                Supprimer
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="toolbar">
+                            <p>
+                                <a class="btn btn-success" asp-action="Create">Créer une nouvelle classe</a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                scrollCollapse: true,
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                }
+            });
+
+            var table = $('#datatable').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+        });</script>
+}

@@ -1,0 +1,40 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Erreur";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">
+                                @ViewData["Title"]
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                        </div>
+                        <div>
+                            <h3>Mince, une erreur est survenue, n'hésite pas à contacter le webmaster</h3>
+                            @if (Model.ShowRequestId)
+                            {
+                                <h3 class="text-danger"><code>@Model.RequestId</code></h3>
+                            }
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

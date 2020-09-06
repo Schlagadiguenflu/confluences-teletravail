@@ -1,0 +1,112 @@
+﻿@model mvc.Models.AspNetUser
+
+@{
+    ViewData["Title"] = "Utilisateur-trice";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                            <dl class="row">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.PathImage)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @if (Model.PathImage != null)
+                                    {
+                                        <img class="img-fluid" src="@(ViewData["URLAPI"] + Model.PathImage)" alt="@Model.Firstname @Model.LastName" style="max-height: 100px;" /><br />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fluid" src="~/img/avatar.jpg" alt="@Model.Firstname @Model.LastName" style="max-height: 100px;" /><br />
+                                    }
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Firstname)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Firstname)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Gender)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Gender.GenderName)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Birthday)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Birthday)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Email)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.PhoneNumber)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UserName)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    Classe
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @if (Model.SessionStudents.LastOrDefault() != null)
+                                    {
+                                        @Html.DisplayFor(model => model.SessionStudents.LastOrDefault().Session.SchoolClassRoom.SchoolClassRoomName)
+                                    }
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.WantsMoreHomeworks)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.WantsMoreHomeworks)
+                                </dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.Id">Modifier</a> |
+                            <a asp-action="Index">Retourner à la liste</a>
+                        </div>
+
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

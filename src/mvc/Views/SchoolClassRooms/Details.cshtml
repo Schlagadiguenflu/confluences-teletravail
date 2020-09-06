@@ -1,0 +1,134 @@
+﻿@model mvc.Models.SchoolClassRoom
+
+@{
+    ViewData["Title"] = Model.SchoolClassRoomName;
+}
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            @if (Model.Sessions.Count() > 0)
+                            {
+                                @*<h4 class="card-title">@Model.SchoolClassRoomName Session @Model.Sessions.FirstOrDefault().SessionNumberId @Model.Sessions.FirstOrDefault().DateStart.Year</h4>*@
+                                <h4 class="card-title">@Model.SchoolClassRoomName</h4>
+                            }
+                            else
+                            {
+                                <h4 class="card-title">@Model.SchoolClassRoomName</h4>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="text-center">
+                            @if (Model.Sessions.Count() > 0)
+                            {
+
+                                <a class="btn btn-primary" asp-controller="HomeworkV2s" asp-action="Index" asp-route-id="@Model.Sessions.FirstOrDefault().SessionId">
+                                    <h3 class="m-0">
+                                        Devoirs
+                                    </h3>
+                                </a>
+                            }
+                        </div>
+                        @if (Model.Sessions.Count() > 0)
+                        {
+                            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                                @foreach (Session session in Model.Sessions.OrderByDescending(s => s.DateStart))
+                                {
+                                    <div class="row">
+                                        @*<div style="display: inline;">
+                                                <a class="btn btn-primary" asp-controller="HomeworkV2s" asp-action="Index" asp-route-id="@session.SessionId">Devoirs</a>
+                                            </div>*@
+
+                                        <div class="col-md-3 border-right border-dark">
+                                            <h3 class="text-center">Les formateur-trices</h3>
+                                            <div class="text-center">
+                                                <a asp-controller="SessionTeachers" asp-action="Create" asp-route-id="@session.SessionId">Ajouter</a>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                @foreach (SessionTeacher sessionTeacher in session.SessionTeachers.OrderBy(s => s.Teacher.Firstname))
+                                                {
+                                                    <div class="col mx-auto text-center">
+                                                        @if (sessionTeacher.Teacher.PathImage != null)
+                                                        {
+                                                            <img class="img-fluid" src="@(ViewData["URLAPI"] + sessionTeacher.Teacher.PathImage)" alt="@sessionTeacher.Teacher.Firstname @sessionTeacher.Teacher.LastName" style="max-height: 100px;" /><br />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fluid" src="~/img/avatar.jpg" alt="@sessionTeacher.Teacher.Firstname @sessionTeacher.Teacher.LastName" style="max-height: 100px;" /><br />
+                                                        }
+                                                        <a style="color:black;font-size:1.0625rem;" asp-controller="AspNetUsers" asp-action="Details" asp-route-id="@sessionTeacher.Teacher.Id">@sessionTeacher.Teacher.Firstname @sessionTeacher.Teacher.LastName</a>
+                                                        <br />
+                                                        <a class="text-danger" style="font-size:0.8rem" asp-controller="SessionTeachers" asp-action="Delete" asp-route-id="@sessionTeacher.SessionId" asp-route-id2="@sessionTeacher.Teacher.Id">Supprimer</a>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h3 class="text-center">Les participant-e-s</h3>
+                                            <div class="text-center">
+                                                <a asp-controller="SessionStudents" asp-action="Create" asp-route-id="@session.SessionId">Ajouter</a>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                @foreach (SessionStudent sessionStudent in session.SessionStudents.OrderBy(s => s.Student.Firstname))
+                                                {
+                                                    <div class="col-md-2 mx-auto text-center">
+                                                        @if (sessionStudent.Student.PathImage != null)
+                                                        {
+                                                            <img class="img-fluid" src="@(ViewData["URLAPI"] + sessionStudent.Student.PathImage)" alt="@sessionStudent.Student.Firstname @sessionStudent.Student.LastName" style="max-height: 100px;" /><br />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fluid" src="~/img/avatar.jpg" alt="@sessionStudent.Student.Firstname @sessionStudent.Student.LastName" style="max-height: 100px;" /><br />
+                                                        }
+                                                        <a style="color:black;font-size:1.0625rem;" asp-controller="AspNetUsers" asp-action="Details" asp-route-id="@sessionStudent.Student.Id">@sessionStudent.Student.Firstname @sessionStudent.Student.LastName</a>
+                                                        <br />
+                                                        <a class="text-danger" style="font-size:0.8rem" asp-controller="SessionStudents" asp-action="Delete" asp-route-id="@sessionStudent.SessionId" asp-route-id2="@sessionStudent.Student.Id">Supprimer</a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="text-center">
+                            <h4>
+                                <a class="text-success" asp-controller="Sessions" asp-action="Create" asp-route-schoolClassRoomId="@Model.SchoolClassRoomId">Créer une session</a>
+                                @if (Model.Sessions.Count() > 0)
+                                {
+                                    WriteLiteral("|");
+                                    <a class="text-danger" asp-controller="Sessions" asp-action="Delete" asp-route-id="@Model.Sessions.FirstOrDefault().SessionId" asp-route-schoolClassRoomId="@Model.Sessions.FirstOrDefault().SchoolClassRoomId">Supprimer la session</a>
+                                }
+                            </h4>
+                        </div>
+                        <div class="text-center">
+                            <a asp-action="Edit" asp-route-id="@Model.SchoolClassRoomId">
+                                Gérer le tuto
+                            </a> |
+                            <a asp-controller="SchoolClassRoomExplanations" asp-action="Index" asp-route-id="@Model.SchoolClassRoomId">Gérer les explications audios (langues)</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-primary" asp-action="Index">Retourner à la liste</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+        </div>
+    </div>
+</body>

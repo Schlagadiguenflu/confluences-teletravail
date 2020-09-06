@@ -1,0 +1,17 @@
+﻿@using static IdentityServerAspNetIdentity.Startup;
+@{
+    ViewData["Title"] = "Le numéro de téléphone est confirmé";
+}
+
+<div class="jumbotron bg-gradient-primary">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <div>
+            <p>
+                Merci d'avoir confirmé votre numéro.
+            </p>
+            <a href="@Configuration["URLClientMVC"]">Retourner à l'application</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@model mvc.Models.HomeworkV2s
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <form asp-action="Edit">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="HomeworkV2id" />
+                                        <div class="form-group">
+                                            <label asp-for="HomeworkV2date" class="control-label"></label>
+                                            <input asp-for="HomeworkV2date" type="text" class="form-control datetimepicker" value="@Model.HomeworkV2date.ToString("yyyy-MM-dd")" />
+                                            <span asp-validation-for="HomeworkV2date" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="HomeworkTypeId" class="control-label"></label>
+                                            <select asp-for="HomeworkTypeId" class="form-control" asp-items="ViewBag.HomeworkTypeId"></select>
+                                            <span asp-validation-for="HomeworkTypeId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="HomeworkV2name" class="control-label"></label>
+                                            <input asp-for="HomeworkV2name" class="form-control" />
+                                            <span asp-validation-for="HomeworkV2name" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="SessionId" class="control-label"></label>
+                                            <select asp-for="SessionId" class="form-control" asp-items="ViewBag.SessionId"></select>
+                                            <span asp-validation-for="SessionId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="TeacherId" class="control-label"></label>
+                                            <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
+                                            <span asp-validation-for="TeacherId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="Sauvegarder" class="btn btn-success" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-action="Index" asp-route-id="@Model.SessionId">Retourner à la liste de devoirs</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    <script>
+        $('.datetimepicker').datetimepicker({
+            locale: 'fr',
+            format: 'yyyy-MM-DD',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+    </script>
+}

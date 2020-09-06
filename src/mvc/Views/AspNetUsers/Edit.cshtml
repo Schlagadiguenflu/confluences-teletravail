@@ -1,0 +1,124 @@
+﻿@model mvc.Models.AspNetUser
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Edit" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="form-group form-file-upload form-file-multiple">
+                                        <input asp-for="Pictures" type="file" class="inputFileHidden">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control inputFileVisible" placeholder="Choisir une image">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                    <i class="material-icons">attach_file</i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Firstname" class="control-label"></label>
+                                        <input asp-for="Firstname" class="form-control" />
+                                        <span asp-validation-for="Firstname" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="GenderId" class="control-label"></label>
+                                        <select asp-for="GenderId" class="form-control" asp-items="ViewBag.GenderId"></select>
+                                        <span asp-validation-for="GenderId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label asp-for="Birthday" class="control-label"></label>
+                                            <input asp-for="Birthday" type="text" class="form-control datetimepicker" value="@Model.Birthday.ToString("yyyy-MM-dd")" />
+                                            <span asp-validation-for="Birthday" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="control-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="UserName" class="control-label"></label>
+                                        <input asp-for="UserName" class="form-control" disabled/>
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" asp-for="WantsMoreHomeworks">
+                                            @Html.DisplayNameFor(model => model.WantsMoreHomeworks)
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Sauvegarder" class="btn btn-success" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-action="Index">Retourner à la liste</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    <script>
+        $('.datetimepicker').datetimepicker({
+            locale: 'fr',
+            format: 'yyyy-MM-DD',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+    </script>
+}

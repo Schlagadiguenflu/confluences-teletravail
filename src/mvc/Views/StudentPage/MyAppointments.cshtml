@@ -1,0 +1,54 @@
+﻿@model mvc.Models.AspNetUser
+@{
+    ViewData["Title"] = "Mes rendez-vous";
+}
+
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="about-team team-1">
+            <div class="row">
+                <div class="col-md-12 ml-auto mr-auto text-center d-flex">
+                    <div class="card">
+                        <div class="card-body flex-fill">
+                            <h3 class="title">@ViewData["Title"]</h3>
+                            @foreach (AppointmentStudent appointmentStudents in Model.AppointmentStudents)
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colspan="1">@appointmentStudents.Appointment.AppointmentName</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                @appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").First().ToString().ToUpper()@appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").Substring(1)
+                                                <p>
+                                                    @appointmentStudents.Appointment.DateStart.ToString("HH:mm -")
+                                                    @appointmentStudents.Appointment.DateEnd.ToString("HH:mm")
+                                                </p>
+                                                <p class="font-weight-normal">
+                                                    @*@Model.Firstname*@
+                                                    @foreach (var student in appointmentStudents.Appointment.AppointmentStudents)
+                                                    {
+                                                        <template>
+                                                            &nbsp;
+                                                        </template>
+                                                        @student.Student.Firstname
+                                                    }
+                                                </p>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                        <!-- end content-->
+                    </div>
+                    <!--  end card  -->
+                </div>
+            </div>
+        </div>
+</body>

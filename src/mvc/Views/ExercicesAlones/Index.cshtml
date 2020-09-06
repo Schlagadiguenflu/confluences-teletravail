@@ -1,0 +1,83 @@
+﻿@model IEnumerable<mvc.Models.ExercicesAlone>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExerciceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExerciceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExerciceLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AudioLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CorrectionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CorrectionLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsHomeworkAdditionnal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeworkV2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExerciceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExerciceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExerciceLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AudioLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CorrectionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CorrectionLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsHomeworkAdditionnal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeworkV2.HomeworkV2name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ExerciceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ExerciceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ExerciceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

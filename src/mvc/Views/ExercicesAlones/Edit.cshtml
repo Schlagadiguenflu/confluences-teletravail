@@ -1,0 +1,175 @@
+﻿@model mvc.Models.ExercicesAlone
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <form enctype="multipart/form-data" asp-action="Edit">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="ExerciceId" />
+                                        <div class="form-group">
+                                            <label asp-for="ExerciceDate" class="control-label"></label>
+                                            <input asp-for="ExerciceDate" type="text" class="form-control datepicker" value="@Model.ExerciceDate.ToString("yyyy-MM-dd")" />
+                                            <span asp-validation-for="ExerciceDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="ExerciceName" class="control-label"></label>
+                                            <input asp-for="ExerciceName" class="form-control" />
+                                            <span asp-validation-for="ExerciceName" class="text-danger"></span>
+                                        </div>
+                                        <div class="border border-primary px-2">
+                                            <div class="form-group">
+                                                <label asp-for="AudioLink" class="control-label"></label>
+                                                <input asp-for="AudioLink" class="form-control" />
+                                                <span asp-validation-for="AudioLink" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <label class="control-label">ou</label>
+                                                <input name="fileAudio" type="file" multiple="" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control inputFileVisible" placeholder="Ajouter un mp3">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                            <i class="material-icons">attach_file</i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-primary px-2">
+                                            <div class="form-group">
+                                                <label asp-for="ExerciceLink" class="control-label"></label>
+                                                <input asp-for="ExerciceLink" class="form-control" />
+                                                <span asp-validation-for="ExerciceLink" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <label class="control-label">ou</label>
+                                                <input name="files" type="file" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control inputFileVisible" placeholder="Ajouter un fichier">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                            <i class="material-icons">attach_file</i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" asp-for="IsHomeworkAdditionnal">
+                                                @Html.DisplayNameFor(model => model.IsHomeworkAdditionnal)
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="CorrectionDate" class="control-label"></label>
+                                            <input asp-for="CorrectionDate" type="text" class="form-control datetimepicker" value="@Model.CorrectionDate" />
+                                            <span asp-validation-for="CorrectionDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="border border-primary px-2">
+                                            <div class="form-group">
+                                                <label asp-for="CorrectionLink" class="control-label"></label>
+                                                <input asp-for="CorrectionLink" class="form-control" />
+                                                <span asp-validation-for="CorrectionLink" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <label class="control-label">ou</label>
+                                                <input name="filesCorrection" type="file" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control inputFileVisible" placeholder="Ajouter un fichier">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                            <i class="material-icons">attach_file</i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="TeacherId" class="control-label"></label>
+                                            <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
+                                            <span asp-validation-for="TeacherId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="HomeworkV2id" class="control-label"></label>
+                                            <select asp-for="HomeworkV2id" class="form-control" asp-items="ViewBag.HomeworkV2id"></select>
+                                            <span asp-validation-for="HomeworkV2id" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="Sauvegarder" class="btn btn-success" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="javascript:history.back()">Revenir à la page précédente</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    <script>
+        $('.datepicker').datetimepicker({
+            locale: 'fr',
+            format: 'yyyy-MM-DD',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+        $('.datetimepicker').datetimepicker({
+            locale: 'fr',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<mvc.Models.HomeworkStudent>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeworkStudentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeworkFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Homework)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeworkStudentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeworkFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Homework.TeacherId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HomeworkStudentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HomeworkStudentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.HomeworkStudentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

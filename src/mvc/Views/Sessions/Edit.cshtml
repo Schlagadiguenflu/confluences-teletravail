@@ -1,0 +1,85 @@
+﻿@model mvc.Models.Session
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <h4>Session</h4>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Edit">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="SessionId" />
+                                    <div class="form-group">
+                                        <label asp-for="DateStart" class="control-label"></label>
+                                        <input asp-for="DateStart" type="text" class="form-control datetimepicker" value="@Model.DateStart.ToString("yyyy-MM-dd")"/>
+                                        <span asp-validation-for="DateStart" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="DateEnd" class="control-label"></label>
+                                        <input asp-for="DateEnd" type="text" class="form-control datetimepicker" value="@Model.DateEnd.ToString("yyyy-MM-dd")"/>
+                                        <span asp-validation-for="DateEnd" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="SchoolClassRoomId" class="control-label"></label>
+                                        <select asp-for="SchoolClassRoomId" class="form-control" asp-items="ViewBag.SchoolClassRoomId"></select>
+                                        <span asp-validation-for="SchoolClassRoomId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-controller="SchoolClassRoomExplanations" asp-action="Details" asp-route-id="@Model.SchoolClassRoomId">Retourner à la liste d'explication</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    <script>
+        $('.datetimepicker').datetimepicker({
+            locale: 'fr',
+            format: 'yyyy-MM-DD',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+    </script>
+}

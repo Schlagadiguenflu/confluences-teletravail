@@ -1,0 +1,54 @@
+﻿@model mvc.Models.AspNetUser
+@{
+    ViewData["Title"] = "Aide";
+}
+
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="about-team team-1">
+            <div class="row">
+                <div class="col-md-12 ml-auto mr-auto text-center d-flex">
+                    <div class="card">
+                        <div class="card-body flex-fill">
+                            <h3 class="title">Aide</h3>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="@Model.SessionStudents.First().Session.SchoolClassRoom.ExplanationVideoLink" allowfullscreen></iframe>
+                            </div>
+                            <br />
+                            @foreach (var schoolClassRoomExplanation in Model.SessionStudents.First().Session.SchoolClassRoom.SchoolClassRoomExplanations)
+                            {
+                                <button class="btn btn-primary" value="@schoolClassRoomExplanation.AudioLink">@schoolClassRoomExplanation.LanguageName</button>
+                            }
+                        </div>
+                        <!-- end content-->
+                    </div>
+                    <!--  end card  -->
+                </div>
+            </div>
+        </div>
+</body>
+@section Scripts {
+    <script>
+        // Let's create a soundboard module ("sb")
+        var sb = {
+            song: null,
+            init: function () {
+                sb.song = new Audio();
+                sb.listeners();
+            },
+            listeners: function () {
+                $("button").click(sb.play);
+            },
+            play: function (e) {
+                sb.song.src = e.target.value;
+                sb.song.play();
+            }
+        };
+
+        $(document).ready(sb.init);
+
+    </script>
+}
+

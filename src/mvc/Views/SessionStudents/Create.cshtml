@@ -1,0 +1,54 @@
+﻿@model mvc.Models.SessionStudent
+
+@{
+    ViewData["Title"] = "Ajouter un-e participant-e";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="SessionId" class="control-label"></label>
+                                        <select asp-for="SessionId" class="form-control" asp-items="ViewBag.SessionId"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="StudentId" class="control-label"></label>
+                                        <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Ajouter" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="javascript:history.back()">Revenir sur la page précédente</a>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

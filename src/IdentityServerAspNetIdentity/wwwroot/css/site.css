@@ -1,0 +1,31 @@
+﻿
+.img-logo-confluences {
+    height: 50px;
+}
+
+.navbar-brand-confluences {
+    vertical-align: middle;
+}
+
+.table thead th {
+    color: white !important;
+    background-color: #55acee;
+}
+
+.anchorTwitter {
+    color: #55acee;
+}
+
+body {
+    
+}
+
+.bgImage {
+    background-image: url('/img/Choix15.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.bgImageHome {
+    background-image: url('/img/Choix15.jpg');
+}

@@ -1,0 +1,180 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+@model IEnumerable<mvc.Models.AspNetUser>
+
+<div class="page-header bgImageHome" data-parallax="true">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto">
+                <div class="brand text-center">
+                    @*<h1>Travail à la maison</h1>*@
+                    @*<h3 class="title text-center">
+                            @ViewData["Title"]
+                        </h3>
+                        <br />*@
+                    <img class="img-fluid" src="~/img/confluences_blanc.png" alt="Alternate Text" style="max-height:250px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <div class="about-team team-1" id="association">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h2 class="title mt-0">L'association</h2>
+                    <h4 class="description">
+                        L'association Confluences s'est donné pour but de contribuer à l'intégration des migrants
+                        par leur autonomisation.
+                    </h4>
+                    <h4 class="description">
+                        Pour atteindre son objectif, Confluences organise des cours de français, des formations
+                        et crée des projets d'insertion socio-professionnelle permettant de mettre en valeur les
+                        ressources des migrants.
+                    </h4>
+                    <h4 class="description">
+                        Confluences oeuvre donc à développer des réseaux de contacts dans la société d'accueil.
+                    </h4>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                @foreach (var teacher in Model.OrderBy(t => t.Firstname))
+                {
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain m-0">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="@(ViewData["URLAPI"] + teacher.PathImage)">
+                                </a>
+                            </div>
+                            <div class="card-body m-0">
+                                <h4 class="card-title">@teacher.Firstname @teacher.LastName</h4>
+                                @if (teacher.Firstname == "Jean-Marc")
+                                {
+                                    <h5 class="card-title text-muted">
+                                        Administration
+                                    </h5>
+                                }
+                                else if (teacher.Firstname == "Marie-Laure")
+                                {
+                                    <h5 class="card-title text-muted">
+                                        Stages et apprentissages
+                                    </h5>
+                                }
+                                else
+                                {
+                                    <h5 class="card-title text-muted">
+                                        Enseignement
+                                    </h5>
+                                }
+                                <h5 class="card-title text-muted">
+                                    <a href="tel:@teacher.PhoneNumber" class="text-primary">
+                                        @teacher.PhoneNumber
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*<div class="col-md-3">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="~/img/equipe/jmh.jpg">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Jean-Marc Henry</h4>
+                                <h6 class="category text-muted">Administration</h6>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="tel:+41796586934" class="btn btn-link btn-twitter">
+                                    079 658 69 34
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="~/img/equipe/mrs.jpg">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Marie-Laure Schick</h4>
+                                <h6 class="category text-muted">Stages et apprentissages</h6>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="tel:+41775200284" class="btn btn-link btn-twitter">
+                                    077 520 02 84
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="~/img/equipe/gsi.jpg">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Guillaumette Sauvé</h4>
+                                <h6 class="category text-muted">Enseignement</h6>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="tel:+41794544152" class="btn btn-link btn-twitter">
+                                    079 454 41 52
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="~/img/equipe/cs.jpg">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Caroline Sanmartin</h4>
+                                <h6 class="category text-muted">Enseignement</h6>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="tel:+41794544152" class="btn btn-link btn-twitter">
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <nav class="float-left">
+            <ul>
+                <li>
+                    <a href="http://confluences.ch">
+                        Visitez le site principal
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright float-right">
+            &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.linkedin.com/in/tim-allemann-64491b1b2" target="_blank">Tim Allemann</a> for Confluences.
+        </div>
+    </div>
+</footer>
+

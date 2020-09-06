@@ -1,0 +1,179 @@
+﻿@model mvc.Models.Homework
+
+@{
+    ViewData["Title"] = "Details";
+    string userId = User.Claims
+                .Where(c => c.Type == "sub")
+                .SingleOrDefault()
+                .Value;
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                            <h4>Devoir du @Model.HomeworkDate.ToString("dd MMMM yyyy")</h4>
+                            <hr />
+                            @if (Model.HomeworkStudents.Where(h => h.StudentId == userId).Any())
+                            {
+                                <dl class="row">
+                                    @foreach (var item in Model.HomeworkStudents.Where(h => h.StudentId == userId).ToList())
+                                    {
+                                        <dt class="col-sm-6">
+                                            <a class="text-success" href="@ViewData["URLAPI"]@item.HomeworkFile">Consulter mon devoir</a>
+                                        </dt>
+                                        <dd class="col-sm-6">
+                                            @if (item.HomeworkFileTeacher == null || item.HomeworkFileTeacher == "")
+                                            {
+                                                <p>Pas de correction disponible</p>
+                                            }
+                                            else
+                                            {
+                                                <a class="text-danger font-weight-bold" href="@ViewData["URLAPI"]@item.HomeworkFileTeacher">Consulter la correction</a>
+                                            }
+                                        </dd>
+                                    }
+                                </dl>
+                                <hr />
+                            }
+                            @if ((bool)ViewData["IsTeacher"] && Model.HomeworkStudents.Count() > 0)
+                            {
+                                <dl class="row">
+                                    @foreach (var item in Model.HomeworkStudents.ToList())
+                                    {
+                                        <dt class="col-sm-8">
+                                            <a class="text-success" href="@ViewData["URLAPI"]@item.HomeworkFile">Devoir de @item.Student.Firstname</a>
+                                        </dt>
+                                        <dd class="col-sm-4">
+                                            @if (item.HomeworkFileTeacher != null && item.HomeworkFileTeacher != "")
+                                            {
+                                                <a class="text-success" href="@ViewData["URLAPI"]@item.HomeworkFileTeacher">Consulter la correction</a>
+                                            }
+                                            <form asp-controller="HomeworkStudents" asp-action="Edit" enctype="multipart/form-data">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="form-group form-file-upload form-file-multiple">
+                                                    <input type="hidden" asp-for="HomeworkId" value="@item.HomeworkId" />
+                                                    <input type="hidden" name="HomeworkStudentId" value="@item.HomeworkStudentId" />
+                                                    <input name="Pictures" type="file" class="inputFileHidden">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control inputFileVisible" placeholder="Ajouter une correction">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                                <i class="material-icons">attach_file</i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" value="Envoyer la correction" class="btn btn-primary btn-block" />
+                                                </div>
+                                            </form>
+                                        </dd>
+                                    }
+                                </dl>
+                                <hr />
+                            }
+
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Session)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Model.Session.SchoolClassRoom.SchoolClassRoomName
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Teacher)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Teacher.Firstname)
+                                @Html.DisplayFor(model => model.Teacher.LastName)
+                            </dd>
+                            @if (Model.ClassLink != "" && Model.ClassLink != null)
+                            {
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ClassName)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <a href="@Html.DisplayFor(model => model.ClassLink)">
+                                        @Html.DisplayFor(model => model.HomeworkType.HomeworkTypeName) : @Html.DisplayFor(model => model.ClassName)
+                                    </a>
+                                </dd>
+                                <dd class="col-sm-12">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ClassLink)" allowfullscreen></iframe>
+                                    </div>
+                                </dd>
+                            }
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.ExerciceName)
+                            </dt>
+                            <dd class="col-sm-10">
+                                <a href="@Html.DisplayFor(model => model.ExerciceLink)">
+                                    @Html.DisplayFor(model => model.ExerciceName)
+                                </a>
+                            </dd>
+                            <dd class="col-sm-12">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                </div>
+                            </dd>
+                            @if (Model.IsHomeworkAdditionnal)
+                            {
+                                <dt class="col-sm-12">
+                                    C'est un devoir supplémentaire
+                                </dt>
+                            }
+                        </dl>
+                        </div>
+                        @if ((bool)ViewData["IsTeacher"])
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@Model.HomeworkId">Modifier</a> |
+                                <a asp-action="Index">Retourner à la liste des devoirs</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <form asp-controller="HomeworkStudents" asp-action="Create" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group form-file-upload form-file-multiple">
+                                    <input type="hidden" asp-for="HomeworkId" value="@Model.HomeworkId" />
+                                    <input name="Pictures" type="file" class="inputFileHidden">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control inputFileVisible" placeholder="Rendre un devoir">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                <i class="material-icons">attach_file</i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Envoyer le devoir" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        }
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

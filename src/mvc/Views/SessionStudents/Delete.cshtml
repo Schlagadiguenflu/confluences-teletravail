@@ -1,0 +1,60 @@
+﻿@model mvc.Models.SessionStudent
+
+@{
+    ViewData["Title"] = "Supprimer";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <h3>Êtes-vous sur de vouloir supprimer cette donnée ?</h3>
+                        <div>
+                            <h4>Session d'un-e participant-e</h4>
+                            <hr />
+                            <dl class="row">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Session)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Model.Session.SchoolClassRoom.SchoolClassRoomName  @Model.Session.DateStart.ToString("dd MMMM") - @Model.Session.DateEnd.ToString("dd MMMM")
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Student)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Model.Student.Firstname @Model.Student.LastName
+                                </dd>
+                            </dl>
+
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="SessionId" />
+                                <input type="hidden" asp-for="StudentId" />
+                                <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+                                <a asp-action="Index">Retourner à la liste de session de participant-e-s</a> |
+                                <a asp-controller="SchoolClassRooms" asp-action="Details" asp-route-id="@Model.Session.SchoolClassRoomId">Retourner à la classe</a>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>

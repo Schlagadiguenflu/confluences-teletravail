@@ -1,0 +1,59 @@
+﻿.fc-toolbar-chunk {
+    color: #404040 !important
+}
+
+.fc-col-header-cell-cushion {
+    color: #404040 !important
+}
+
+.img-logo-confluences {
+    height: 50px;
+}
+
+.navbar-brand-confluences {
+    vertical-align: middle;
+}
+
+.table thead th {
+    color: white !important;
+    background-color: #55acee;
+}
+
+.anchorTwitter {
+    color: #55acee;
+}
+
+body {
+    
+}
+
+.bgImage {
+    background-image: url('/img/Choix15.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.bgImageHome {
+    background-image: url('/img/Choix15.jpg');
+}
+
+.fc-left {
+    color: #3C4858;
+}
+
+.brand {
+    margin-top: 150px;
+}
+
+.fc-title{
+    font-size: 14px !important;
+}
+
+.fc-daygrid-event {
+    font-size: 0.9em !important;
+    font-weight: bold;
+}
+
+.bg-grey {
+    background-color: lightgrey !important;
+}

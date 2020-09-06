@@ -1,0 +1,90 @@
+﻿@model mvc.Models.SchoolClassRoomExplanation
+
+@{
+    ViewData["Title"] = "Créer une explication audio";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@ViewData["Title"]</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <h4>Explication</h4>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="LanguageName" class="control-label"></label>
+                                        <input asp-for="LanguageName" class="form-control" />
+                                        <span asp-validation-for="LanguageName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="AudioLink" class="control-label"></label>
+                                        <input asp-for="AudioLink" class="form-control" />
+                                        <span asp-validation-for="AudioLink" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="SchoolClassRoomId" class="control-label"></label>
+                                        <select asp-for="SchoolClassRoomId" class="form-control" asp-items="ViewBag.SchoolClassRoomId"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Créer" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div>
+                            @if ((int)ViewData["SchoolClassRoomIdReturn"] == 0)
+                            {
+                                <a asp-action="Index">Retourner à la liste des explications</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Index" asp-route-id="@ViewData["SchoolClassRoomIdReturn"]">Retourner à la liste des explications de la classe</a>
+                            }
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    <script>
+        $('.datetimepicker').datetimepicker({
+            locale: 'fr',
+            format: 'yyyy-MM-DD',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+        });
+    </script>
+}

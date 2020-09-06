@@ -1,0 +1,280 @@
+﻿@model mvc.Models.AspNetUser
+@{
+    ViewData["Title"] = "Index";
+    int lastTypeH = 0;
+}
+
+@using Microsoft.AspNetCore.Authentication
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="about-team team-1">
+            <div class="row">
+                @if (!Model.HasSeenHelpVideo)
+                {
+                    <div class="col-md-6 ml-auto mr-auto text-center d-flex">
+                        <div class="card">
+                            <div class="card-body flex-fill">
+                                <h3 class="title">Bienvenue @Model.Firstname</h3>
+                                @*<h5>
+                                        @Model.SessionStudents.First().Session.DateStart.ToString("dd MMMM") -
+                                        @Model.SessionStudents.First().Session.DateEnd.ToString("dd MMMM yyyy")
+                                    </h5>*@
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="@Model.SessionStudents.First().Session.SchoolClassRoom.ExplanationVideoLink" allowfullscreen></iframe>
+                                </div>
+                                <br />
+                                @foreach (var schoolClassRoomExplanation in Model.SessionStudents.First().Session.SchoolClassRoom.SchoolClassRoomExplanations)
+                                {
+                                    <button class="btn btn-primary" value="@schoolClassRoomExplanation.AudioLink">@schoolClassRoomExplanation.LanguageName</button>
+                                }
+                                <br />
+                                <br />
+                                <a class="btn btn-primary" asp-controller="StudentPage" asp-action="IGetIt">J'ai compris</a>
+                            </div>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+                    </div>
+                    <div class="col-md-6 ml-auto mr-auto text-center d-flex">
+                        <div class="card">
+                            <div class="card-body flex-fill">
+                                @if (Model.SessionStudents.First().Session.HomeworkV2s != null)
+                                {
+                                    <h3 class="title">Mon cours</h3>
+
+                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).Count() > 0)
+                                    {
+                                        string color = "bg-grey";
+                                        <div class="row">
+                                            <table class="table">
+                                                <tbody>
+
+                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).OrderBy(h => h.HomeworkType.HomeworkOrder))
+                                                    {
+                                                        if (lastTypeH != homework.HomeworkTypeId)
+                                                        {
+                                                            if (color == "bg-grey")
+                                                            {
+                                                                color = "";
+                                                            }
+                                                            else
+                                                            {
+                                                                color = "bg-grey";
+                                                            }
+                                                            <tr class="@color">
+                                                                <td colspan="3">
+                                                                    <h4 class="card-title">@homework.HomeworkType.HomeworkTypeName</h4>
+                                                                </td>
+                                                            </tr>
+                                                            lastTypeH = homework.HomeworkTypeId;
+                                                        }
+                                                        <tr class="@color">
+                                                            <td>
+                                                                <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
+                                                                    <h4 class="card-link">
+                                                                        @homework.HomeworkV2name
+                                                                    </h4>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="title">Pas de cours prévus pour le moment</h3>
+                                    }
+                                }
+
+                            </div>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-10 ml-auto mr-auto text-center d-flex">
+                        <div class="card">
+                            <div class="card-body flex-fill">
+                                @if (Model.SessionStudents.First().Session.Homework != null)
+                                {
+                                    <h3 class="title">Mon cours</h3>
+
+                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).Count() > 0)
+                                    {
+                                        string color = "bg-grey";
+                                        <div class="row">
+                                            <table class="table">
+                                                <tbody>
+                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).OrderBy(h => h.HomeworkType.HomeworkOrder))
+                                                    {
+                                                        if (lastTypeH != homework.HomeworkTypeId)
+                                                        {
+                                                            if (color == "bg-grey")
+                                                            {
+                                                                color = "";
+                                                            }
+                                                            else
+                                                            {
+                                                                color = "bg-grey";
+                                                            }
+                                                            <tr class="@color">
+                                                                <td colspan="3">
+                                                                    <h4 class="card-title">@homework.HomeworkType.HomeworkTypeName</h4>
+                                                                </td>
+                                                            </tr>
+                                                            lastTypeH = homework.HomeworkTypeId;
+                                                        }
+                                                        <tr class="@color">
+                                                            <td>
+                                                                <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
+                                                                    <h4 class="card-link">
+                                                                        @homework.HomeworkV2name
+                                                                    </h4>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="title">Pas de cours prévus pour le moment</h3>
+                                    }
+                                }
+
+                            </div>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+                    </div>
+                }
+            </div>
+            @if (Model.SessionStudents.First().Session.SessionTeachers != null)
+            {
+                @if (Model.SessionStudents.First().Session.SessionTeachers.Count() > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-10 ml-auto mr-auto text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="title">Mes formatrices et Mes formateurs </h3>
+                                    <div class="row">
+                                        @foreach (var sessionTeacher in Model.SessionStudents.First().Session.SessionTeachers.OrderBy(s => s.Teacher.Firstname))
+                                        {
+                                            <div class="col-md-4 mx-auto text-center">
+                                                <div class="card card-profile card-plain m-0">
+                                                    <div class="card-avatar">
+                                                        <a href="#pablo">
+                                                            <img class="img" src="@(ViewData["URLAPI"] + sessionTeacher.Teacher.PathImage)">
+                                                        </a>
+                                                    </div>
+                                                    <h4 class="title mt-3 mb-0">@sessionTeacher.Teacher.Firstname @sessionTeacher.Teacher.LastName</h4>
+                                                    <h5 class="card-title mt-0 mb-4">
+                                                        <a href="tel:@sessionTeacher.Teacher.PhoneNumber" class="text-primary">
+                                                            @sessionTeacher.Teacher.PhoneNumber
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <!-- end content-->
+                            </div>
+                            <!--  end card  -->
+                        </div>
+                    </div>
+                }
+            }
+            @if (Model.SessionStudents.First().Session.SessionStudents != null)
+            {
+                @if (Model.SessionStudents.First().Session.SessionStudents.Count() > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-10 ml-auto mr-auto text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="title">Ma classe</h3>
+                                    <div class="row">
+                                        @*<div class="col-lg-3 mx-auto text-center">
+                                                <div class="card card-profile card-plain">
+                                                    <div class="card-avatar">
+                                                        <a href="#pablo">
+                                                            @if (Model.PathImage == null || Model.PathImage == "")
+                                                            {
+                                                                <img class="img" src="~/img/avatar.jpg">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img class="img" src="@(ViewData["URLAPI"] + Model.PathImage)">
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">@Model.Firstname @Model.LastName</h4>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        @foreach (var sessionStudents in Model.SessionStudents.First().Session.SessionStudents)
+                                        {
+                                            <div class="col-md-4 mx-auto text-center">
+                                                <div class="card card-profile card-plain m-0">
+                                                    <div class="card-avatar">
+                                                        <a href="#pablo">
+                                                            @if (sessionStudents.Student.PathImage == null || sessionStudents.Student.PathImage == "")
+                                                            {
+                                                                <img class="img" src="~/img/avatar.jpg">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img class="img" src="@(ViewData["URLAPI"] + sessionStudents.Student.PathImage)">
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <h4 class="title m-3">@sessionStudents.Student.Firstname @sessionStudents.Student.LastName</h4>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <!-- end content-->
+                            </div>
+                            <!--  end card  -->
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+</body>
+@section Scripts {
+    <script>
+        // Let's create a soundboard module ("sb")
+        var sb = {
+            song: null,
+            init: function () {
+                sb.song = new Audio();
+                sb.listeners();
+            },
+            listeners: function () {
+                $("button").click(sb.play);
+            },
+            play: function (e) {
+                sb.song.src = e.target.value;
+                sb.song.play();
+            }
+        };
+
+        $(document).ready(sb.init);
+
+    </script>
+}

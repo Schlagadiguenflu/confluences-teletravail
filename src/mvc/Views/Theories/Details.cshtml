@@ -1,0 +1,81 @@
+﻿@model mvc.Models.Theory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<br />
+<br />
+<br />
+<body data-parallax="true" class="bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <h4 class="card-title">@Html.DisplayFor(model => model.TheoryName)</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                            @if (Model.AudioLink != null)
+                            {
+                                <audio controls style="width: 100%;">
+                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                    Il y a un problème avec le fichier mp3.
+                                </audio>
+                            }
+                            <dl class="row">
+                                <dd class="col-sm-12">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        @if (Model.TheoryLink != null)
+                                        {
+                                            @if (!Model.TheoryLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.TheoryLink)" allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.TheoryLink)" allowfullscreen></iframe>
+                                            }
+                                        }
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            @if (Model.TheoryLink != null)
+                            {
+                                @if (!Model.TheoryLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.TheoryLink)">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.TheoryLink)">Télécharger</a>
+                                }
+                            }
+
+                        </div>
+                        <div>
+                            @if ((bool)ViewData["IsTeacher"])
+                            {
+                                <a class="text-success" asp-action="Edit" asp-route-id="@Model.TheoryId">Modifier</a>
+                                <a class="text-danger" asp-action="Delete" asp-route-id="@Model.TheoryId">Supprimer</a>
+                            }
+                            <a class="d-block" href="javascript:history.back()">Revenir à la page précédente</a>
+                        </div>
+
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+    </div>
+</body>
