@@ -23,11 +23,22 @@ namespace Api.Controllers
             _context = context;
         }
 
+        public class Filter
+        {
+            public List<int?> domaines { get; set; }
+            public List<int?> metiers { get; set; }
+            public List<int?> offres { get; set; }
+            public string codePostal { get; set; }
+            public string nom { get; set; }
+            public DateTime? dateModification { get; set; }
+            public string createur { get; set; }
+        }
+
         // GET: api/Entreprise
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Entrepris>>> GetEntreprises()
+        public async Task<ActionResult<IEnumerable<Entrepris>>> GetEntreprises([FromQuery] Filter filter)
         {
-            return await _context.Entreprises
+            var entreprises = await _context.Entreprises
                                 .Include(e => e.TypeDomaine)
                                 .Include(e => e.TypeMoyen)
                                 .Include(e => e.TypeEntreprise)
@@ -42,7 +53,38 @@ namespace Api.Controllers
                                 .Include(s => s.Contacts)
                                 .AsNoTracking()
                                 .ToListAsync();
+
+            if(filter.domaines != null) {
+                entreprises = entreprises.Where(e => filter.domaines.Contains(e.TypeDomaineId)).ToList();
+            }
+            if (filter.metiers != null)
+            {
+                entreprises = entreprises.Where(e => e.EntrepriseMetiers.Any(x => filter.metiers.Contains(x.TypeMetierId))).ToList();
+            }
+            if (filter.offres != null)
+            {
+                entreprises = entreprises.Where(e => e.EntrepriseOffres.Any(x => filter.offres.Contains(x.TypeOffreId))).ToList();
+            }
+            if (filter.codePostal != null)
+            {
+                entreprises = entreprises.Where(e => e.CodePostal == filter.codePostal).ToList();
+            }
+            if (filter.nom != null)
+            {
+                entreprises = entreprises.Where(e => e.Nom.ToUpper().Contains(filter.nom.ToUpper())).ToList();
+            }
+            if (filter.dateModification != null)
+            {
+                entreprises = entreprises.Where(e => e.DateCreation > filter.dateModification).ToList();
+            }
+            if (filter.createur != null)
+            {
+                entreprises = entreprises.Where(e => e.CreateurId == filter.createur).ToList();
+            }
+            return entreprises;
         }
+
+
 
         // GET: api/Entreprise/5
         [HttpGet("{id}")]
