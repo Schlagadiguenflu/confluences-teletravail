@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Models;
+using Api.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,6 @@ namespace Api.Controllers
         public UsersController(ConfluencesContext context)
         {
             _context = context;
-        }
-
-        public class UserInfo
-        {
-            public string Id { get; set; }
-            public string Nom { get; set; }
         }
 
         // GET: api/UsersController
