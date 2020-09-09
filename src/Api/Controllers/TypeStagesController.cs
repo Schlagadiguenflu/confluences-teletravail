@@ -26,7 +26,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeStage>>> GetTypeStages()
         {
-            return await _context.TypeStages.AsNoTracking().ToListAsync();
+            return await _context.TypeStages.AsNoTracking().OrderBy(s => s.Nom).ToListAsync();
         }
 
         // GET: api/TypeStages/5

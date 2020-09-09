@@ -26,7 +26,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeOffre>>> GetTypeOffres()
         {
-            return await _context.TypeOffres.ToListAsync();
+            return await _context.TypeOffres.AsNoTracking().OrderBy(s => s.Libelle).ToListAsync();
         }
 
         // GET: api/TypeOffres/5

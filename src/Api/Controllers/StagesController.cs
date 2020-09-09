@@ -31,6 +31,7 @@ namespace Api.Controllers
                                         .Include(s => s.Entreprise)
                                         .Include(s => s.Stagiaire)
                                         .AsNoTracking()
+                                        .OrderByDescending(s => s.Debut)
                                         .ToListAsync();
         }
 

@@ -52,6 +52,7 @@ namespace Api.Controllers
                                     .ThenInclude(s => s.TypeMetier)
                                 .Include(s => s.Contacts)
                                 .AsNoTracking()
+                                .OrderBy(e => e.Nom)
                                 .ToListAsync();
 
             if(filter.domaines != null) {

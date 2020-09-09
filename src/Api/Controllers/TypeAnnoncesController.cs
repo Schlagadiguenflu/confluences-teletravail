@@ -26,7 +26,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeAnnonce>>> GetTypeAnnonces()
         {
-            return await _context.TypeAnnonces.ToListAsync();
+            return await _context.TypeAnnonces.AsNoTracking().OrderBy(s => s.Libelle).ToListAsync();
         }
 
         // GET: api/TypeAnnonces/5

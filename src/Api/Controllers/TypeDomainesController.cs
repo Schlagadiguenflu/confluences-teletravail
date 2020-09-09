@@ -26,7 +26,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeDomaine>>> GetTypeDomaines()
         {
-            return await _context.TypeDomaines.ToListAsync();
+            return await _context.TypeDomaines.AsNoTracking().OrderBy(s => s.Libelle).ToListAsync();
         }
 
         // GET: api/TypeDomaines/5

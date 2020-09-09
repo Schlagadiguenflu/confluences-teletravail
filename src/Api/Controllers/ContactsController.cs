@@ -26,14 +26,20 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContacts()
         {
-            return await _context.Contacts.ToListAsync();
+            return await _context.Contacts
+                                    .Include(c => c.Entreprise)
+                                    .OrderBy(s => s.Entreprise.Nom)
+                                    .ToListAsync();
         }
 
         // GET: api/Contacts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            var contact = await _context.Contacts.FindAsync(id);
+            var contact = await _context.Contacts
+                                        .Include(c => c.Entreprise)
+                                        .Where(c => c.ContactId == id)
+                                        .SingleOrDefaultAsync();
 
             if (contact == null)
             {

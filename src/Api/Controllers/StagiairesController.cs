@@ -50,8 +50,22 @@ namespace Api.Controllers
                                 .ThenInclude(a => a.Entreprise)
                             .Include(a => a.StageStagiaires)
                                 .ThenInclude(a => a.TypeMetier)
+                            .Include(a => a.EntreprisFormateurIdDernierContactNavigations)
+                            .Include(a => a.EntreprisStagiaireIdDernierContactNavigations)
+                            .Include(a => a.StageCreateurs)
                             .Where(a => a.StageStagiaires.Count() > 0 && a.Id == id)
-                            .Select(v => new StagiaireInfo { StagiaireId = v.Id, Prenom = v.Firstname, Nom = v.LastName, TypeAffiliation = v.TypeAffiliation, StageStagiaires = v.StageStagiaires, TypeAffiliationId = v.TypeAffiliation.TypeAffiliationId })
+                            .OrderBy(s => s.Firstname)
+                            .Select(v => new StagiaireInfo { 
+                                StagiaireId = v.Id, 
+                                Prenom = v.Firstname, 
+                                Nom = v.LastName, 
+                                TypeAffiliation = v.TypeAffiliation, 
+                                StageStagiaires = v.StageStagiaires,
+                                StageCreateurs = v.StageCreateurs, 
+                                TypeAffiliationId = v.TypeAffiliation.TypeAffiliationId,
+                                EntreprisStagiaireIdDernierContactNavigations = v.EntreprisStagiaireIdDernierContactNavigations,
+                                EntreprisFormateurIdDernierContactNavigations = v.EntreprisFormateurIdDernierContactNavigations
+                            })
                             .SingleOrDefaultAsync();
 
             if (aspNetUser.StageStagiaires != null)
@@ -113,6 +127,21 @@ namespace Api.Controllers
             return NoContent();
         }
 
+        // DELETE: api/Stagiaires/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<AspNetUser>> DeleteStagiaire(string id)
+        {
+            var user = await _context.AspNetUsers.Include(a => a.StageStagiaires).Where(a => a.Id == id).SingleOrDefaultAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.AspNetUsers.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
         private bool AspNetUserExists(string id)
         {
             return _context.AspNetUsers.Any(e => e.Id == id);
