@@ -68,8 +68,9 @@ namespace IdentityServerAspNetIdentity
                 // JavaScript Client
                 new Client
                 {
-                    ClientId = "js",
-                    ClientName = "VueApi JavaScript Client",
+                    ClientId = "gestion-stagiaire",
+                    ClientName = "Gestion des stagiaires",
+
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
