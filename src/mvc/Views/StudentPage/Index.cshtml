@@ -44,14 +44,14 @@
                                 {
                                     <h3 class="title">Mon cours</h3>
 
-                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).Count() > 0)
+                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).Count() > 0)
                                     {
                                         string color = "bg-grey";
                                         <div class="row">
                                             <table class="table">
                                                 <tbody>
 
-                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).OrderBy(h => h.HomeworkType.HomeworkOrder))
+                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
                                                     {
                                                         if (lastTypeH != homework.HomeworkTypeId)
                                                         {
@@ -105,13 +105,13 @@
                                 {
                                     <h3 class="title">Mon cours</h3>
 
-                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).Count() > 0)
+                                    @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).Count() > 0)
                                     {
                                         string color = "bg-grey";
                                         <div class="row">
                                             <table class="table">
                                                 <tbody>
-                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date >= DateTime.Now.Date).OrderBy(h => h.HomeworkType.HomeworkOrder))
+                                                    @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
                                                     {
                                                         if (lastTypeH != homework.HomeworkTypeId)
                                                         {

@@ -44,6 +44,15 @@
                                         <label asp-for="SessionId" class="control-label"></label>
                                         <select type="hidden" asp-for="SessionId" class="form-control" asp-items="ViewBag.SessionId"></select>
                                     </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value="true" asp-for="IsFutur">
+                                            @Html.DisplayNameFor(model => model.IsFutur)
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
                                     <input type="hidden" asp-for="TeacherId" value="@ViewData["TeacherId"]" />
                                     <div class="form-group">
                                         <input type="submit" value="Sauvegarder" class="btn btn-success" />

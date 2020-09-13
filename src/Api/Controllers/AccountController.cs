@@ -75,7 +75,6 @@ namespace Api.Controllers
                                 .ThenInclude(a => a.Appointment)
                             //.ThenInclude(a => a.AppointmentStudents)
                             //    .ThenInclude(a => a.Student)
-
                             .SingleOrDefaultAsync(a => a.Id == id);
 
             if (user.SessionStudents.Count() > 0)

@@ -192,7 +192,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HomeworkV2id,HomeworkV2date,HomeworkV2name,HomeworkTypeId,SessionId,TeacherId")] HomeworkV2s homeworkV2s)
+        public async Task<IActionResult> Create([Bind("HomeworkV2id,HomeworkV2date,HomeworkV2name,HomeworkTypeId,SessionId,TeacherId,IsFutur")] HomeworkV2s homeworkV2s)
         {
             // Préparation de l'appel à l'API
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -347,7 +347,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HomeworkV2id,HomeworkV2date,HomeworkV2name,HomeworkTypeId,SessionId,TeacherId")] HomeworkV2s homework)
+        public async Task<IActionResult> Edit(int id, [Bind("HomeworkV2id,HomeworkV2date,HomeworkV2name,HomeworkTypeId,SessionId,TeacherId,IsFutur")] HomeworkV2s homework)
         {
             if (id != homework.HomeworkV2id)
             {
