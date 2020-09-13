@@ -25,6 +25,7 @@ namespace Api.Models
         public int SessionId { get; set; }
         [Required]
         public string TeacherId { get; set; }
+        public bool IsFutur { get; set; }
 
         [ForeignKey(nameof(HomeworkTypeId))]
         [InverseProperty("HomeworkV2s")]

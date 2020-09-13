@@ -40,6 +40,9 @@
                                             @Html.DisplayNameFor(model => model.DateEnd)
                                         </th>
                                         <th>
+                                            @Html.DisplayNameFor(model => model.IsWeekly)
+                                        </th>
+                                        <th>
                                             @Html.DisplayNameFor(model => model.Teacher)
                                         </th>
                                         <th></th>
@@ -53,10 +56,20 @@
                                                 <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentName)</a>
                                             </td>
                                             <td>
-                                                @item.DateStart.ToString("dddd HH:mm")
+                                                @item.DateStart.ToString("yyyy-MM-dd HH:mm")
                                             </td>
                                             <td>
-                                                @item.DateEnd.ToString("dddd HH:mm")
+                                                @item.DateEnd.ToString("yyyy-MM-dd HH:mm")
+                                            </td>
+                                            <td>
+                                                <div class="form-check mt-0">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="true" disabled asp-for="@item.IsWeekly">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             </td>
                                             <td>
                                                 @item.Teacher.Firstname @item.Teacher.LastName

@@ -108,7 +108,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentId,AppointmentName,DateStart,DateEnd,TeacherId")] Appointment appointment)
+        public async Task<IActionResult> Create([Bind("AppointmentId,AppointmentName,DateStart,DateEnd,TeacherId,IsWeekly")] Appointment appointment)
         {
             // Préparation de l'appel à l'API
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -210,7 +210,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppointmentId,AppointmentName,DateStart,DateEnd,TeacherId")] Appointment appointment)
+        public async Task<IActionResult> Edit(int id, [Bind("AppointmentId,AppointmentName,DateStart,DateEnd,TeacherId,IsWeekly")] Appointment appointment)
         {
             if (id != appointment.AppointmentId)
             {

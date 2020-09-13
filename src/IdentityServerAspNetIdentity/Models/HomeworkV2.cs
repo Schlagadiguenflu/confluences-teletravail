@@ -18,6 +18,8 @@ namespace IdentityServerAspNetIdentity.Models
         [Required]
         public string HomeworkV2Name { get; set; }
 
+        public bool IsFutur { get; set; }
+
         [Required]
         public int HomeworkTypeId { get; set; }
         [ForeignKey(nameof(HomeworkTypeId))]

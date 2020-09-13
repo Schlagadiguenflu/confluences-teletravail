@@ -140,12 +140,13 @@ namespace mvc.Controllers
 
                 AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
 
+                // get all futur appointements and the weekly ones
                 if (user != null)
                 {
-                    if (user.SessionStudents.Count() > 0)
+                    if (user.AppointmentStudents.Count() > 0)
                     {
-                        DateTime dateStartMax = user.SessionStudents.Max(s => s.Session.DateStart);
-                        user.SessionStudents = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).ToList();
+                        DateTime now = DateTime.Now.AddDays(-1);
+                        user.AppointmentStudents = user.AppointmentStudents.Where(s => s.Appointment.DateEnd > now).ToList();
                     }
                 }
 

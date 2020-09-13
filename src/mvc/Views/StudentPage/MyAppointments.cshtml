@@ -24,7 +24,16 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">
-                                                @appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").First().ToString().ToUpper()@appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").Substring(1)
+                                                @if (appointmentStudents.Appointment.IsWeekly)
+                                                {
+                                                    WriteLiteral("Tous les ");
+                                                    @appointmentStudents.Appointment.DateStart.ToString("dddd")
+                                                    WriteLiteral("s");
+                                                }
+                                                else
+                                                {
+                                                    @appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").First().ToString().ToUpper()@appointmentStudents.Appointment.DateStart.ToString("dddd dd MMMM yyyy").Substring(1)
+                                                }
                                                 <p>
                                                     @appointmentStudents.Appointment.DateStart.ToString("HH:mm -")
                                                     @appointmentStudents.Appointment.DateEnd.ToString("HH:mm")

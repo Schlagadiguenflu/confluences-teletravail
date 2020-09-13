@@ -30,6 +30,8 @@ namespace mvc.Models
         [DisplayName("Formateur-trice")]
         [Required]
         public string TeacherId { get; set; }
+        [DisplayName("Afficher en tant que devoir futur")]
+        public bool IsFutur { get; set; }
         [DisplayName("Type")]
         [ForeignKey(nameof(HomeworkTypeId))]
         [InverseProperty("HomeworkV2s")]

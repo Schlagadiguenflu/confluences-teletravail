@@ -34,13 +34,13 @@
                                     @Html.DisplayNameFor(model => model.DateStart)
                                 </dt>
                                 <dd class="col-sm-10">
-                                    @Model.DateStart.ToString("dddd HH:mm")
+                                    @Model.DateStart.ToString("yyyy-MM-dd HH:mm")
                                 </dd>
                                 <dt class="col-sm-2">
                                     @Html.DisplayNameFor(model => model.DateEnd)
                                 </dt>
                                 <dd class="col-sm-10">
-                                    @Model.DateEnd.ToString("dddd HH:mm")
+                                    @Model.DateEnd.ToString("yyyy-MM-dd HH:mm")
                                 </dd>
                                 <dt class="col-sm-2">
                                     @Html.DisplayNameFor(model => model.Teacher)
@@ -48,6 +48,19 @@
                                 <dd class="col-sm-10">
                                     @Model.Teacher.Firstname @Model.Teacher.LastName
                                 </dd>
+                                @if (Model.IsWeekly)
+                                {
+                                    var st1 = "Tous les ";
+                                    var st2 = "s";
+                                    <dt class="col-sm-2">
+                                        @st1
+                                        @Model.DateStart.ToString("dddd")@st2
+                                    </dt>
+                                    <dd class="col-sm-10">
+
+                                    </dd>
+                                }
+
                             </dl>
                         </div>
                         <div>
