@@ -21,6 +21,8 @@ namespace IdentityServerAspNetIdentity.Models
         [Required]
         public DateTime DateEnd { get; set; }
 
+        public bool IsWeekly { get; set; }
+
         [Required]
         public string TeacherId { get; set; }
         [ForeignKey(nameof(TeacherId))]

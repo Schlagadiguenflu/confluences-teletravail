@@ -22,6 +22,8 @@ namespace mvc.Models
         public DateTime DateStart { get; set; }
         [DisplayName("Fin")]
         public DateTime DateEnd { get; set; }
+        [DisplayName("Hebdomadaire")]
+        public bool IsWeekly { get; set; }
         [DisplayName("Formateur-trice")]
         [Required]
         public string TeacherId { get; set; }

@@ -20,6 +20,7 @@ namespace Api.Models
         public DateTime DateEnd { get; set; }
         [Required]
         public string TeacherId { get; set; }
+        public bool IsWeekly { get; set; }
 
         [ForeignKey(nameof(TeacherId))]
         [InverseProperty(nameof(AspNetUser.Appointments))]
