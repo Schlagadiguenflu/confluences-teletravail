@@ -90,6 +90,8 @@ namespace Api.Controllers
             _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();
 
+            contact.Entreprise = await _context.Entreprises.Where(e => e.EntrepriseId == contact.EntrepriseId).SingleOrDefaultAsync();
+
             return CreatedAtAction("GetContact", new { id = contact.ContactId }, contact);
         }
 
