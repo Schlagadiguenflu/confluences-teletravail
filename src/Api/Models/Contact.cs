@@ -20,13 +20,13 @@ namespace Api.Models
         public string TelFix { get; set; }
         [StringLength(13)]
         public string Natel { get; set; }
-        [StringLength(13)]
-        public string Fax { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
         public string CreateurId { get; set; }
         public string ModificateurId { get; set; }
         public int EntrepriseId { get; set; }
+        [StringLength(50)]
+        public string Fonction { get; set; }
 
         [ForeignKey(nameof(CreateurId))]
         [InverseProperty(nameof(AspNetUser.ContactCreateurs))]

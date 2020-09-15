@@ -20,6 +20,9 @@ namespace IdentityServerAspNetIdentity.Models
         public string Prenom { get; set; }
 
         [StringLength(50)]
+        public string Fonction { get; set; }
+
+        [StringLength(50)]
         public string Email { get; set; }
 
         [StringLength(13)]
@@ -27,9 +30,6 @@ namespace IdentityServerAspNetIdentity.Models
 
         [StringLength(13)]
         public string Natel { get; set; }
-
-        [StringLength(13)]
-        public string Fax { get; set; }
 
         public DateTime? DateCreation { get; set; }
 
