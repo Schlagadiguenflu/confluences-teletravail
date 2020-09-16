@@ -1,13 +1,19 @@
-﻿using System;
+﻿/**
+ * Projet: Gestion des stagiaires
+ * Auteur : Tim Allemann
+ * Date : 16.09.2020
+ * Description : Contrôleur permettant le CRUD sur la table Entreprises
+ * Fichier : EntrepriseController.cs
+ **/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
 namespace Api.Controllers
@@ -24,6 +30,7 @@ namespace Api.Controllers
             _context = context;
         }
 
+        // Modèle du filtre entreprise
         public class Filter
         {
             public List<int?> domaines { get; set; }
@@ -56,6 +63,7 @@ namespace Api.Controllers
                                 .OrderBy(e => e.Nom)
                                 .ToListAsync();
 
+            // Si des paramètres existent, il faut les appliquer
             if(filter.domaines != null) {
                 entreprises = entreprises.Where(e => filter.domaines.Contains(e.TypeDomaineId)).ToList();
             }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿/**
+ * Projet: Gestion des stagiaires
+ * Auteur : Tim Allemann
+ * Date : 16.09.2020
+ * Description : Contrôleur permettant de lire les utilisateurs sur la table AspNetUsers, seul l'identifiant et le nom sont transmis
+ * Fichier : UsersController.cs
+ **/
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
