@@ -104,6 +104,8 @@
     <Compile Remove="Migrations\20200831065506_primarykeyintonAffiliation.Designer.cs" />
     <Compile Remove="Migrations\20200831065908_primarykeyintonAffiliation2.cs" />
     <Compile Remove="Migrations\20200831065908_primarykeyintonAffiliation2.Designer.cs" />
+    <Compile Remove="Migrations\20200915140029_addFonctionOncontact.cs" />
+    <Compile Remove="Migrations\20200915140029_addFonctionOncontact.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

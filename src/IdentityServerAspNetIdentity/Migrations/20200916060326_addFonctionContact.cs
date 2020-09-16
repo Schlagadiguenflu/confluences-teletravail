@@ -2,7 +2,7 @@
 
 namespace IdentityServerAspNetIdentity.Migrations
 {
-    public partial class addFonctionOncontact : Migration
+    public partial class addFonctionContact : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

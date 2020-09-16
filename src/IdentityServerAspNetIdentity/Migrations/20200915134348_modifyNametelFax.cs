@@ -7,7 +7,7 @@ namespace IdentityServerAspNetIdentity.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "TelFix",
+                name: "TelFax",
                 table: "Entreprises",
                 newName: "TelNatel");
         }
@@ -17,7 +17,7 @@ namespace IdentityServerAspNetIdentity.Migrations
             migrationBuilder.RenameColumn(
                 name: "TelNatel",
                 table: "Entreprises",
-                newName: "TelFix");
+                newName: "TelFax");
         }
     }
 }

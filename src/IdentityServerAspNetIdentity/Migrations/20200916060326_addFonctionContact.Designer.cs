@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IdentityServerAspNetIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200915140029_addFonctionOncontact")]
-    partial class addFonctionOncontact
+    [Migration("20200916060326_addFonctionContact")]
+    partial class addFonctionContact
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
