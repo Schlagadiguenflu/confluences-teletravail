@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -55,6 +56,10 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutContact(int id, Contact contact)
         {
+            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            contact.ModificateurId = userId;
+            contact.DateModification = DateTime.Now;
+
             if (id != contact.ContactId)
             {
                 return BadRequest();
@@ -87,6 +92,13 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Contact>> PostContact(Contact contact)
         {
+            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            DateTime date = DateTime.Now;
+            contact.CreateurId = userId;
+            contact.DateCreation = date;
+            contact.ModificateurId = userId;
+            contact.DateModification = date;
+
             _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();
 
