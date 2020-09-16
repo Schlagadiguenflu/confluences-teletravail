@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -154,12 +155,17 @@ namespace Api.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Entrepris>> PostEntrepris(Entrepris entrepris)
+        public async Task<ActionResult<Entrepris>> PostEntrepris(Entrepris entreprise)
         {
-            _context.Entreprises.Add(entrepris);
+            entreprise.DateCreation = DateTime.Now;
+
+            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            entreprise.CreateurId = userId;
+
+            _context.Entreprises.Add(entreprise);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEntrepris", new { id = entrepris.EntrepriseId }, entrepris);
+            return CreatedAtAction("GetEntrepris", new { id = entreprise.EntrepriseId }, entreprise);
         }
 
         // DELETE: api/Entreprise/5
