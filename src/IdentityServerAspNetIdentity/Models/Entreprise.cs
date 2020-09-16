@@ -24,7 +24,7 @@ namespace IdentityServerAspNetIdentity.Models
         public string TelNatel { get; set; }
 
         [StringLength(13)]
-        public string TelFax { get; set; }
+        public string TelFix { get; set; }
 
         [StringLength(50)]
         public string Adr1 { get; set; }
