@@ -63,6 +63,12 @@ namespace IdentityServerAspNetIdentity.Data
             builder.Entity<SessionStudent>().HasKey(st => new { st.SessionId, st.StudentId });
             builder.Entity<EntrepriseMetier>().HasKey(st => new { st.EntrepriseId, st.TypeMetierId });
             builder.Entity<EntrepriseOffre>().HasKey(st => new { st.EntrepriseId, st.TypeOffreId });
+            builder.Entity<TypeMetier>(entity => {
+                entity.HasIndex(e => e.Code).IsUnique();
+            });
+            builder.Entity<TypeMetier>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
         }
     }
 }

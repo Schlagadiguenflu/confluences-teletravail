@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using Npgsql;
 
 namespace Api.Controllers
 {
@@ -88,6 +90,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeMetier>> PostTypeMetier(TypeMetier typeMetier)
         {
             _context.TypeMetiers.Add(typeMetier);
+
+            if (TypeMetierUniqueExists(typeMetier.Code, typeMetier.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeMetier", new { id = typeMetier.TypeMetierId }, typeMetier);
@@ -112,6 +120,11 @@ namespace Api.Controllers
         private bool TypeMetierExists(int id)
         {
             return _context.TypeMetiers.Any(e => e.TypeMetierId == id);
+        }
+
+        private bool TypeMetierUniqueExists(string code, string libelle)
+        {
+            return _context.TypeMetiers.Any(e => e.Code == code || e.Libelle == libelle);
         }
     }
 }
