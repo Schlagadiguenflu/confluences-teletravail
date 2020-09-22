@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Api.Controllers
 {
@@ -28,11 +29,25 @@ namespace Api.Controllers
             _context = context;
         }
 
+        // Modèle du filtre entreprise
+        public class Filter
+        {
+            public string nom { get; set; }
+            public int? typeMetierId { get; set; }
+            public int? entrepriseId { get; set; }
+            public string stagiaireId { get; set; }
+            public DateTime? dateDebut { get; set; }
+            public DateTime? dateFin { get; set; }
+            public int? typeStageId { get; set; }
+            public int? typeAnnonceId { get; set; }
+
+        }
+
         // GET: api/Stages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Stage>>> GetStages()
+        public async Task<ActionResult<IEnumerable<Stage>>> GetStages([FromQuery] Filter filter)
         {
-            return await _context.Stages
+            var stages = await _context.Stages
                                         .Include(s => s.TypeMetier)
                                         .Include(s => s.Entreprise)
                                         .Include(s => s.Stagiaire)
@@ -41,6 +56,48 @@ namespace Api.Controllers
                                         .AsNoTracking()
                                         .OrderByDescending(s => s.Debut)
                                         .ToListAsync();
+
+            if (filter.nom != null)
+            {
+                stages = stages.Where(e => e.Nom.ToUpper().Contains(filter.nom.ToUpper())).ToList();
+            }
+
+            if (filter.typeMetierId != null)
+            {
+                stages = stages.Where(e => e.TypeMetierId == filter.typeMetierId).ToList();
+            }
+
+            if (filter.entrepriseId != null)
+            {
+                stages = stages.Where(e => e.EntrepriseId == filter.entrepriseId).ToList();
+            }
+
+            if (filter.stagiaireId != null)
+            {
+                stages = stages.Where(e => e.StagiaireId == filter.stagiaireId).ToList();
+            }
+
+            if (filter.dateDebut != null)
+            {
+                stages = stages.Where(e => e.Debut >= filter.dateDebut).ToList();
+            }
+
+            if (filter.dateFin != null)
+            {
+                stages = stages.Where(e => e.Fin <= filter.dateFin).ToList();
+            }
+
+            if (filter.typeStageId != null)
+            {
+                stages = stages.Where(e => e.TypeStageId == filter.typeStageId).ToList();
+            }
+
+            if (filter.typeAnnonceId != null)
+            {
+                stages = stages.Where(e => e.TypeAnnonceId == filter.typeAnnonceId).ToList();
+            }
+
+            return stages;
         }
 
         // GET: api/Stages/5
