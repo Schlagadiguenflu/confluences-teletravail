@@ -64,6 +64,11 @@ namespace Api.Controllers
 
             _context.Entry(typeMetier).State = EntityState.Modified;
 
+            if (TypeMetierUniqueExists(typeMetier.Code, typeMetier.Libelle))
+            {
+                return Conflict();
+            }
+
             try
             {
                 await _context.SaveChangesAsync();

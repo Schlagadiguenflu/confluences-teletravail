@@ -62,6 +62,11 @@ namespace Api.Controllers
 
             _context.Entry(typeAffiliation).State = EntityState.Modified;
 
+            if (TypeAffiliationUniqueExists(typeAffiliation.Code, typeAffiliation.Libelle))
+            {
+                return Conflict();
+            }
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -88,6 +93,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeAffiliation>> PostTypeAffiliation(TypeAffiliation typeAffiliation)
         {
             _context.TypeAffiliations.Add(typeAffiliation);
+
+            if (TypeAffiliationUniqueExists(typeAffiliation.Code, typeAffiliation.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeAffiliation", new { id = typeAffiliation.TypeAffiliationId }, typeAffiliation);
@@ -112,6 +123,11 @@ namespace Api.Controllers
         private bool TypeAffiliationExists(int id)
         {
             return _context.TypeAffiliations.Any(e => e.TypeAffiliationId == id);
+        }
+
+        private bool TypeAffiliationUniqueExists(string code, string libelle)
+        {
+            return _context.TypeAffiliations.Any(e => e.Code == code || e.Libelle == libelle);
         }
     }
 }
