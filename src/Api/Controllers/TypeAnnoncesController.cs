@@ -62,6 +62,11 @@ namespace Api.Controllers
 
             _context.Entry(typeAnnonce).State = EntityState.Modified;
 
+            if (TypeAnnonceUniqueExists(typeAnnonce.Libelle))
+            {
+                return Conflict();
+            }
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -88,6 +93,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeAnnonce>> PostTypeAnnonce(TypeAnnonce typeAnnonce)
         {
             _context.TypeAnnonces.Add(typeAnnonce);
+
+            if (TypeAnnonceUniqueExists(typeAnnonce.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeAnnonce", new { id = typeAnnonce.TypeAnnonceId }, typeAnnonce);
@@ -112,6 +123,11 @@ namespace Api.Controllers
         private bool TypeAnnonceExists(int id)
         {
             return _context.TypeAnnonces.Any(e => e.TypeAnnonceId == id);
+        }
+
+        private bool TypeAnnonceUniqueExists(string libelle)
+        {
+            return _context.TypeAnnonces.Any(e => e.Libelle == libelle);
         }
     }
 }
