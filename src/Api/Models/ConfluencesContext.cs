@@ -280,6 +280,15 @@ namespace Api.Models
                 entity.HasIndex(e => e.TeacherId);
             });
 
+            modelBuilder.Entity<TypeMetier>(entity =>
+            {
+                entity.HasIndex(e => e.Code)
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
