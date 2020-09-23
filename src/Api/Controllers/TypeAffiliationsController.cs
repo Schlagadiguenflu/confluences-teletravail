@@ -62,11 +62,6 @@ namespace Api.Controllers
 
             _context.Entry(typeAffiliation).State = EntityState.Modified;
 
-            if (TypeAffiliationUniqueExists(typeAffiliation.Code, typeAffiliation.Libelle))
-            {
-                return Conflict();
-            }
-
             try
             {
                 await _context.SaveChangesAsync();

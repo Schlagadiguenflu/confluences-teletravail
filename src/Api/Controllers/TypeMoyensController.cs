@@ -82,6 +82,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeMoyen>> PostTypeMoyen(TypeMoyen typeMoyen)
         {
             _context.TypeMoyens.Add(typeMoyen);
+
+            if (TypeMoyenUniqueExists(typeMoyen.Code, typeMoyen.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeMoyen", new { id = typeMoyen.TypeMoyenId }, typeMoyen);
@@ -106,6 +112,11 @@ namespace Api.Controllers
         private bool TypeMoyenExists(int id)
         {
             return _context.TypeMoyens.Any(e => e.TypeMoyenId == id);
+        }
+
+        private bool TypeMoyenUniqueExists(string code, string libelle)
+        {
+            return _context.TypeMoyens.Any(e => e.Code == code || e.Libelle == libelle);
         }
     }
 }

@@ -62,11 +62,6 @@ namespace Api.Controllers
 
             _context.Entry(typeDomaine).State = EntityState.Modified;
 
-            if (TypeDomaineUniqueExists(typeDomaine.Code, typeDomaine.Libelle))
-            {
-                return Conflict();
-            }
-
             try
             {
                 await _context.SaveChangesAsync();

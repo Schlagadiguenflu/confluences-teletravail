@@ -62,11 +62,6 @@ namespace Api.Controllers
 
             _context.Entry(typeAnnonce).State = EntityState.Modified;
 
-            if (TypeAnnonceUniqueExists(typeAnnonce.Libelle))
-            {
-                return Conflict();
-            }
-
             try
             {
                 await _context.SaveChangesAsync();
