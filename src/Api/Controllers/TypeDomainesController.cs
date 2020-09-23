@@ -62,6 +62,11 @@ namespace Api.Controllers
 
             _context.Entry(typeDomaine).State = EntityState.Modified;
 
+            if (TypeDomaineUniqueExists(typeDomaine.Code, typeDomaine.Libelle))
+            {
+                return Conflict();
+            }
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -88,6 +93,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeDomaine>> PostTypeDomaine(TypeDomaine typeDomaine)
         {
             _context.TypeDomaines.Add(typeDomaine);
+
+            if (TypeDomaineUniqueExists(typeDomaine.Code, typeDomaine.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeDomaine", new { id = typeDomaine.TypeDomaineId }, typeDomaine);
@@ -112,6 +123,11 @@ namespace Api.Controllers
         private bool TypeDomaineExists(int id)
         {
             return _context.TypeDomaines.Any(e => e.TypeDomaineId == id);
+        }
+
+        private bool TypeDomaineUniqueExists(string code, string libelle)
+        {
+            return _context.TypeDomaines.Any(e => e.Code == code || e.Libelle == libelle);
         }
     }
 }
