@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Api.Controllers
 {
@@ -41,6 +42,7 @@ namespace Api.Controllers
         {
             var typeAnnonce = await _context.TypeAnnonces
                 .Include(t => t.Stages)
+                    .ThenInclude(t => t.Stagiaire)
                 .Where(t => t.TypeAnnonceId == id)
                 .SingleOrDefaultAsync();
 
@@ -78,6 +80,13 @@ namespace Api.Controllers
                 else
                 {
                     throw;
+                }
+            }
+            catch (Exception)
+            {
+                if (TypeAnnonceUniqueExists(typeAnnonce.Libelle))
+                {
+                    return Conflict();
                 }
             }
 

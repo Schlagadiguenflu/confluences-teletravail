@@ -85,6 +85,13 @@ namespace Api.Controllers
                     throw;
                 }
             }
+            catch (Exception)
+            {
+                if (TypeMetierUniqueExists(typeMetier.Code, typeMetier.Libelle))
+                {
+                    return Conflict();
+                }
+            }
 
             return NoContent();
         }

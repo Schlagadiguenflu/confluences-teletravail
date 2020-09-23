@@ -74,6 +74,13 @@ namespace Api.Controllers
                     throw;
                 }
             }
+            catch (Exception)
+            {
+                if (TypeMoyenUniqueExists(typeMoyen.Code, typeMoyen.Libelle))
+                {
+                    return Conflict();
+                }
+            }
 
             return NoContent();
         }

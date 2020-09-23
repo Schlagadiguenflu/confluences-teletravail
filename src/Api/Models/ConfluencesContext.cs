@@ -280,12 +280,63 @@ namespace Api.Models
                 entity.HasIndex(e => e.TeacherId);
             });
 
+            modelBuilder.Entity<TypeAffiliation>(entity =>
+            {
+                entity.HasIndex(e => e.Code)
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeAnnonce>(entity =>
+            {
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeDomaine>(entity =>
+            {
+                entity.HasIndex(e => e.Code)
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeEntrepris>(entity =>
+            {
+                entity.HasIndex(e => e.Nom)
+                    .IsUnique();
+            });
+
             modelBuilder.Entity<TypeMetier>(entity =>
             {
                 entity.HasIndex(e => e.Code)
                     .IsUnique();
 
                 entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeMoyen>(entity =>
+            {
+                entity.HasIndex(e => e.Code)
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeOffre>(entity =>
+            {
+                entity.HasIndex(e => e.Libelle)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<TypeStage>(entity =>
+            {
+                entity.HasIndex(e => e.Nom)
                     .IsUnique();
             });
 

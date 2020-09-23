@@ -69,6 +69,36 @@ namespace IdentityServerAspNetIdentity.Data
             builder.Entity<TypeMetier>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
             });
+            builder.Entity<TypeAffiliation>(entity => {
+                entity.HasIndex(e => e.Code).IsUnique();
+            });
+            builder.Entity<TypeAffiliation>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
+            builder.Entity<TypeAnnonce>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
+            builder.Entity<TypeDomaine>(entity => {
+                entity.HasIndex(e => e.Code).IsUnique();
+            });
+            builder.Entity<TypeDomaine>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
+            builder.Entity<TypeEntreprise>(entity => {
+                entity.HasIndex(e => e.Nom).IsUnique();
+            });
+            builder.Entity<TypeMoyen>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
+            builder.Entity<TypeMoyen>(entity => {
+                entity.HasIndex(e => e.Code).IsUnique();
+            });
+            builder.Entity<TypeOffre>(entity => {
+                entity.HasIndex(e => e.Libelle).IsUnique();
+            });
+            builder.Entity<TypeStage>(entity => {
+                entity.HasIndex(e => e.Nom).IsUnique();
+            });
         }
     }
 }
