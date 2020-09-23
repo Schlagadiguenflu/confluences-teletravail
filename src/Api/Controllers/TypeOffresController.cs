@@ -88,6 +88,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeOffre>> PostTypeOffre(TypeOffre typeOffre)
         {
             _context.TypeOffres.Add(typeOffre);
+
+            if (TypeOffreUniqueExists(typeOffre.Libelle))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeOffre", new { id = typeOffre.TypeOffreId }, typeOffre);
@@ -112,6 +118,11 @@ namespace Api.Controllers
         private bool TypeOffreExists(int id)
         {
             return _context.TypeOffres.Any(e => e.TypeOffreId == id);
+        }
+
+        private bool TypeOffreUniqueExists(string libelle)
+        {
+            return _context.TypeMoyens.Any(e => e.Libelle == libelle);
         }
     }
 }
