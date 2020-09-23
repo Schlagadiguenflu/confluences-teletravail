@@ -39,7 +39,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeAffiliation>> GetTypeAffiliation(int id)
         {
-            var typeAffiliation = await _context.TypeAffiliations.FindAsync(id);
+            var typeAffiliation = await _context.TypeAffiliations
+                .Include(t => t.AspNetUsers)
+                .Where(t => t.TypeAffiliationId == id)
+                .SingleOrDefaultAsync();
 
             if (typeAffiliation == null)
             {

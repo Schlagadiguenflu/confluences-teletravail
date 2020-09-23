@@ -39,7 +39,11 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeOffre>> GetTypeOffre(int id)
         {
-            var typeOffre = await _context.TypeOffres.FindAsync(id);
+            var typeOffre = await _context.TypeOffres
+                .Include(t => t.EntrepriseOffres)
+                    .ThenInclude(t => t.Entreprise)
+                .Where(t => t.TypeOffreId == id)
+                .SingleOrDefaultAsync();
 
             if (typeOffre == null)
             {
@@ -122,7 +126,7 @@ namespace Api.Controllers
 
         private bool TypeOffreUniqueExists(string libelle)
         {
-            return _context.TypeMoyens.Any(e => e.Libelle == libelle);
+            return _context.TypeOffres.Any(e => e.Libelle == libelle);
         }
     }
 }

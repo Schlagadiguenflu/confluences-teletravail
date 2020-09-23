@@ -41,7 +41,13 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeMetier>> GetTypeMetier(int id)
         {
-            var typeMetier = await _context.TypeMetiers.FindAsync(id);
+            var typeMetier = await _context.TypeMetiers
+                .Include(t => t.Stages)
+                    .ThenInclude(t => t.Stagiaire)
+                .Include(t => t.EntrepriseMetiers)
+                    .ThenInclude(t => t.Entreprise)
+                .Where(t => t.TypeMetierId == id)
+                .SingleOrDefaultAsync();
 
             if (typeMetier == null)
             {

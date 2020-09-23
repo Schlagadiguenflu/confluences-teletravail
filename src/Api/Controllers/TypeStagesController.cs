@@ -39,7 +39,11 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeStage>> GetTypeStage(int id)
         {
-            var typeStage = await _context.TypeStages.FindAsync(id);
+            var typeStage = await _context.TypeStages
+                .Include(t => t.Stages)
+                    .ThenInclude(t => t.Stagiaire)
+                .Where(t => t.TypeStageId == id)
+                .SingleOrDefaultAsync();
 
             if (typeStage == null)
             {
@@ -88,6 +92,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeStage>> PostTypeStage(TypeStage typeStage)
         {
             _context.TypeStages.Add(typeStage);
+
+            if (TypeStageUniqueExists(typeStage.Nom))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeStage", new { id = typeStage.TypeStageId }, typeStage);
@@ -112,6 +122,11 @@ namespace Api.Controllers
         private bool TypeStageExists(int id)
         {
             return _context.TypeStages.Any(e => e.TypeStageId == id);
+        }
+
+        private bool TypeStageUniqueExists(string Nom)
+        {
+            return _context.TypeStages.Any(e => e.Nom == Nom);
         }
     }
 }

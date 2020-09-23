@@ -33,7 +33,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeMoyen>> GetTypeMoyen(int id)
         {
-            var typeMoyen = await _context.TypeMoyens.FindAsync(id);
+            var typeMoyen = await _context.TypeMoyens
+                .Include(t => t.Entrepris)
+                .Where(t => t.TypeMoyenId == id)
+                .SingleOrDefaultAsync();
 
             if (typeMoyen == null)
             {

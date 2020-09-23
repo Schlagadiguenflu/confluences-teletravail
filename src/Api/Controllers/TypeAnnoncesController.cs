@@ -39,7 +39,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeAnnonce>> GetTypeAnnonce(int id)
         {
-            var typeAnnonce = await _context.TypeAnnonces.FindAsync(id);
+            var typeAnnonce = await _context.TypeAnnonces
+                .Include(t => t.Stages)
+                .Where(t => t.TypeAnnonceId == id)
+                .SingleOrDefaultAsync();
 
             if (typeAnnonce == null)
             {

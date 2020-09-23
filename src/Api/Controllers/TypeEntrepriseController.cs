@@ -39,7 +39,10 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TypeEntrepris>> GetTypeEntrepris(int id)
         {
-            var typeEntrepris = await _context.TypeEntreprises.FindAsync(id);
+            var typeEntrepris = await _context.TypeEntreprises
+                .Include(t => t.Entrepris)
+                .Where(t => t.TypeEntrepriseId == id)
+                .SingleOrDefaultAsync();
 
             if (typeEntrepris == null)
             {
@@ -88,6 +91,12 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeEntrepris>> PostTypeEntrepris(TypeEntrepris typeEntrepris)
         {
             _context.TypeEntreprises.Add(typeEntrepris);
+
+            if (TypeEntrepriseUniqueExists(typeEntrepris.Nom))
+            {
+                return Conflict();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeEntrepris", new { id = typeEntrepris.TypeEntrepriseId }, typeEntrepris);
@@ -112,6 +121,11 @@ namespace Api.Controllers
         private bool TypeEntreprisExists(int id)
         {
             return _context.TypeEntreprises.Any(e => e.TypeEntrepriseId == id);
+        }
+
+        private bool TypeEntrepriseUniqueExists(string Nom)
+        {
+            return _context.TypeEntreprises.Any(e => e.Nom == Nom);
         }
     }
 }
