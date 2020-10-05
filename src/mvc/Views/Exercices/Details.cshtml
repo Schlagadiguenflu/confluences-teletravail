@@ -112,24 +112,55 @@
                         }
                         @if ((bool)ViewData["IsStudent"])
                         {
-                            <form id="formDevoirsEleves" asp-controller="HomeworkV2students" asp-action="Create" enctype="multipart/form-data">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group form-file-upload form-file-multiple">
-                                    <input type="hidden" name="id" value="@Model.ExerciceId" />
-                                    <input id="devoirsEleves" name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
-                                    <div class="input-group">
-                                        <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
-                                        @*<span class="input-group-btn">
-                                                <button type="button" class="btn btn-fab btn-round btn-info">
-                                                    <i class="material-icons">layers</i>
-                                                </button>
-                                            </span>*@
-                                    </div>
-                                </div>
-                                @*<div class="form-group">
-                                        <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                                    </div>*@
-                            </form>
+                            @if ((bool)ViewData["IsStudent"])
+                            {
+                                @if (Model.ExerciceLink != null)
+                                {
+                                    if (!Model.ExerciceLink.Contains("forms"))
+                                    {
+                                        <form id="formDevoirsEleves" asp-controller="HomeworkV2students" asp-action="Create" enctype="multipart/form-data">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <input type="hidden" name="id" value="@Model.ExerciceId" />
+                                                <input id="devoirsEleves" name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
+                                                    @*<span class="input-group-btn">
+                                                            <button type="button" class="btn btn-fab btn-round btn-info">
+                                                                <i class="material-icons">layers</i>
+                                                            </button>
+                                                        </span>*@
+                                                </div>
+                                            </div>
+                                            @*<div class="form-group">
+                                                    <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                                                </div>*@
+                                        </form>
+                                    }
+                                }
+                                else
+                                {
+                                    <form id="formDevoirsEleves" asp-controller="HomeworkV2students" asp-action="Create" enctype="multipart/form-data">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group form-file-upload form-file-multiple">
+                                            <input type="hidden" name="id" value="@Model.ExerciceId" />
+                                            <input id="devoirsEleves" name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
+                                            <div class="input-group">
+                                                <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
+                                                @*<span class="input-group-btn">
+                                                        <button type="button" class="btn btn-fab btn-round btn-info">
+                                                            <i class="material-icons">layers</i>
+                                                        </button>
+                                                    </span>*@
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                                            </div>*@
+                                    </form>
+                                }
+                            }
+
                         }
                         <div>
                             @if ((bool)ViewData["IsTeacher"])
