@@ -55,5 +55,9 @@ body {
 }
 
 .bg-grey {
-    background-color: lightgrey !important;
+    background-color: #f9f9f9 !important;
+}
+
+.borderless td, .borderless th {
+    border: none;
 }

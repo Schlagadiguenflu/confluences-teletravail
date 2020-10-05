@@ -48,9 +48,8 @@
                                     {
                                         string color = "bg-grey";
                                         <div class="row">
-                                            <table class="table">
+                                            <table class="table borderless">
                                                 <tbody>
-
                                                     @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
                                                     {
                                                         if (lastTypeH != homework.HomeworkTypeId)
@@ -109,7 +108,7 @@
                                     {
                                         string color = "bg-grey";
                                         <div class="row">
-                                            <table class="table">
+                                            <table class="table borderless">
                                                 <tbody>
                                                     @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
                                                     {
