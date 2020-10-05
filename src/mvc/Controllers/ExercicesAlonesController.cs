@@ -145,6 +145,7 @@ namespace mvc.Controllers
                 );
 
                 homeworks.Add(homework);
+                ViewData["ExerciceDate"] = homework.HomeworkV2date.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -155,6 +156,7 @@ namespace mvc.Controllers
                        PropertyNameCaseInsensitive = true
                    }
                 );
+                ViewData["ExerciceDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             }
 
             AspNetUser user = await JsonSerializer.DeserializeAsync<AspNetUser>(
@@ -164,8 +166,6 @@ namespace mvc.Controllers
                    PropertyNameCaseInsensitive = true
                }
             );
-
-            ViewData["ExerciceDate"] = DateTime.Now.ToString("yyyy-MM-dd");
 
             ViewData["TeacherId"] = user.Id;
             ViewData["HomeworkV2id"] = new SelectList(homeworks, "HomeworkV2id", "HomeworkV2name");
