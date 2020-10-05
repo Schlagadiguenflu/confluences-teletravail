@@ -5,22 +5,32 @@
 }
 
 @using Microsoft.AspNetCore.Authentication
-<br />
-<br />
+
 <body data-parallax="true" class="bgImage">
     <div class="container">
         <div class="about-team team-1">
             <div class="row">
+                <div class="col-md-10 ml-auto mr-auto text-center d-flex">
+                    <div class="card m-0 mb-4 mt-3">
+                        <div class="card-body flex-fill p-0">
+                            <h3 class="title">Bienvenue @Model.Firstname</h3>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
                 @if (!Model.HasSeenHelpVideo)
                 {
-                    <div class="col-md-6 ml-auto mr-auto text-center d-flex">
-                        <div class="card">
-                            <div class="card-body flex-fill">
-                                <h3 class="title">Bienvenue @Model.Firstname</h3>
+                    <div class="col-md-10 ml-auto mr-auto text-center d-flex">
+                        <div class="card m-0 mb-4">
+                            <div class="card-body flex-fill p-0">
                                 @*<h5>
-                                        @Model.SessionStudents.First().Session.DateStart.ToString("dd MMMM") -
-                                        @Model.SessionStudents.First().Session.DateEnd.ToString("dd MMMM yyyy")
-                                    </h5>*@
+            @Model.SessionStudents.First().Session.DateStart.ToString("dd MMMM") -
+            @Model.SessionStudents.First().Session.DateEnd.ToString("dd MMMM yyyy")
+        </h5>*@
                                 <div class="embed-responsive embed-responsive-16by9">
                                     <iframe class="embed-responsive-item" src="@Model.SessionStudents.First().Session.SchoolClassRoom.ExplanationVideoLink" allowfullscreen></iframe>
                                 </div>
@@ -32,22 +42,24 @@
                                 <br />
                                 <br />
                                 <a class="btn btn-primary" asp-controller="StudentPage" asp-action="IGetIt">J'ai compris</a>
+                                <br />
+                                <br />
                             </div>
                             <!-- end content-->
                         </div>
                         <!--  end card  -->
                     </div>
                     <div class="col-md-6 ml-auto mr-auto text-center d-flex">
-                        <div class="card">
-                            <div class="card-body flex-fill">
+                        <div class="card m-0 mb-4">
+                            <div class="card-body flex-fill p-0">
                                 @if (Model.SessionStudents.First().Session.HomeworkV2s != null)
                                 {
                                     <h3 class="title">Mon cours</h3>
 
                                     @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).Count() > 0)
                                     {
-                                        string color = "bg-grey";
-                                        <div class="row">
+                                        string color = "";
+                                        <div class="row m-0">
                                             <table class="table borderless">
                                                 <tbody>
                                                     @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
@@ -98,16 +110,16 @@
                 else
                 {
                     <div class="col-md-10 ml-auto mr-auto text-center d-flex">
-                        <div class="card">
-                            <div class="card-body flex-fill">
+                        <div class="card m-0 mb-4">
+                            <div class="card-body flex-fill p-0">
                                 @if (Model.SessionStudents.First().Session.Homework != null)
                                 {
                                     <h3 class="title">Mon cours</h3>
 
                                     @if (Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).Count() > 0)
                                     {
-                                        string color = "bg-grey";
-                                        <div class="row">
+                                        string color = "";
+                                        <div class="row m-0">
                                             <table class="table borderless">
                                                 <tbody>
                                                     @foreach (HomeworkV2s homework in Model.SessionStudents.First().Session.HomeworkV2s.Where(h => h.HomeworkV2date.Date == DateTime.Now.Date || (h.HomeworkV2date.Date >= DateTime.Now.Date && h.IsFutur)).OrderBy(h => h.HomeworkType.HomeworkOrder))
@@ -162,8 +174,8 @@
                 {
                     <div class="row">
                         <div class="col-md-10 ml-auto mr-auto text-center">
-                            <div class="card">
-                                <div class="card-body">
+                            <div class="card m-0 mb-4">
+                                <div class="card-body p-0">
                                     <h3 class="title">Mes formatrices et Mes formateurs </h3>
                                     <div class="row">
                                         @foreach (var sessionTeacher in Model.SessionStudents.First().Session.SessionTeachers.OrderBy(s => s.Teacher.Firstname))
@@ -199,8 +211,8 @@
                 {
                     <div class="row">
                         <div class="col-md-10 ml-auto mr-auto text-center">
-                            <div class="card">
-                                <div class="card-body">
+                            <div class="card m-0 mb-4">
+                                <div class="card-body p-0">
                                     <h3 class="title">Ma classe</h3>
                                     <div class="row">
                                         @*<div class="col-lg-3 mx-auto text-center">

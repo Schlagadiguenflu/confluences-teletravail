@@ -1,7 +1,7 @@
 ﻿@model mvc.Models.ExercicesAlone
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Exercice";
 }
 
 <style>
@@ -27,11 +27,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-primary card-header-icon">
+                    @*<div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <h4 class="card-title">@Html.DisplayFor(model => model.ExerciceName)</h4>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="card-body">
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -45,7 +45,7 @@
                                     Il y a un problème avec le fichier mp3.
                                 </audio>
                             }
-
+                            <h2 class="bg-primary text-center text-white">Exercice</h2>
                             <dl class="row">
                                 <dd class="col-sm-12">
                                     <div class="embed-responsive embed-responsive-16by9">
@@ -78,6 +78,7 @@
                         </div>
                         @if (Model.CorrectionDate <= DateTime.Now)
                         {
+                            <h2 class="bg-primary text-center text-white">Correction</h2>
                             <div>
                                 <dl class="row">
                                     <dd class="col-sm-12">
@@ -126,15 +127,15 @@
                                                 <div class="input-group">
                                                     <input type="text" class="inputFileVisible btn btn-success text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                     @*<span class="input-group-btn">
-                                                            <button type="button" class="btn btn-fab btn-round btn-info">
-                                                                <i class="material-icons">layers</i>
-                                                            </button>
-                                                        </span>*@
+                                        <button type="button" class="btn btn-fab btn-round btn-info">
+                                            <i class="material-icons">layers</i>
+                                        </button>
+                                    </span>*@
                                                 </div>
                                             </div>
                                             @*<div class="form-group">
-                                                    <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                                                </div>*@
+                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                            </div>*@
                                         </form>
                                     }
                                 }
@@ -148,15 +149,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="inputFileVisible btn btn-success text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                 @*<span class="input-group-btn">
-                                                        <button type="button" class="btn btn-fab btn-round btn-info">
-                                                            <i class="material-icons">layers</i>
-                                                        </button>
-                                                    </span>*@
+                                    <button type="button" class="btn btn-fab btn-round btn-info">
+                                        <i class="material-icons">layers</i>
+                                    </button>
+                                </span>*@
                                             </div>
                                         </div>
                                         @*<div class="form-group">
-                                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                                            </div>*@
+                            <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                        </div>*@
                                     </form>
                                 }
 
@@ -180,11 +181,11 @@
                                 <div class="col-md-3">
                                     @if (User.Identity.Name == @homework.Student.UserName)
                                     {
-                                        <h3>Mon exercice</h3>
+                                        <h2 class="bg-primary text-center text-white">Mon exercice</h2>
                                     }
                                     else
                                     {
-                                        <h3>Exercice de @homework.Student.Firstname</h3>
+                                        <h2 class="bg-primary text-center text-white">Exercice de @homework.Student.Firstname</h2>
                                         <h4>Rendu le @homework.HomeworkStudentDate.ToString("dd MMMM yyyy à HH:mm")</h4>
                                     }
                                 </div>

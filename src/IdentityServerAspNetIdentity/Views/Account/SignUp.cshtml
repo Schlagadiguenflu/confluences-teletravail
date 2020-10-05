@@ -59,16 +59,16 @@
                             <div class="col-md-12">
                                 <form asp-route="SignUpSend">
                                     <fieldset>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="text" class="form-control" placeholder="Prénom (min)" asp-for="Firstname" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="text" class="form-control" placeholder="Nom (maj)" asp-for="LastName" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="text" class="form-control datetimepicker" placeholder="Date de naissance" asp-for="Birthday" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <label asp-for="GenderId"></label><br />
                                             @foreach (Gender gender in ViewData["genders"] as List<Gender>)
                                             {
@@ -76,22 +76,22 @@
                                                 <label asp-for="GenderId">@gender.GenderName</label>
                                             }
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="tel" class="form-control" placeholder="Numéro de téléphone" asp-for="PhoneNumber" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="email" class="form-control" placeholder="Email" asp-for="Email" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input type="password" class="form-control" placeholder="Mot de passe" asp-for="PasswordHash" autocomplete="off">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input asp-for="ConfirmPassword" placeholder="Confirmation de mot de passe" class="form-control" />
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <input class="form-control" placeholder="Trigramme" asp-for="UserName" autofocus>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group p-0">
                                             <button class="btn btn-primary btn-block" name="button" value="signup">Enregistrer</button>
                                         </div>
                                         @*<p>Vous avez déjà un compte ? <a class="btn btn-primary btn-block" asp-area="" asp-controller="Account" asp-action="Login">Se connecter</a></p>*@
