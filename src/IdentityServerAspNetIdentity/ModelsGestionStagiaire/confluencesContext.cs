@@ -34,7 +34,7 @@ namespace IdentityServerAspNetIdentity.ModelsGestionStagiaire
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Server=vs1.confluences.ch;Port=54347;Database=confluences;User Id=confluence_mgr;Password=ConfluencesTAAT47;");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=confluences;User Id=confluences;Password=ConfluencesTAAT47;");
             }
         }
 

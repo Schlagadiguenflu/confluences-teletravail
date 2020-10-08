@@ -34,7 +34,7 @@ namespace IdentityServerAspNetIdentity.Controllers
         {
             confluencesContext _contextGestionStagiaire = new confluencesContext();
 
-             List<Eleve> eleves = _contextGestionStagiaire.Eleves.AsNoTracking().ToList();
+            List<Eleve> eleves = _contextGestionStagiaire.Eleves.AsNoTracking().ToList();
             // supprimer les espaces
             foreach (var eleve in eleves)
             {
@@ -70,8 +70,8 @@ namespace IdentityServerAspNetIdentity.Controllers
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            
 
+            int doublon = 1;
             int cpt = 1;
             int sum = eleves.Count();
             foreach (var eleve in eleves)
@@ -108,7 +108,11 @@ namespace IdentityServerAspNetIdentity.Controllers
                     var chars = text.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray();
                     userName = new string(chars).Normalize(NormalizationForm.FormC);
                     userName = userName.Replace(" ", "X");
-
+                    if (userName == "TESTE")
+                    {
+                        userName += doublon;
+                        doublon++;
+                    }
                     ApplicationUser newUser = new ApplicationUser()
                     {
                         UserName = userName,
@@ -160,8 +164,46 @@ namespace IdentityServerAspNetIdentity.Controllers
                     }
                 }
             }
-            return Ok();
-        }
 
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                    ApplicationUser newUser2 = new ApplicationUser()
+                    {
+                        UserName = "LG",
+                        Firstname = "Line",
+                        LastName = "G.",
+                        GenderId = 2
+                    };
+                    var result = userMgr.CreateAsync(newUser2, "0").Result;
+
+                    ApplicationUser newUser3 = new ApplicationUser()
+                    {
+                        UserName = "PT",
+                        Firstname = "PT",
+                        LastName = "PT",
+                        GenderId = 1
+                    };
+                    var result2 = userMgr.CreateAsync(newUser3, "0").Result;
+
+                    ApplicationUser newUser4 = new ApplicationUser()
+                    {
+                        UserName = "OM",
+                        Firstname = "OM",
+                        LastName = "OM",
+                        GenderId = 1
+                    };
+                    var result3 = userMgr.CreateAsync(newUser4, "0").Result;
+                }
+            }
+                   
+            return Ok();
     }
+
+}
 }
