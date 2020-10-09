@@ -45,9 +45,9 @@ namespace IdentityServerAspNetIdentity
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+
                     RequireConsent = false,
-                    RequirePkce = true,
 
                     // where to redirect to after login
                     RedirectUris = { Startup.Configuration["URLClientMVC"] + "signin-oidc" },

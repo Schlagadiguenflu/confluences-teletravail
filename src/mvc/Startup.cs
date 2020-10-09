@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.HttpOverrides;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
+using System;
 
 namespace mvc
 {
@@ -26,7 +27,7 @@ namespace mvc
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {  
+        {
             services.AddControllersWithViews();
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
@@ -39,7 +40,13 @@ namespace mvc
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-                .AddCookie("Cookies")
+                .AddCookie(options =>
+                {
+                    // Configure the client application to use sliding sessions
+                    options.SlidingExpiration = true;
+                    // Expire the session of 15 minutes of inactivity
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+                })
              .AddOpenIdConnect("oidc", options =>
               {
                   options.SignInScheme = "Cookies";
@@ -49,7 +56,7 @@ namespace mvc
 
                   options.ClientId = "mvc";
                   options.ClientSecret = "secret";
-                  options.ResponseType = "code";
+                  options.ResponseType = "code id_token";
 
                   options.SaveTokens = true;
                   options.GetClaimsFromUserInfoEndpoint = true;
@@ -60,9 +67,15 @@ namespace mvc
 
                   // Fix for getting roles claims correctly :
                   options.ClaimActions.MapJsonKey("role", "role", "role");
+                  options.ClaimActions.MapJsonKey("website", "website");
 
                   options.TokenValidationParameters.NameClaimType = "name";
                   options.TokenValidationParameters.RoleClaimType = "role";
+
+                  options.Events.OnTicketReceived = async (context) =>
+                  {
+                      context.Properties.ExpiresUtc = DateTime.UtcNow.AddMinutes(1);
+                  };
               });
 
             //services.AddSingleton<Microsoft.AspNetCore.Authentication.IClaimsTransformation, KarekeClaimsTransformer>();
