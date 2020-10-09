@@ -45,12 +45,13 @@ namespace IdentityServerAspNetIdentity
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
+                    RequirePkce = true,
 
                     // where to redirect to after login
-                    RedirectUris = { Startup.Configuration["URLClientMVC"] + "signin-oidc" },
+                    RedirectUris = { Startup.Configuration["URLClientMVC"] + "signin-oidc", 
+                                     Startup.Configuration["URLClientMVC"] + "openid-callback" },
 
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { Startup.Configuration["URLClientMVC"] + "signout-callback-oidc" },
@@ -63,7 +64,13 @@ namespace IdentityServerAspNetIdentity
                         "roles"
                     },
 
-                    AllowOfflineAccess = true
+                    AllowOfflineAccess = true,
+                    AccessTokenLifetime = 86400, // 1 hour = 3600 seconds
+                    IdentityTokenLifetime = 86400,
+                    SlidingRefreshTokenLifetime = 86400,
+                    RefreshTokenUsage = TokenUsage.OneTimeOnly,
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+                    UpdateAccessTokenClaimsOnRefresh = true,
                 },
                 // JavaScript Client
                 new Client

@@ -25,86 +25,76 @@ namespace mvc.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             ViewData["IsStudent"] = true;
-            if (User.IsAuthenticated())
+
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = "";
+            try
             {
-                // Préparation de l'appel à l'API
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                string content = "";
-                try
-                {
-                    content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-                catch (Exception)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-
-                AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
-
-                if (user != null)
-                {
-                    if (user.SessionStudents.Count() <= 0)
-                    {
-                        return RedirectToAction("WaitingZone", "StudentPage");
-                    }
-                }
-
-                ViewData["URLAPI"] = _configuration["URLAPI"];
-                return View(user);
+                content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
             }
-            else
+            catch (UnauthorizedAccessException)
             {
-                return BadRequest();
+                return SignOut("Cookies", "oidc");
             }
+            catch (Exception e)
+            {
+                return SignOut("Cookies", "oidc");
+            }
+
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
+
+            if (user != null)
+            {
+                if (user.SessionStudents.Count() <= 0)
+                {
+                    return RedirectToAction("WaitingZone", "StudentPage");
+                }
+            }
+
+            ViewData["URLAPI"] = _configuration["URLAPI"];
+            return View(user);
+
         }
 
         public async Task<IActionResult> HelpAsync()
         {
             ViewData["IsStudent"] = true;
-            if (User.IsAuthenticated())
+
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = "";
+            try
             {
-                // Préparation de l'appel à l'API
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                string content = "";
-                try
-                {
-                    content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-                catch (Exception)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-
-                AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
-
-                if (user != null)
-                {
-                    if (user.SessionStudents.Count() > 0)
-                    {
-                        DateTime dateStartMax = user.SessionStudents.Max(s => s.Session.DateStart);
-                        user.SessionStudents = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).ToList();
-                    }
-                }
-
-                ViewData["URLAPI"] = _configuration["URLAPI"];
-                return View(user);
+                content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
             }
-            else
+            catch (UnauthorizedAccessException)
             {
-                return BadRequest();
+                return SignOut("Cookies", "oidc");
             }
+            catch (Exception)
+            {
+                return SignOut("Cookies", "oidc");
+            }
+
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
+
+            if (user != null)
+            {
+                if (user.SessionStudents.Count() > 0)
+                {
+                    DateTime dateStartMax = user.SessionStudents.Max(s => s.Session.DateStart);
+                    user.SessionStudents = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).ToList();
+                }
+            }
+
+            ViewData["URLAPI"] = _configuration["URLAPI"];
+            return View(user);
+
         }
 
         public IActionResult MyPictures()
@@ -122,87 +112,77 @@ namespace mvc.Controllers
         public async Task<IActionResult> MyAppointmentsAsync()
         {
             ViewData["IsStudent"] = true;
-            if (User.IsAuthenticated())
+
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = "";
+            try
             {
-                // Préparation de l'appel à l'API
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                string content = "";
-                try
-                {
-                    content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoAppointments");
-                }
-                catch (Exception)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-
-                AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
-
-                // get all futur appointements and the weekly ones
-                if (user != null)
-                {
-                    if (user.AppointmentStudents.Count() > 0)
-                    {
-                        DateTime now = DateTime.Now.AddDays(-1);
-                        user.AppointmentStudents = user.AppointmentStudents.Where(s => s.Appointment.DateEnd > now).ToList();
-                    }
-                }
-
-                ViewData["URLAPI"] = _configuration["URLAPI"];
-                return View("MyAppointments",user);
+                content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoAppointments");
             }
-            else
+            catch (Exception)
             {
-                return BadRequest();
+                return SignOut("Cookies", "oidc");
             }
+
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
+
+            // get all futur appointements and the weekly ones
+            if (user != null)
+            {
+                if (user.AppointmentStudents.Count() > 0)
+                {
+                    DateTime now = DateTime.Now.AddDays(-1);
+                    user.AppointmentStudents = user.AppointmentStudents.Where(s => s.Appointment.DateEnd > now).ToList();
+                }
+            }
+
+            ViewData["URLAPI"] = _configuration["URLAPI"];
+            return View("MyAppointments", user);
+
         }
 
         public async Task<IActionResult> PreviousLessonsAsync()
         {
             ViewData["IsStudent"] = true;
-            if (User.IsAuthenticated())
+
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
+            //try
+            //{
+            //    content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
+            //}
+            //catch (UnauthorizedAccessException)
+            //{
+            //    return SignOut("Cookies", "oidc");
+            //}
+            //catch (Exception)
+            //{
+            //    return SignOut("Cookies", "oidc");
+            //}
+
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
+
+            if (user != null)
             {
-                // Préparation de l'appel à l'API
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                string content = "";
-                try
+                if (user.SessionStudents.Count() > 0)
                 {
-                    content = await client.GetStringAsync(_configuration["URLAPI"] + "api/Account/getUserInfoStudent");
+                    DateTime dateStartMax = user.SessionStudents.Max(s => s.Session.DateStart);
+                    ViewData["SessionId"] = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).Select(u => u.SessionId).FirstOrDefault();
+                    user.SessionStudents = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).ToList();
                 }
-                catch (UnauthorizedAccessException)
-                {
-                    return SignOut("Cookies", "oidc");
-                }
-                catch (Exception)
-                {
-
-                }
-
-                AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
-
-                if (user != null)
-                {
-                    if (user.SessionStudents.Count() > 0)
-                    {
-                        DateTime dateStartMax = user.SessionStudents.Max(s => s.Session.DateStart);
-                        ViewData["SessionId"] = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).Select(u => u.SessionId).FirstOrDefault();
-                        user.SessionStudents = user.SessionStudents.Where(s => s.Session.DateStart == dateStartMax).ToList();
-                    }
-                }
-
-                ViewData["URLClientMVC"] = _configuration["URLClientMVC"];
-                ViewData["URLAPI"] = _configuration["URLAPI"];
-                ViewData["USERID"] = user.Id;
-                return View(user);
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            ViewData["URLClientMVC"] = _configuration["URLClientMVC"];
+            ViewData["URLAPI"] = _configuration["URLAPI"];
+            ViewData["USERID"] = user.Id;
+            return View(user);
+
         }
 
         public IActionResult WaitingZone()
