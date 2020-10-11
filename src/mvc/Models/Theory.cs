@@ -17,6 +17,7 @@ namespace mvc.Models
         public int TheoryId { get; set; }
         [DisplayName("Date du cours")]
         public DateTime TheoryDate { get; set; }
+        [StringLength(29)]
         [DisplayName("Nom du cours")]
         public string TheoryName { get; set; }
         [DisplayName("Lien du cours")]

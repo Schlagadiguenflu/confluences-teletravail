@@ -27,7 +27,7 @@
                             <h4 class="card-title">@Model.HomeworkType.HomeworkTypeName: @Model.HomeworkV2name</h4>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="m-3">
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
@@ -49,10 +49,10 @@
                                     @foreach (Theory theory in Model.Theories)
                                     {
                                         <tr>
-                                            <td>
+                                            <td class="p-0 pt-2 pb-2">
                                                 <a class="btn btn-info p-1" asp-controller="Theories" asp-action="Details" asp-route-id="@theory.TheoryId">@theory.TheoryName</a>
                                             </td>
-                                            <td>
+                                            <td class="p-0 pt-2 pb-2">
                                                 @if (theory.Exercices.Count() > 0)
                                                 {
                                                     cpt = 1;
@@ -77,8 +77,8 @@
                                     }
                                 }
                                 <tr>
-                                    <td></td>
-                                    <td>
+                                    <td class="p-0 pt-2 pb-2"></td>
+                                    <td class="p-0 pt-2 pb-2">
                                         @if (Model.ExercicesAlones.Count() > 0)
                                         {
                                             int cpt = 1;
