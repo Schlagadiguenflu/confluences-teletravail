@@ -45,7 +45,7 @@
                                 <input type="hidden" asp-for="SessionId" />
                                 <input type="hidden" asp-for="StudentId" />
                                 <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-                                <a asp-action="Index">Retourner à la liste de session de participant-e-s</a> |
+                                @*<a asp-action="Index">Retourner à la liste de session de participant-e-s</a> |*@
                                 <a asp-controller="SchoolClassRooms" asp-action="Details" asp-route-id="@Model.Session.SchoolClassRoomId">Retourner à la classe</a>
                             </form>
                         </div>
