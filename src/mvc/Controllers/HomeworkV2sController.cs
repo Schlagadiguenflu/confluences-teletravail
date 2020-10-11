@@ -473,11 +473,19 @@ namespace mvc.Controllers
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
+            HomeworkV2s homework = await JsonSerializer.DeserializeAsync<HomeworkV2s>(
+                await client.GetStreamAsync(_configuration["URLAPI"] + "api/HomeworkV2s/" + id),
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }
+            );
+
             // Effacer l'utilisateur
             HttpResponseMessage result = await client.DeleteAsync(_configuration["URLAPI"] + "api/HomeworkV2s/" + id);
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = homework.SessionId });
             }
             else if (result.StatusCode == HttpStatusCode.Unauthorized)
             {
