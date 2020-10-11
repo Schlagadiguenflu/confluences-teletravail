@@ -62,9 +62,10 @@
                         textColor: 'black'  // an option!
                     }*@
                     // any other sources...
-                ]
-
-
+                ],
+                validRange:  {
+                   end: new Date()
+                }
             });
 
             calendar.render();
@@ -74,13 +75,13 @@
             var i;
             for (i = 0; i < x.length; i++) {
                 x[i].className += " row";
-            } 
+            }
             var x = document.getElementsByClassName("fc-toolbar-chunk");
             //alert(x.length);
             var i;
             for (i = 0; i < x.length; i++) {
                 x[i].className += " d-block mx-auto";
-            } 
+            }
         });
 
 
