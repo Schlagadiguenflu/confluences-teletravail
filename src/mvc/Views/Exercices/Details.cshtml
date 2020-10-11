@@ -85,9 +85,9 @@
                                     }
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
-                                        <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
-                                    </a>
+
+                                    <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" onclick="rotateImage(this);" />
+
                                     <form asp-controller="HomeworkV2students" asp-action="Delete">
                                         <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
                                         <input type="submit" value="Supprimer" class="text-danger" style="border: none !important;" />
@@ -131,56 +131,56 @@
                                 }
                             </div>
                         }
-                    <div>
-                        @if (Model.AudioLink != null)
-                        {
-                            @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                        <div>
+                            @if (Model.AudioLink != null)
                             {
-                                <audio controls style="width: 100%;">
-                                    <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-                            else
-                            {
-                                <audio controls style="width: 100%;">
-                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
+                                @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <audio controls style="width: 100%;">
+                                        <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
+                                }
+                                else
+                                {
+                                    <audio controls style="width: 100%;">
+                                        <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
+                                }
 
-                        }
-                        <h2 class="bg-primary text-center text-white">Exercice</h2>
-                        <dl class="row">
-                            <dd class="col-sm-12">
-                                <div class="embed-responsive embed-responsive-1by1">
-                                    @if (Model.ExerciceLink != null)
-                                    {
-                                        @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                            }
+                            <h2 class="bg-primary text-center text-white">Exercice</h2>
+                            <dl class="row">
+                                <dd class="col-sm-12">
+                                    <div class="embed-responsive embed-responsive-1by1">
+                                        @if (Model.ExerciceLink != null)
                                         {
-                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
-                                        }
-                                    }
 
-                                </div>
-                            </dd>
-                        </dl>
-                        @if (Model.ExerciceLink != null)
-                        {
-                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                    </div>
+                                </dd>
+                            </dl>
+                            @if (Model.ExerciceLink != null)
                             {
-                                <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
                             }
-                            else
-                            {
-                                <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
-                            }
-                        }
-                    </div>
+                        </div>
 
                         @if ((bool)ViewData["IsStudent"])
                         {
@@ -256,6 +256,11 @@
 
 @section Scripts {
     <script>
+        var angle = 0;
+        function rotateImage(el) {
+            angle += 90;
+            el.style.transform = 'rotate(' + angle+ 'deg)';
+        }
         if (document.getElementById('devoirsEleves') !== null) {
             document.getElementById("devoirsEleves").onchange = function () {
                 if (confirm('Etes vous sûr-e de vouloir envoyer votre devoir ?')) {
