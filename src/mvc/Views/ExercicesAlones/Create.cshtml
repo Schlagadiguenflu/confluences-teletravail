@@ -164,5 +164,10 @@
                 close: 'fa fa-remove'
             }
         });
+        $('.datetimepicker').on('dp.change', function (e) {
+            if (e.oldDate === null) {
+                $(this).data('DateTimePicker').date(new Date(e.date._d.setHours(17, 00, 00)));
+            }
+        });
     </script>
 }
