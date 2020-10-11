@@ -36,46 +36,66 @@
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
+                        @foreach (var homework in Model.HomeworkV2students)
+                        {
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @if (User.Identity.Name == @homework.Student.UserName)
+                                    {
+                                        <h2 class="bg-primary text-center text-white">Mon exercice</h2>
+                                    }
+                                    else
+                                    {
+                                        <h2 class="bg-primary text-center text-white">Exercice de @homework.Student.Firstname</h2>
+                                        <h4>Rendu le @homework.HomeworkStudentDate.ToString("dd MMMM yyyy à HH:mm")</h4>
+                                    }
+                                </div>
+                                <div class="col-md-3">
+                                    @if ((bool)ViewData["IsTeacher"])
+                                    {
+                                        <form asp-controller="HomeworkV2students" asp-action="Edit">
+                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                            <input type="hidden" name="ExerciceId" value="@homework.ExerciceId" />
+                                            <input type="hidden" name="HomeworkV2studentId" value="@homework.HomeworkV2studentId" />
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="HomeworkCommentaryTeacher" rows="3">@homework.HomeworkCommentaryTeacher</textarea>
+                                            </div>
+                                            <input type="submit" value="Commentaire" class="btn btn-success" style="width:100%" />
+                                        </form>
 
-                        <div>
-                            @if (Model.AudioLink != null)
-                            {
-                                <audio controls style="width: 100%;">
-                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-                            <h2 class="bg-primary text-center text-white">Exercice</h2>
-                            <dl class="row">
-                                <dd class="col-sm-12">
-                                    <div class="embed-responsive embed-responsive-1by1">
-                                        @if (Model.ExerciceLink != null)
+                                        <form asp-controller="HomeworkV2students" asp-action="EditHomework" enctype="multipart/form-data">
+                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                            <input type="hidden" name="ExerciceId" value="@Model.ExerciceId" />
+                                            <input type="hidden" name="action" value="Exercices" />
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <input name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Choisir une correction" multiple style="width:100%">
+                                                    <input type="submit" value="Envoyer la correction" class="btn btn-success" style="width:100%" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        if (homework.HomeworkCommentaryTeacher != null && homework.HomeworkCommentaryTeacher != "")
                                         {
-                                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                            {
-                                                <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
-                                            }
-                                            else
-                                            {
-                                                <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
-                                            }
+                                            <h4 class="text-danger font-weight-bold">@homework.HomeworkCommentaryTeacher</h4>
                                         }
+                                    }
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
+                                        <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
+                                    </a>
+                                    <form asp-controller="HomeworkV2students" asp-action="Delete">
+                                        <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                        <input type="submit" value="Supprimer" class="text-danger" style="border: none !important;" />
+                                    </form>
+                                </div>
 
-                                    </div>
-                                </dd>
-                            </dl>
-                            @if (Model.ExerciceLink != null)
-                            {
-                                @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                {
-                                    <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
-                                }
-                            }
-                        </div>
+                            </div>
+                        }
                         @if (Model.CorrectionDate <= DateTime.Now)
                         {
                             <h2 class="bg-primary text-center text-white">Correction</h2>
@@ -111,6 +131,57 @@
                                 }
                             </div>
                         }
+                    <div>
+                        @if (Model.AudioLink != null)
+                        {
+                            @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <audio controls style="width: 100%;">
+                                    <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                    Il y a un problème avec le fichier mp3.
+                                </audio>
+                            }
+                            else
+                            {
+                                <audio controls style="width: 100%;">
+                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                    Il y a un problème avec le fichier mp3.
+                                </audio>
+                            }
+
+                        }
+                        <h2 class="bg-primary text-center text-white">Exercice</h2>
+                        <dl class="row">
+                            <dd class="col-sm-12">
+                                <div class="embed-responsive embed-responsive-1by1">
+                                    @if (Model.ExerciceLink != null)
+                                    {
+                                        @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                        }
+                                        else
+                                        {
+                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                        }
+                                    }
+
+                                </div>
+                            </dd>
+                        </dl>
+                        @if (Model.ExerciceLink != null)
+                        {
+                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                            }
+                        }
+                    </div>
+
                         @if ((bool)ViewData["IsStudent"])
                         {
                             @if ((bool)ViewData["IsStudent"])
@@ -172,65 +243,7 @@
                             <a class="d-block" href="javascript:history.back()">Revenir à la page précédente</a>
                         </div>
 
-                        @foreach (var homework in Model.HomeworkV2students)
-                        {
-                            <div class="row">
-                                <div class="col-md-3">
-                                    @if (User.Identity.Name == @homework.Student.UserName)
-                                    {
-                                        <h2 class="bg-primary text-center text-white">Mon exercice</h2>
-                                    }
-                                    else
-                                    {
-                                        <h2 class="bg-primary text-center text-white">Exercice de @homework.Student.Firstname</h2>
-                                        <h4>Rendu le @homework.HomeworkStudentDate.ToString("dd MMMM yyyy à HH:mm")</h4>
-                                    }
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
-                                        <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
-                                    </a>
-                                    <form asp-controller="HomeworkV2students" asp-action="Delete">
-                                        <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                        <input type="submit" value="Supprimer" class="text-danger" style="border: none !important;" />
-                                    </form>
-                                </div>
-                                <div class="col-md-3">
-                                    @if ((bool)ViewData["IsTeacher"])
-                                    {
-                                        <form asp-controller="HomeworkV2students" asp-action="Edit">
-                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                            <input type="hidden" name="ExerciceId" value="@homework.ExerciceId" />
-                                            <input type="hidden" name="HomeworkV2studentId" value="@homework.HomeworkV2studentId" />
-                                            <div class="form-group">
-                                                <textarea class="form-control" name="HomeworkCommentaryTeacher" rows="3">@homework.HomeworkCommentaryTeacher</textarea>
-                                            </div>
-                                            <input type="submit" value="Commentaire" class="btn btn-success" style="width:100%" />
-                                        </form>
 
-                                        <form asp-controller="HomeworkV2students" asp-action="EditHomework" enctype="multipart/form-data">
-                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                            <input type="hidden" name="ExerciceId" value="@Model.ExerciceId" />
-                                            <input type="hidden" name="action" value="Exercices" />
-                                            <div class="form-group form-file-upload form-file-multiple">
-                                                <input name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
-                                                <div class="input-group">
-                                                    <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Choisir une correction" multiple style="width:100%">
-                                                    <input type="submit" value="Envoyer la correction" class="btn btn-success" style="width:100%" />
-                                                </div>
-                                            </div>
-                                        </form>
-                                    }
-                                    else
-                                    {
-                                        if (homework.HomeworkCommentaryTeacher != null && homework.HomeworkCommentaryTeacher != "")
-                                        {
-                                            <h4 class="text-danger font-weight-bold">@homework.HomeworkCommentaryTeacher</h4>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        }
                     </div>
                     <!-- end content-->
                 </div>
