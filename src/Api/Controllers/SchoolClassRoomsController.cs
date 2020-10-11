@@ -123,5 +123,45 @@ namespace Api.Controllers
         {
             return _context.SchoolClassRooms.Any(e => e.SchoolClassRoomId == id);
         }
+
+        // Renvoie l'ensemble des données de l'utilisateur
+        // GET: api/Account/getUserInfo
+        [Route("aidereset/{id}")]
+        public async Task<ActionResult> Getaidereset(int id)
+        {
+            var schoolClassRoom = await _context.SchoolClassRooms
+                                    .Include(s => s.Sessions)
+                                        .ThenInclude(s => s.SessionStudents)
+                                    .Where(s => s.SchoolClassRoomId == id)
+                                    .SingleOrDefaultAsync();
+
+            foreach (var session in schoolClassRoom.Sessions)
+            {
+                foreach (var student in session.SessionStudents)
+                {
+                    var user = await _context.AspNetUsers.Where(s => s.Id == student.StudentId).SingleOrDefaultAsync();
+                    user.HasSeenHelpVideo = false;
+
+                    _context.Entry(user).State = EntityState.Modified;
+
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!SchoolClassRoomExists(id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
+            return Ok();
+        }
     }
 }
