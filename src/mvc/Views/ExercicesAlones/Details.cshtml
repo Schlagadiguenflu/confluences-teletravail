@@ -131,6 +131,7 @@
                             </div>
                         }
                     <div>
+
                         @if (Model.AudioLink != null)
                         {
                             @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
@@ -147,6 +148,24 @@
                                     Il y a un problème avec le fichier mp3.
                                 </audio>
                             }
+                        }
+                        @if (Model.VideoLink != null)
+                        {
+                            <h2 class="bg-primary text-center text-white">Vidéo</h2>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                @if (Model.VideoLink != null)
+                                {
+                                    @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
+                                    }
+                                    else
+                                    {
+                                        <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
+                                    }
+                                }
+
+                            </div>
                         }
                         <h2 class="bg-primary text-center text-white">Exercice</h2>
                         <dl class="row">
