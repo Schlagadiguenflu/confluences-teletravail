@@ -19,6 +19,7 @@ namespace IdentityServerAspNetIdentity.Models
         public string ExerciceLink { get; set; }
 
         public string AudioLink { get; set; }
+        public string VideoLink { get; set; }
 
         public DateTime CorrectionDate { get; set; }
         public string CorrectionLink { get; set; }

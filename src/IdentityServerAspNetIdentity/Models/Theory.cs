@@ -19,6 +19,7 @@ namespace IdentityServerAspNetIdentity.Models
         public string TheoryLink { get; set; }
 
         public string AudioLink { get; set; }
+        public string VideoLink { get; set; }
 
         [Required]
         public string TeacherId { get; set; }
