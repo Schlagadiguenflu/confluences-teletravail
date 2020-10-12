@@ -61,6 +61,41 @@ namespace Api.Controllers
         }
 
         [Authorize(Policy = "teacher")]
+        [Route("SaveTheoryVideo")]
+        [HttpPost]
+        public ActionResult<string> PostSaveTheoryVideo(List<IFormFile> files)
+        {
+            try
+            {
+                string path = "";
+                string folder = "Cours";
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        if (!Directory.Exists(Path.Combine(_environnement.WebRootPath, folder)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(_environnement.WebRootPath, folder));
+                        }
+
+                        string filename = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_") + Path.GetRandomFileName() + file.FileName;
+                        using (FileStream fileStream = System.IO.File.Create(Path.Combine(_environnement.WebRootPath, folder, filename)))
+                        {
+                            file.CopyTo(fileStream);
+                            fileStream.Flush();
+                        }
+                        path = folder + "/" + filename;
+                    }
+                }
+                return Content(path);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize(Policy = "teacher")]
         [Route("SaveExercice")]
         [HttpPost]
         public ActionResult<string> PostSaveExercice(List<IFormFile> files)
