@@ -28,72 +28,72 @@
             <div class="col-md-12">
                 <div class="card">
                     @*<div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                            <h4 class="card-title">@Html.DisplayFor(model => model.ExerciceName)</h4>
-                        </div>
-                    </div>*@
+                            <div class="card-icon">
+                                <h4 class="card-title">@Html.DisplayFor(model => model.ExerciceName)</h4>
+                            </div>
+                        </div>*@
                     <div class="card-body">
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         @foreach (var homework in Model.HomeworkV2studentExerciceAlones)
                         {
-                    <div class="row">
-                        <div class="col-md-3">
-                            @if (User.Identity.Name == @homework.Student.UserName)
-                            {
-                                <h2 class="bg-primary text-center text-white">Mon exercice</h2>
-                            }
-                            else
-                            {
-                                <h2 class="bg-primary text-center text-white">Exercice de @homework.Student.Firstname</h2>
-                                <h4>Rendu le @homework.HomeworkStudentDate.ToString("dd MMMM yyyy à HH:mm")</h4>
-                            }
-                        </div>
-                        <div class="col-md-3">
-                            @if ((bool)ViewData["IsTeacher"])
-                            {
-                                <form asp-controller="HomeworkV2studentExerciceAlones" asp-action="Edit">
-                                    <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                    <input type="hidden" name="ExerciceId" value="@homework.ExerciceId" />
-                                    <input type="hidden" name="HomeworkV2studentId" value="@homework.HomeworkV2studentId" />
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="HomeworkCommentaryTeacher" rows="3">@homework.HomeworkCommentaryTeacher</textarea>
-                                    </div>
-                                    <input type="submit" value="Commentaire" class="btn btn-success" style="width:100%" />
-                                </form>
-                                <form id="formDevoirsProfs" asp-controller="HomeworkV2studentExerciceAlones" asp-action="EditHomework" enctype="multipart/form-data">
-                                    <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                    <input type="hidden" name="ExerciceId" value="@Model.ExerciceId" />
-                                    <input type="hidden" name="action" value="ExercicesAlones" />
-                                    <div class="form-group form-file-upload form-file-multiple">
-                                        <input id="correctionProf" name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
-                                        <div class="input-group">
-                                            <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Corriger le devoir" multiple style="width:100%">
-                                            <input type="submit" value="Envoyer la correction" class="btn btn-success" style="width:100%" />
-                                        </div>
-                                    </div>
-                                </form>
-                            }
-                            else
-                            {
-                                if (homework.HomeworkCommentaryTeacher != null && homework.HomeworkCommentaryTeacher != "")
-                                {
-                                    <h4 class="text-danger font-weight-bold">@homework.HomeworkCommentaryTeacher</h4>
-                                }
-                            }
-                        </div>
-                        <div class="col-md-3">
-                            <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
-                                <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
-                            </a>
-                            <form asp-controller="HomeworkV2studentExerciceAlones" asp-action="Delete">
-                                <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
-                                <input type="submit" value="Supprimer" class="text-danger" style="border: none !important;" />
-                            </form>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @if (User.Identity.Name == @homework.Student.UserName)
+                                    {
+                                        <h2 class="bg-primary text-center text-white">Mon exercice</h2>
+                                    }
+                                    else
+                                    {
+                                        <h2 class="bg-primary text-center text-white">Exercice de @homework.Student.Firstname</h2>
+                                        <h4>Rendu le @homework.HomeworkStudentDate.ToString("dd MMMM yyyy à HH:mm")</h4>
+                                    }
+                                </div>
+                                <div class="col-md-3">
+                                    @if ((bool)ViewData["IsTeacher"])
+                                    {
+                                        <form asp-controller="HomeworkV2studentExerciceAlones" asp-action="Edit">
+                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                            <input type="hidden" name="ExerciceId" value="@homework.ExerciceId" />
+                                            <input type="hidden" name="HomeworkV2studentId" value="@homework.HomeworkV2studentId" />
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="HomeworkCommentaryTeacher" rows="3">@homework.HomeworkCommentaryTeacher</textarea>
+                                            </div>
+                                            <input type="submit" value="Commentaire" class="btn btn-success" style="width:100%" />
+                                        </form>
+                                        <form id="formDevoirsProfs" asp-controller="HomeworkV2studentExerciceAlones" asp-action="EditHomework" enctype="multipart/form-data">
+                                            <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                            <input type="hidden" name="ExerciceId" value="@Model.ExerciceId" />
+                                            <input type="hidden" name="action" value="ExercicesAlones" />
+                                            <div class="form-group form-file-upload form-file-multiple">
+                                                <input id="correctionProf" name="files" type="file" accept="image/*" multiple="" class="inputFileHidden">
+                                                <div class="input-group">
+                                                    <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Corriger le devoir" multiple style="width:100%">
+                                                    <input type="submit" value="Envoyer la correction" class="btn btn-success" style="width:100%" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        if (homework.HomeworkCommentaryTeacher != null && homework.HomeworkCommentaryTeacher != "")
+                                        {
+                                            <h4 class="text-danger font-weight-bold">@homework.HomeworkCommentaryTeacher</h4>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
+                                        <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
+                                    </a>
+                                    <form asp-controller="HomeworkV2studentExerciceAlones" asp-action="Delete">
+                                        <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
+                                        <input type="submit" value="Supprimer" class="text-danger" style="border: none !important;" />
+                                    </form>
+                                </div>
 
-                    </div>
+                            </div>
                         }
                         @if (Model.CorrectionDate <= DateTime.Now)
                         {
@@ -130,74 +130,74 @@
                                 }
                             </div>
                         }
-                    <div>
+                        <div>
 
-                        @if (Model.AudioLink != null)
-                        {
-                            @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                            @if (Model.AudioLink != null)
                             {
-                                <audio controls style="width: 100%;">
-                                    <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-                            else
-                            {
-                                <audio controls style="width: 100%;">
-                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-                        }
-                        @if (Model.VideoLink != null)
-                        {
-                            <h2 class="bg-primary text-center text-white">Vidéo</h2>
-                            <div class="embed-responsive embed-responsive-16by9">
-                                @if (Model.VideoLink != null)
+                                @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
-                                    }
-                                    else
-                                    {
-                                        <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
-                                    }
+                                    <audio controls style="width: 100%;">
+                                        <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
                                 }
-
-                            </div>
-                        }
-                        <h2 class="bg-primary text-center text-white">Exercice</h2>
-                        <dl class="row">
-                            <dd class="col-sm-12">
-                                <div class="embed-responsive embed-responsive-1by1">
-                                    @if (Model.ExerciceLink != null)
+                                else
+                                {
+                                    <audio controls style="width: 100%;">
+                                        <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
+                                }
+                            }
+                            @if (Model.VideoLink != null)
+                            {
+                                <h2 class="bg-primary text-center text-white">Vidéo</h2>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    @if (Model.VideoLink != null)
                                     {
-                                        @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                        @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                                         {
-                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
                                         }
                                         else
                                         {
-                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
                                         }
                                     }
 
                                 </div>
-                            </dd>
-                        </dl>
-                        @if (Model.ExerciceLink != null)
-                        {
-                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
                             }
-                            else
+                            <h2 class="bg-primary text-center text-white">Exercice</h2>
+                            <dl class="row">
+                                <dd class="col-sm-12">
+                                    <div class="embed-responsive embed-responsive-1by1">
+                                        @if (Model.ExerciceLink != null)
+                                        {
+                                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
+                                        }
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            @if (Model.ExerciceLink != null)
                             {
-                                <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
                             }
-                        }
-                    </div>
+                        </div>
 
                         @if (ViewData["IsStudent"] != null)
                         {
@@ -215,15 +215,15 @@
                                                 <div class="input-group">
                                                     <input type="text" class="inputFileVisible btn btn-success text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                     @*<span class="input-group-btn">
-                                        <button type="button" class="btn btn-fab btn-round btn-info">
-                                            <i class="material-icons">layers</i>
-                                        </button>
-                                    </span>*@
+                                                            <button type="button" class="btn btn-fab btn-round btn-info">
+                                                                <i class="material-icons">layers</i>
+                                                            </button>
+                                                        </span>*@
                                                 </div>
                                             </div>
                                             @*<div class="form-group">
-                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                            </div>*@
+                                                    <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                                                </div>*@
                                         </form>
                                     }
                                 }
@@ -237,15 +237,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="inputFileVisible btn btn-success text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                 @*<span class="input-group-btn">
-                                    <button type="button" class="btn btn-fab btn-round btn-info">
-                                        <i class="material-icons">layers</i>
-                                    </button>
-                                </span>*@
+                                                        <button type="button" class="btn btn-fab btn-round btn-info">
+                                                            <i class="material-icons">layers</i>
+                                                        </button>
+                                                    </span>*@
                                             </div>
                                         </div>
                                         @*<div class="form-group">
-                            <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                        </div>*@
+                                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                                            </div>*@
                                     </form>
                                 }
 
