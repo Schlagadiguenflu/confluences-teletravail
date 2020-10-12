@@ -132,6 +132,24 @@
                             </div>
                         }
                         <div>
+                            @if (Model.VideoLink != null)
+                            {
+                                <h2 class="bg-primary text-center text-white">Vidéo</h2>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    @if (Model.VideoLink != null)
+                                    {
+                                        @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
+                                        }
+                                        else
+                                        {
+                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
+                                        }
+                                    }
+
+                                </div>
+                            }
                             @if (Model.AudioLink != null)
                             {
                                 @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
@@ -259,7 +277,7 @@
         var angle = 0;
         function rotateImage(el) {
             angle += 90;
-            el.style.transform = 'rotate(' + angle+ 'deg)';
+            el.style.transform = 'rotate(' + angle + 'deg)';
         }
         if (document.getElementById('devoirsEleves') !== null) {
             document.getElementById("devoirsEleves").onchange = function () {

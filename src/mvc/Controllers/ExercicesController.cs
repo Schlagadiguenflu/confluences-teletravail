@@ -176,7 +176,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExerciceId,ExerciceDate,ExerciceName,ExerciceLink,IsHomeworkAdditionnal,TeacherId,TheoryId,CorrectionDate,CorrectionLink,AudioLink")] Exercice exercice, [FromForm] List<IFormFile> files, [FromForm] List<IFormFile> filesCorrection, [FromForm] IFormFile fileAudio)
+        public async Task<IActionResult> Create([Bind("ExerciceId,ExerciceDate,ExerciceName,ExerciceLink,IsHomeworkAdditionnal,TeacherId,TheoryId,CorrectionDate,CorrectionLink,AudioLink,VideoLink")] Exercice exercice, [FromForm] List<IFormFile> files, [FromForm] List<IFormFile> filesCorrection, [FromForm] IFormFile fileAudio, [FromForm] IFormFile fileVideo)
         {
             // Préparation de l'appel à l'API
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -259,6 +259,28 @@ namespace mvc.Controllers
                     HttpResponseMessage responseTheory = await client.PostAsync(_configuration["URLAPI"] + "api/UploadFiles/SaveExercice", form);
 
                     exercice.AudioLink = await responseTheory.Content.ReadAsStringAsync();
+
+                }
+
+                if (fileVideo != null)
+                {
+                    // Préparation de la requête update à l'API
+                    MultipartFormDataContent form = new MultipartFormDataContent();
+                    HttpContent content = new StringContent("files");
+                    form.Add(content, "files");
+
+                    var stream = fileVideo.OpenReadStream();
+                    content = new StreamContent(stream);
+                    content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "files",
+                        FileName = Path.GetExtension(fileVideo.FileName)
+                    };
+                    form.Add(content);
+
+                    HttpResponseMessage responseTheory = await client.PostAsync(_configuration["URLAPI"] + "api/UploadFiles/SaveExercice", form);
+
+                    exercice.VideoLink = await responseTheory.Content.ReadAsStringAsync();
 
                 }
 
@@ -368,7 +390,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExerciceId,ExerciceDate,ExerciceName,ExerciceLink,IsHomeworkAdditionnal,TeacherId,TheoryId,CorrectionDate,CorrectionLink,AudioLink")] Exercice exercice, [FromForm] List<IFormFile> files, [FromForm] List<IFormFile> filesCorrection, [FromForm] IFormFile fileAudio)
+        public async Task<IActionResult> Edit(int id, [Bind("ExerciceId,ExerciceDate,ExerciceName,ExerciceLink,IsHomeworkAdditionnal,TeacherId,TheoryId,CorrectionDate,CorrectionLink,AudioLink,VideoLink")] Exercice exercice, [FromForm] List<IFormFile> files, [FromForm] List<IFormFile> filesCorrection, [FromForm] IFormFile fileAudio, [FromForm] IFormFile fileVideo)
         {
             if (id != exercice.ExerciceId)
             {
@@ -449,6 +471,28 @@ namespace mvc.Controllers
                     HttpResponseMessage responseTheory = await client.PostAsync(_configuration["URLAPI"] + "api/UploadFiles/SaveExercice", form);
 
                     exercice.AudioLink = await responseTheory.Content.ReadAsStringAsync();
+
+                }
+
+                if (fileVideo != null)
+                {
+                    // Préparation de la requête update à l'API
+                    MultipartFormDataContent form = new MultipartFormDataContent();
+                    HttpContent content = new StringContent("files");
+                    form.Add(content, "files");
+
+                    var stream = fileVideo.OpenReadStream();
+                    content = new StreamContent(stream);
+                    content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "files",
+                        FileName = Path.GetExtension(fileVideo.FileName)
+                    };
+                    form.Add(content);
+
+                    HttpResponseMessage responseTheory = await client.PostAsync(_configuration["URLAPI"] + "api/UploadFiles/SaveExercice", form);
+
+                    exercice.VideoLink = await responseTheory.Content.ReadAsStringAsync();
 
                 }
 
