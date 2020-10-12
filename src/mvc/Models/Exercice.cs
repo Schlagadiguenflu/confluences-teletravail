@@ -23,6 +23,8 @@ namespace mvc.Models
         public string ExerciceLink { get; set; }
         [DisplayName("Lien audio")]
         public string AudioLink { get; set; }
+        [DisplayName("Lien vidéo")]
+        public string VideoLink { get; set; }
 
         [DisplayName("Date de la correction (Quand cela doit s'afficher)")]
         public DateTime CorrectionDate { get; set; }

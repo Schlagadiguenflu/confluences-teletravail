@@ -22,6 +22,7 @@ namespace Api.Models
         [Column("HomeworkV2Id")]
         public int HomeworkV2id { get; set; }
         public string AudioLink { get; set; }
+        public string VideoLink { get; set; }
 
         [ForeignKey(nameof(HomeworkV2id))]
         [InverseProperty(nameof(HomeworkV2s.Theories))]

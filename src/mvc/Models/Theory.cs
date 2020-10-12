@@ -24,6 +24,8 @@ namespace mvc.Models
         public string TheoryLink { get; set; }
         [DisplayName("Lien audio")]
         public string AudioLink { get; set; }
+        [DisplayName("Lien vidéo")]
+        public string VideoLink { get; set; }
         [DisplayName("Formateur-trice")]
         [Required]
         public string TeacherId { get; set; }

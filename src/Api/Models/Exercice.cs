@@ -24,6 +24,7 @@ namespace Api.Models
         public DateTime CorrectionDate { get; set; }
         public string CorrectionLink { get; set; }
         public string AudioLink { get; set; }
+        public string VideoLink { get; set; }
 
         [ForeignKey(nameof(TeacherId))]
         [InverseProperty(nameof(AspNetUser.Exercices))]
