@@ -51,7 +51,6 @@
                             <form asp-action="Delete">
                                 <input type="hidden" asp-for="SessionId" />
                                 <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-                                <a asp-action="Index">Retourner à la liste de de sessions</a> |
                                 <a asp-controller="SchoolClassRooms" asp-action="Details" asp-route-id="@Model.SchoolClassRoomId">Retourner à la classe</a>
                             </form>
                         </div>
