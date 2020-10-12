@@ -16,6 +16,8 @@ namespace Api.Models
         public int TypeDomaineId { get; set; }
         [StringLength(60)]
         public string Libelle { get; set; }
+        [StringLength(300)]
+        public string OldNames { get; set; }
 
         [InverseProperty("TypeDomaine")]
         public virtual ICollection<Entrepris> Entrepris { get; set; }

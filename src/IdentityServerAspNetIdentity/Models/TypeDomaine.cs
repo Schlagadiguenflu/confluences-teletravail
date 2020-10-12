@@ -13,5 +13,8 @@ namespace IdentityServerAspNetIdentity.Models
 
         [StringLength(60)]
         public string Libelle { get; set; }
+
+        [StringLength(300)]
+        public string OldNames { get; set; }
     }
 }
