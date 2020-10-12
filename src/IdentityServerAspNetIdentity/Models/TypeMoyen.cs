@@ -11,9 +11,6 @@ namespace IdentityServerAspNetIdentity.Models
         [Key]
         public int TypeMoyenId { get; set; }
 
-        [StringLength(3)]
-        public string Code { get; set; }
-
         [Required]
         [StringLength(20)]
         public string Libelle { get; set; }

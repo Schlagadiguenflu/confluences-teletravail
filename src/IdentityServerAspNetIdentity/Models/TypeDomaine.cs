@@ -11,9 +11,6 @@ namespace IdentityServerAspNetIdentity.Models
         [Key]
         public int TypeDomaineId { get; set; }
 
-        [StringLength(3)]
-        public string Code { get; set; }
-
         [StringLength(60)]
         public string Libelle { get; set; }
     }

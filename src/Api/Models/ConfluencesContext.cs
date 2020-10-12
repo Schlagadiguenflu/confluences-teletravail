@@ -293,9 +293,6 @@ namespace Api.Models
 
             modelBuilder.Entity<TypeDomaine>(entity =>
             {
-                entity.HasIndex(e => e.Code)
-                    .IsUnique();
-
                 entity.HasIndex(e => e.Libelle)
                     .IsUnique();
             });
@@ -308,18 +305,12 @@ namespace Api.Models
 
             modelBuilder.Entity<TypeMetier>(entity =>
             {
-                entity.HasIndex(e => e.Code)
-                    .IsUnique();
-
                 entity.HasIndex(e => e.Libelle)
                     .IsUnique();
             });
 
             modelBuilder.Entity<TypeMoyen>(entity =>
             {
-                entity.HasIndex(e => e.Code)
-                    .IsUnique();
-
                 entity.HasIndex(e => e.Libelle)
                     .IsUnique();
             });

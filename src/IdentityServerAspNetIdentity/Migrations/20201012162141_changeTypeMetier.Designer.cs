@@ -3,15 +3,17 @@ using System;
 using IdentityServerAspNetIdentity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IdentityServerAspNetIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201012162141_changeTypeMetier")]
+    partial class changeTypeMetier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -993,11 +995,18 @@ namespace IdentityServerAspNetIdentity.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
                     b.Property<string>("Libelle")
                         .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.HasKey("TypeDomaineId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("Libelle")
                         .IsUnique();
@@ -1055,12 +1064,19 @@ namespace IdentityServerAspNetIdentity.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
                     b.Property<string>("Libelle")
                         .IsRequired()
                         .HasColumnType("character varying(20)")
                         .HasMaxLength(20);
 
                     b.HasKey("TypeMoyenId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("Libelle")
                         .IsUnique();

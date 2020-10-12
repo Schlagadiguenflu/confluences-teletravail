@@ -83,7 +83,7 @@ namespace Api.Controllers
             }
             catch (Exception)
             {
-                if (TypeDomaineUniqueExists(typeDomaine.Code, typeDomaine.Libelle))
+                if (TypeDomaineUniqueExists(typeDomaine.Libelle))
                 {
                     return Conflict();
                 }
@@ -100,7 +100,7 @@ namespace Api.Controllers
         {
             _context.TypeDomaines.Add(typeDomaine);
 
-            if (TypeDomaineUniqueExists(typeDomaine.Code, typeDomaine.Libelle))
+            if (TypeDomaineUniqueExists(typeDomaine.Libelle))
             {
                 return Conflict();
             }
@@ -131,9 +131,9 @@ namespace Api.Controllers
             return _context.TypeDomaines.Any(e => e.TypeDomaineId == id);
         }
 
-        private bool TypeDomaineUniqueExists(string code, string libelle)
+        private bool TypeDomaineUniqueExists(string libelle)
         {
-            return _context.TypeDomaines.Any(e => e.Code == code || e.Libelle == libelle);
+            return _context.TypeDomaines.Any(e => e.Libelle == libelle);
         }
     }
 }

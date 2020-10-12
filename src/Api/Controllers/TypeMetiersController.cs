@@ -87,7 +87,7 @@ namespace Api.Controllers
             }
             catch (Exception)
             {
-                if (TypeMetierUniqueExists(typeMetier.Code, typeMetier.Libelle))
+                if (TypeMetierUniqueExists(typeMetier.Libelle))
                 {
                     return Conflict();
                 }
@@ -104,7 +104,7 @@ namespace Api.Controllers
         {
             _context.TypeMetiers.Add(typeMetier);
 
-            if (TypeMetierUniqueExists(typeMetier.Code, typeMetier.Libelle))
+            if (TypeMetierUniqueExists(typeMetier.Libelle))
             {
                 return Conflict();
             }
@@ -135,9 +135,9 @@ namespace Api.Controllers
             return _context.TypeMetiers.Any(e => e.TypeMetierId == id);
         }
 
-        private bool TypeMetierUniqueExists(string code, string libelle)
+        private bool TypeMetierUniqueExists(string libelle)
         {
-            return _context.TypeMetiers.Any(e => e.Code == code || e.Libelle == libelle);
+            return _context.TypeMetiers.Any(e => e.Libelle == libelle);
         }
     }
 }

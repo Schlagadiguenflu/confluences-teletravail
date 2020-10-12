@@ -76,7 +76,7 @@ namespace Api.Controllers
             }
             catch (Exception)
             {
-                if (TypeMoyenUniqueExists(typeMoyen.Code, typeMoyen.Libelle))
+                if (TypeMoyenUniqueExists(typeMoyen.Libelle))
                 {
                     return Conflict();
                 }
@@ -93,7 +93,7 @@ namespace Api.Controllers
         {
             _context.TypeMoyens.Add(typeMoyen);
 
-            if (TypeMoyenUniqueExists(typeMoyen.Code, typeMoyen.Libelle))
+            if (TypeMoyenUniqueExists(typeMoyen.Libelle))
             {
                 return Conflict();
             }
@@ -124,9 +124,9 @@ namespace Api.Controllers
             return _context.TypeMoyens.Any(e => e.TypeMoyenId == id);
         }
 
-        private bool TypeMoyenUniqueExists(string code, string libelle)
+        private bool TypeMoyenUniqueExists(string libelle)
         {
-            return _context.TypeMoyens.Any(e => e.Code == code || e.Libelle == libelle);
+            return _context.TypeMoyens.Any(e => e.Libelle == libelle);
         }
     }
 }

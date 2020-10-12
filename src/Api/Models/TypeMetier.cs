@@ -15,10 +15,10 @@ namespace Api.Models
 
         [Key]
         public int TypeMetierId { get; set; }
-        [StringLength(10)]
-        public string Code { get; set; }
         [StringLength(60)]
         public string Libelle { get; set; }
+        [StringLength(300)]
+        public string OldNames { get; set; }
 
         [InverseProperty(nameof(EntrepriseMetier.TypeMetier))]
         public virtual ICollection<EntrepriseMetier> EntrepriseMetiers { get; set; }

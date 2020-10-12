@@ -64,9 +64,6 @@ namespace IdentityServerAspNetIdentity.Data
             builder.Entity<EntrepriseMetier>().HasKey(st => new { st.EntrepriseId, st.TypeMetierId });
             builder.Entity<EntrepriseOffre>().HasKey(st => new { st.EntrepriseId, st.TypeOffreId });
             builder.Entity<TypeMetier>(entity => {
-                entity.HasIndex(e => e.Code).IsUnique();
-            });
-            builder.Entity<TypeMetier>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
             });
             builder.Entity<TypeAffiliation>(entity => {
@@ -79,9 +76,6 @@ namespace IdentityServerAspNetIdentity.Data
                 entity.HasIndex(e => e.Libelle).IsUnique();
             });
             builder.Entity<TypeDomaine>(entity => {
-                entity.HasIndex(e => e.Code).IsUnique();
-            });
-            builder.Entity<TypeDomaine>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
             });
             builder.Entity<TypeEntreprise>(entity => {
@@ -89,9 +83,6 @@ namespace IdentityServerAspNetIdentity.Data
             });
             builder.Entity<TypeMoyen>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
-            });
-            builder.Entity<TypeMoyen>(entity => {
-                entity.HasIndex(e => e.Code).IsUnique();
             });
             builder.Entity<TypeOffre>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
