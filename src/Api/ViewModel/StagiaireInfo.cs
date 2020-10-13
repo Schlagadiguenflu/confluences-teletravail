@@ -9,6 +9,7 @@ namespace Api.ViewModel
     public class StagiaireInfo
     {
         public string StagiaireId { get; set; }
+        public string Username { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public int TypeAffiliationId { get; set; }

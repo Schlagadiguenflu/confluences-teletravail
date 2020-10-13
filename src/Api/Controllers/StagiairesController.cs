@@ -39,7 +39,7 @@ namespace Api.Controllers
                             .Include(a => a.StageStagiaires)
                             .Where(a => a.StageStagiaires.Count() > 0)
                             .OrderBy(a => a.Firstname)
-                            .Select(v => new StagiaireInfo { StagiaireId = v.Id, Prenom = v.Firstname, Nom = v.LastName, TypeAffiliation = v.TypeAffiliation, StageStagiaires = v.StageStagiaires, TypeAffiliationId = v.TypeAffiliation.TypeAffiliationId })
+                            .Select(v => new StagiaireInfo { StagiaireId = v.Id, Username = v.NormalizedUserName, Prenom = v.Firstname, Nom = v.LastName, TypeAffiliation = v.TypeAffiliation, StageStagiaires = v.StageStagiaires, TypeAffiliationId = v.TypeAffiliation.TypeAffiliationId })
                             .ToListAsync();
 
             return aspnetusers;
