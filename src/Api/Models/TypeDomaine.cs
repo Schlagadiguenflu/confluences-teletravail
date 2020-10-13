@@ -10,6 +10,7 @@ namespace Api.Models
         public TypeDomaine()
         {
             Entrepris = new HashSet<Entrepris>();
+            EntrepriseDomaines = new HashSet<EntrepriseDomaine>();
         }
 
         [Key]
@@ -21,5 +22,7 @@ namespace Api.Models
 
         [InverseProperty("TypeDomaine")]
         public virtual ICollection<Entrepris> Entrepris { get; set; }
+        [InverseProperty(nameof(EntrepriseDomaine.TypeDomaine))]
+        public virtual ICollection<EntrepriseDomaine> EntrepriseDomaines { get; set; }
     }
 }

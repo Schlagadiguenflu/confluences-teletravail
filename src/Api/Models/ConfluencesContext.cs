@@ -28,6 +28,7 @@ namespace Api.Models
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Entrepris> Entreprises { get; set; }
+        public virtual DbSet<EntrepriseDomaine> EntrepriseDomaines { get; set; }
         public virtual DbSet<EntrepriseMetier> EntrepriseMetiers { get; set; }
         public virtual DbSet<EntrepriseOffre> EntrepriseOffres { get; set; }
         public virtual DbSet<Exercice> Exercices { get; set; }
@@ -152,6 +153,13 @@ namespace Api.Models
                 entity.HasIndex(e => e.TypeEntrepriseId);
 
                 entity.HasIndex(e => e.TypeMoyenId);
+            });
+
+            modelBuilder.Entity<EntrepriseDomaine>(entity =>
+            {
+                entity.HasKey(e => new { e.EntrepriseId, e.TypeDomaineId });
+
+                entity.HasIndex(e => e.TypeDomaineId);
             });
 
             modelBuilder.Entity<EntrepriseMetier>(entity =>

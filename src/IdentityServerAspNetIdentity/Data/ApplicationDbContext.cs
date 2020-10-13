@@ -43,7 +43,7 @@ namespace IdentityServerAspNetIdentity.Data
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<EntrepriseMetier> EntrepriseMetiers { get; set; }
         public virtual DbSet<EntrepriseOffre> EntrepriseOffres { get; set; }
-
+        public virtual DbSet<EntrepriseDomaine> EntrepriseDomaines { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -63,6 +63,7 @@ namespace IdentityServerAspNetIdentity.Data
             builder.Entity<SessionStudent>().HasKey(st => new { st.SessionId, st.StudentId });
             builder.Entity<EntrepriseMetier>().HasKey(st => new { st.EntrepriseId, st.TypeMetierId });
             builder.Entity<EntrepriseOffre>().HasKey(st => new { st.EntrepriseId, st.TypeOffreId });
+            builder.Entity<EntrepriseDomaine>().HasKey(st => new { st.EntrepriseId, st.TypeDomaineId });
             builder.Entity<TypeMetier>(entity => {
                 entity.HasIndex(e => e.Libelle).IsUnique();
             });

@@ -10,6 +10,7 @@ namespace Api.Models
         public Entrepris()
         {
             Contacts = new HashSet<Contact>();
+            EntrepriseDomaines = new HashSet<EntrepriseDomaine>();
             EntrepriseMetiers = new HashSet<EntrepriseMetier>();
             EntrepriseOffres = new HashSet<EntrepriseOffre>();
             Stages = new HashSet<Stage>();
@@ -66,6 +67,8 @@ namespace Api.Models
         public virtual TypeMoyen TypeMoyen { get; set; }
         [InverseProperty(nameof(Contact.Entreprise))]
         public virtual ICollection<Contact> Contacts { get; set; }
+        [InverseProperty(nameof(EntrepriseDomaine.Entreprise))]
+        public virtual ICollection<EntrepriseDomaine> EntrepriseDomaines { get; set; }
         [InverseProperty(nameof(EntrepriseMetier.Entreprise))]
         public virtual ICollection<EntrepriseMetier> EntrepriseMetiers { get; set; }
         [InverseProperty(nameof(EntrepriseOffre.Entreprise))]
