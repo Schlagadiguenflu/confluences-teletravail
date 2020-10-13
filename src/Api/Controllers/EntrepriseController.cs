@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AutoMapper;
+using Api.ViewModel;
 
 namespace Api.Controllers
 {
@@ -24,10 +26,12 @@ namespace Api.Controllers
     public class EntrepriseController : ControllerBase
     {
         private readonly ConfluencesContext _context;
+        private readonly IMapper _mapper;
 
-        public EntrepriseController(ConfluencesContext context)
+        public EntrepriseController(ConfluencesContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // Modèle du filtre entreprise
@@ -44,7 +48,7 @@ namespace Api.Controllers
 
         // GET: api/Entreprise
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Entrepris>>> GetEntreprises([FromQuery] Filter filter)
+        public async Task<ActionResult<IEnumerable<Entreprise>>> GetEntreprises([FromQuery] Filter filter)
         {
             var entreprises = await _context.Entreprises
                                 .Include(e => e.TypeDomaine)
@@ -54,6 +58,8 @@ namespace Api.Controllers
                                     .ThenInclude(e => e.TypeOffre)
                                 .Include(e => e.EntrepriseMetiers)
                                     .ThenInclude(e => e.TypeMetier)
+                                .Include(e => e.EntrepriseDomaines)
+                                    .ThenInclude(e => e.TypeDomaine)
                                 .Include(e => e.Stages)
                                     .ThenInclude(s => s.Stagiaire)
                                 .Include(e => e.Stages)
@@ -65,7 +71,8 @@ namespace Api.Controllers
 
             // Si des paramètres existent, il faut les appliquer
             if(filter.domaines != null) {
-                entreprises = entreprises.Where(e => filter.domaines.Contains(e.TypeDomaineId)).ToList();
+                //entreprises = entreprises.Where(e => filter.domaines.Contains(e.TypeDomaineId)).ToList();
+                entreprises = entreprises.Where(e => e.EntrepriseDomaines.Any(x => filter.domaines.Contains(x.TypeDomaineId))).ToList();
             }
             if (filter.metiers != null)
             {
@@ -91,7 +98,15 @@ namespace Api.Controllers
             {
                 entreprises = entreprises.Where(e => e.CreateurId == filter.createur).ToList();
             }
-            return entreprises;
+            var entreprisesV = entreprises.Select(_mapper.Map<Entrepris, Entreprise>).ToList();
+            foreach (var entreprise in entreprisesV)
+            {
+                foreach (var entrepriseDomaine in entreprise.EntrepriseDomaines)
+                {
+                    entreprise.Domaines += entrepriseDomaine.TypeDomaine.Libelle + " / ";
+                }
+            }
+            return entreprisesV;
         }
 
 
@@ -108,6 +123,8 @@ namespace Api.Controllers
                                     .ThenInclude(e => e.TypeOffre)
                                 .Include(e => e.EntrepriseMetiers)
                                     .ThenInclude(e => e.TypeMetier)
+                                .Include(e => e.EntrepriseDomaines)
+                                    .ThenInclude(e => e.TypeDomaine)
                                 .Include(e => e.Stages)
                                     .ThenInclude(s => s.Stagiaire)
                                 .Include(e => e.Stages)

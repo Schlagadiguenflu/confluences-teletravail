@@ -81,6 +81,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<EntrepriseDomaine>> PostEntrepriseDomaine(EntrepriseDomaine entrepriseDomaine)
         {
+            entrepriseDomaine.TypeDomaine = null;
             _context.EntrepriseDomaines.Add(entrepriseDomaine);
             try
             {
@@ -102,10 +103,10 @@ namespace Api.Controllers
         }
 
         // DELETE: api/EntrepriseDomaines/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<EntrepriseDomaine>> DeleteEntrepriseDomaine(int id)
+        [HttpDelete("{entrepriseId}/{domaineId}")]
+        public async Task<ActionResult<EntrepriseDomaine>> DeleteEntrepriseDomaine(int entrepriseId, int domaineId)
         {
-            var entrepriseDomaine = await _context.EntrepriseDomaines.FindAsync(id);
+            var entrepriseDomaine = await _context.EntrepriseDomaines.Where(e => e.EntrepriseId == entrepriseId && e.TypeDomaineId == domaineId).SingleOrDefaultAsync();
             if (entrepriseDomaine == null)
             {
                 return NotFound();
