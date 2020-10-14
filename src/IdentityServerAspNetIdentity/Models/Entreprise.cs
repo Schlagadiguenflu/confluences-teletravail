@@ -47,10 +47,6 @@ namespace IdentityServerAspNetIdentity.Models
         [ForeignKey(nameof(TypeEntrepriseId))]
         public virtual TypeEntreprise TypeEntreprise { get; set; }
 
-        public int? TypeDomaineId { get; set; }
-        [ForeignKey(nameof(TypeDomaineId))]
-        public virtual TypeDomaine TypeDomaine { get; set; }
-
         public int? TypeMoyenId { get; set; }
         [ForeignKey(nameof(TypeMoyenId))]
         public virtual TypeMoyen TypeMoyen { get; set; }

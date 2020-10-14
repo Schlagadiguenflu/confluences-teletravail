@@ -40,7 +40,6 @@ namespace Api.Models
         public string Remarque { get; set; }
         public DateTime? DateCreation { get; set; }
         public int? TypeEntrepriseId { get; set; }
-        public int? TypeDomaineId { get; set; }
         public int? TypeMoyenId { get; set; }
         public DateTime? DateDernierContact { get; set; }
         public string CreateurId { get; set; }
@@ -56,9 +55,6 @@ namespace Api.Models
         [ForeignKey(nameof(StagiaireIdDernierContact))]
         [InverseProperty(nameof(AspNetUser.EntreprisStagiaireIdDernierContactNavigations))]
         public virtual AspNetUser StagiaireIdDernierContactNavigation { get; set; }
-        [ForeignKey(nameof(TypeDomaineId))]
-        [InverseProperty("Entrepris")]
-        public virtual TypeDomaine TypeDomaine { get; set; }
         [ForeignKey(nameof(TypeEntrepriseId))]
         [InverseProperty(nameof(TypeEntrepris.Entrepris))]
         public virtual TypeEntrepris TypeEntreprise { get; set; }

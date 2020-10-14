@@ -148,8 +148,6 @@ namespace Api.Models
 
                 entity.HasIndex(e => e.StagiaireIdDernierContact);
 
-                entity.HasIndex(e => e.TypeDomaineId);
-
                 entity.HasIndex(e => e.TypeEntrepriseId);
 
                 entity.HasIndex(e => e.TypeMoyenId);
