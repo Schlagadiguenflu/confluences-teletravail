@@ -36,6 +36,41 @@
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
+                        @if (Model.CorrectionDate <= DateTime.Now)
+                        {
+                            <h2 class="bg-primary text-center text-white">Correction</h2>
+                            <div>
+                                <dl class="row">
+                                    <dd class="col-sm-12">
+                                        <div class="embed-responsive embed-responsive-1by1">
+                                            @if (Model.CorrectionLink != null)
+                                            {
+                                                @if (!Model.CorrectionLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.CorrectionLink)" allowfullscreen></iframe>
+                                                }
+                                                else
+                                                {
+                                                    <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.CorrectionLink)" allowfullscreen></iframe>
+                                                }
+                                            }
+
+                                        </div>
+                                    </dd>
+                                </dl>
+                                @if (Model.CorrectionLink != null)
+                                {
+                                    @if (!Model.CorrectionLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.CorrectionLink)">Télécharger</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.CorrectionLink)">Télécharger</a>
+                                    }
+                                }
+                            </div>
+                        }
                         @foreach (var homework in Model.HomeworkV2students)
                         {
                             <div class="row">
@@ -96,110 +131,76 @@
 
                             </div>
                         }
-                        @if (Model.CorrectionDate <= DateTime.Now)
-                        {
-                            <h2 class="bg-primary text-center text-white">Correction</h2>
-                            <div>
-                                <dl class="row">
-                                    <dd class="col-sm-12">
-                                        <div class="embed-responsive embed-responsive-1by1">
-                                            @if (Model.CorrectionLink != null)
-                                            {
-                                                @if (!Model.CorrectionLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                                {
-                                                    <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.CorrectionLink)" allowfullscreen></iframe>
-                                                }
-                                                else
-                                                {
-                                                    <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.CorrectionLink)" allowfullscreen></iframe>
-                                                }
-                                            }
 
-                                        </div>
-                                    </dd>
-                                </dl>
-                                @if (Model.CorrectionLink != null)
+                        <div>
+                            @if (Model.AudioLink != null)
+                            {
+                                @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    @if (!Model.CorrectionLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.CorrectionLink)">Télécharger</a>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.CorrectionLink)">Télécharger</a>
-                                    }
+                                    <audio controls style="width: 100%;">
+                                        <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
                                 }
-                            </div>
-                        }
-                    <div>
-                        @if (Model.AudioLink != null)
-                        {
-                            @if (Model.AudioLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <audio controls style="width: 100%;">
-                                    <source src="@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-                            else
-                            {
-                                <audio controls style="width: 100%;">
-                                    <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
-                                    Il y a un problème avec le fichier mp3.
-                                </audio>
-                            }
-
-                        }
-                        @if (Model.VideoLink != null)
-                        {
-                            <h2 class="bg-primary text-center text-white">Vidéo</h2>
-                            <div class="embed-responsive embed-responsive-16by9">
-                                @if (Model.VideoLink != null)
+                                else
                                 {
-                                    @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
-                                    }
-                                    else
-                                    {
-                                        <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
-                                    }
+                                    <audio controls style="width: 100%;">
+                                        <source src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.AudioLink)" type="audio/mp3">
+                                        Il y a un problème avec le fichier mp3.
+                                    </audio>
                                 }
 
-                            </div>
-                        }
-
-                        <h2 class="bg-primary text-center text-white">Exercice</h2>
-                        <dl class="row">
-                            <dd class="col-sm-12">
-                                <div class="embed-responsive embed-responsive-1by1">
-                                    @if (Model.ExerciceLink != null)
+                            }
+                            @if (Model.VideoLink != null)
+                            {
+                                <h2 class="bg-primary text-center text-white">Vidéo</h2>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    @if (Model.VideoLink != null)
                                     {
-                                        @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                        @if (!Model.VideoLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                                         {
-                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
                                         }
                                         else
                                         {
-                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.VideoLink)" allowfullscreen></iframe>
                                         }
                                     }
 
                                 </div>
-                            </dd>
-                        </dl>
-                        @if (Model.ExerciceLink != null)
-                        {
-                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
                             }
-                            else
+
+                            <h2 class="bg-primary text-center text-white">Exercice</h2>
+                            <dl class="row">
+                                <dd class="col-sm-12">
+                                    <div class="embed-responsive embed-responsive-1by1">
+                                        @if (Model.ExerciceLink != null)
+                                        {
+                                            @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <iframe class="embed-responsive-item" src="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
+                                            else
+                                            {
+                                                <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ExerciceLink)" allowfullscreen></iframe>
+                                            }
+                                        }
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            @if (Model.ExerciceLink != null)
                             {
-                                <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                @if (!Model.ExerciceLink.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a class="btn btn-primary btn-block" href="@ViewData["URLAPI"]@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-block" href="@Html.DisplayFor(model => model.ExerciceLink)">Télécharger</a>
+                                }
                             }
-                        }
-                    </div>
+                        </div>
 
                         @if ((bool)ViewData["IsStudent"])
                         {
@@ -217,15 +218,15 @@
                                                 <div class="input-group">
                                                     <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                     @*<span class="input-group-btn">
-                                                            <button type="button" class="btn btn-fab btn-round btn-info">
-                                                                <i class="material-icons">layers</i>
-                                                            </button>
-                                                        </span>*@
+                                        <button type="button" class="btn btn-fab btn-round btn-info">
+                                            <i class="material-icons">layers</i>
+                                        </button>
+                                    </span>*@
                                                 </div>
                                             </div>
                                             @*<div class="form-group">
-                                                    <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                                                </div>*@
+                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                            </div>*@
                                         </form>
                                     }
                                 }
@@ -239,15 +240,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="inputFileVisible btn btn-primary text-white" placeholder="Rendre mon devoir" multiple style="width:100%">
                                                 @*<span class="input-group-btn">
-                                                        <button type="button" class="btn btn-fab btn-round btn-info">
-                                                            <i class="material-icons">layers</i>
-                                                        </button>
-                                                    </span>*@
+                                    <button type="button" class="btn btn-fab btn-round btn-info">
+                                        <i class="material-icons">layers</i>
+                                    </button>
+                                </span>*@
                                             </div>
                                         </div>
                                         @*<div class="form-group">
-                                                <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
-                                            </div>*@
+                            <input type="submit" value="Envoyer le devoir" class="btn btn-success btn-block" />
+                        </div>*@
                                     </form>
                                 }
                             }
