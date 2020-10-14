@@ -41,7 +41,8 @@ namespace Api.Controllers
         public async Task<ActionResult<TypeDomaine>> GetTypeDomaine(int id)
         {
             var typeDomaine = await _context.TypeDomaines
-                .Include(t => t.Entrepris)
+                .Include(t => t.EntrepriseDomaines)
+                    .ThenInclude(t => t.Entreprise)
                 .Where(t => t.TypeDomaineId == id)
                 .SingleOrDefaultAsync();
 

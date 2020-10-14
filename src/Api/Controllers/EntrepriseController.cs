@@ -51,7 +51,6 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<Entreprise>>> GetEntreprises([FromQuery] Filter filter)
         {
             var entreprises = await _context.Entreprises
-                                .Include(e => e.TypeDomaine)
                                 .Include(e => e.TypeMoyen)
                                 .Include(e => e.TypeEntreprise)
                                 .Include(e => e.EntrepriseOffres)
@@ -105,6 +104,10 @@ namespace Api.Controllers
                 {
                     entreprise.Domaines += entrepriseDomaine.TypeDomaine.Libelle + " / ";
                 }
+                if (entreprise.Domaines != null)
+                {
+                    entreprise.Domaines = entreprise.Domaines.Remove(entreprise.Domaines.Length - 2);
+                }
             }
             return entreprisesV;
         }
@@ -116,7 +119,6 @@ namespace Api.Controllers
         public async Task<ActionResult<Entrepris>> GetEntrepris(int id)
         {
             var entrepris = await _context.Entreprises
-                                .Include(e => e.TypeDomaine)
                                 .Include(e => e.TypeMoyen)
                                 .Include(e => e.TypeEntreprise)
                                 .Include(e => e.EntrepriseOffres)
