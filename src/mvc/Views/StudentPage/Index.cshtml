@@ -84,6 +84,10 @@
                                                         <tr class="@color">
                                                             <td>
                                                                 <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
+                                                                    @if (DateTime.Now.Hour >= 17)
+                                                                    {
+                                                                        <h4 class="card-title text-danger">Corrigé</h4>
+                                                                    }
                                                                     <h4 class="card-link">
                                                                         @homework.HomeworkV2name
                                                                     </h4>
@@ -144,6 +148,10 @@
                                                         <tr class="@color">
                                                             <td>
                                                                 <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
+                                                                    @if (DateTime.Now.Hour >= 17)
+                                                                    {
+                                                                        <h4 class="card-title text-danger">Corrigé</h4>
+                                                                    }
                                                                     <h4 class="card-link">
                                                                         @homework.HomeworkV2name
                                                                     </h4>
