@@ -120,7 +120,8 @@
                                 Gérer le tuto
                             </a> |
                             <a asp-controller="SchoolClassRoomExplanations" asp-action="Index" asp-route-id="@Model.SchoolClassRoomId">Gérer les explications audios (langues)</a>|
-                            <a asp-controller="SchoolClassRooms" asp-action="aide" asp-route-id="@Model.SchoolClassRoomId">Rénitialiser le "J'ai compris"</a>
+                            <a asp-controller="SchoolClassRooms" asp-action="aide" asp-route-id="@Model.SchoolClassRoomId">Rénitialiser le "J'ai compris"</a>|
+                            <a id="Archived" class="text-danger">Archiver la classe</a>
                         </div>
                         <div class="text-center">
                             <a class="btn btn-primary" asp-action="Index">Retourner à la liste</a>
@@ -133,3 +134,17 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+    <script>
+        document.getElementById("Archived").onclick = function () {
+            if (confirm('Attention ! Pour désarchiver il faudra passer par le webmaster, êtes-vous sûr de vouloir continuer ?')) {
+                // Save it!
+                location.href='@Url.Action("archive", "SchoolClassRooms", new { id = Model.SchoolClassRoomId })'
+            } else {
+                // Do nothing!
+                console.log('Thing was not saved to the server.');
+            }
+        };
+    </script>
+}

@@ -19,5 +19,7 @@ namespace IdentityServerAspNetIdentity.Models
         [DisplayName("Lien du tuto")]
         public string ExplanationVideoLink { get; set; }
 
+        public bool IsArchived { get; set; }
+
     }
 }

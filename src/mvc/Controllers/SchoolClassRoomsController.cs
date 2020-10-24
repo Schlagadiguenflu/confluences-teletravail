@@ -255,5 +255,26 @@ namespace mvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Archive(int id)
+        {
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = "";
+            try
+            {
+                content = await client.GetStringAsync(_configuration["URLAPI"] + "api/SchoolClassRooms/archive/" + id);
+            }
+            catch (Exception)
+            {
+                return SignOut("Cookies", "oidc");
+            }
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

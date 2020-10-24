@@ -25,7 +25,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SchoolClassRoom>>> GetSchoolClassRooms()
         {
-            return await _context.SchoolClassRooms.AsNoTracking().ToListAsync();
+            return await _context.SchoolClassRooms.AsNoTracking().Where(s => !s.IsArchived).ToListAsync();
         }
 
         // GET: api/SchoolClassRooms/5
@@ -158,6 +158,39 @@ namespace Api.Controllers
                         {
                             throw;
                         }
+                    }
+                }
+            }
+            return Ok();
+        }
+
+        // GET: api/SchoolClassRooms/archive/1
+        [Authorize(Policy = "Teacher")]
+        [Route("archive/{id}")]
+        public async Task<ActionResult> PostArchived(int id)
+        {
+            var schoolClassRoom = await _context.SchoolClassRooms
+                                    .Where(s => s.SchoolClassRoomId == id)
+                                    .SingleOrDefaultAsync();
+
+            if (schoolClassRoom != null)
+            {
+                schoolClassRoom.IsArchived = true;
+                _context.Entry(schoolClassRoom).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SchoolClassRoomExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
                     }
                 }
             }

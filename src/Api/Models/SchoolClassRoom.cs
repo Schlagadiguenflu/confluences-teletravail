@@ -18,6 +18,7 @@ namespace Api.Models
         [Required]
         public string SchoolClassRoomName { get; set; }
         public string ExplanationVideoLink { get; set; }
+        public bool IsArchived { get; set; }
 
         [InverseProperty(nameof(SchoolClassRoomExplanation.SchoolClassRoom))]
         public virtual ICollection<SchoolClassRoomExplanation> SchoolClassRoomExplanations { get; set; }
