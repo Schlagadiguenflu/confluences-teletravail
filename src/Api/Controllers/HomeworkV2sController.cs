@@ -94,6 +94,10 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<HomeworkV2s>> PostHomeworkV2s(HomeworkV2s homeworkV2s)
         {
+            if (homeworkV2s.SessionId == 0)
+            {
+                homeworkV2s.SessionId = await _context.Sessions.Select(s => s.SessionId).FirstOrDefaultAsync();
+            }
             _context.HomeworkV2s.Add(homeworkV2s);
             await _context.SaveChangesAsync();
 

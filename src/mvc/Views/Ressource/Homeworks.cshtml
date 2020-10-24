@@ -70,6 +70,7 @@
                                                 </td>
                                                 <td>
                                                     <a asp-controller="ExercicesAlones" asp-action="Details" asp-route-id="@item.ExerciceId">Aperçu</a>
+                                                    <a asp-controller="ExercicesAlones" asp-action="Duppliquer" asp-route-id="@item.ExerciceId">Dupliquer</a>
                                                 </td>
                                             </tr>
                                         }
@@ -97,6 +98,7 @@
                                                 </td>
                                                 <td>
                                                     <a asp-controller="Theories" asp-action="Details" asp-route-id="@theory.TheoryId">Aperçu</a>
+                                                    <a asp-controller="Theories" asp-action="Duppliquer" asp-route-id="@theory.TheoryId">Dupliquer</a>
                                                 </td>
                                             </tr>
                                             @foreach (var exercice in theory.Exercices)
@@ -122,6 +124,7 @@
                                                     </td>
                                                     <td>
                                                         <a asp-controller="Exercices" asp-action="Details" asp-route-id="@exercice.ExerciceId">Aperçu</a>
+                                                        <a asp-controller="Exercices" asp-action="Duppliquer" asp-route-id="@exercice.ExerciceId">Dupliquer</a>
                                                     </td>
                                                 </tr>
                                             }

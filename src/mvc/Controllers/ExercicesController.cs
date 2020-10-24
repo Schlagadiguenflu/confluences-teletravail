@@ -612,5 +612,86 @@ namespace mvc.Controllers
             }
         }
 
+        // GET: Exercices/Duppliquer/5
+        public async Task<IActionResult> Duppliquer(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            // Préparation de l'appel à l'API
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            AspNetUser user = await JsonSerializer.DeserializeAsync<AspNetUser>(
+               await client.GetStreamAsync(_configuration["URLAPI"] + "api/Account/getUserInfo"),
+               new JsonSerializerOptions
+               {
+                   PropertyNameCaseInsensitive = true
+               }
+            );
+
+            HomeworkV2s homeworkV2s = new HomeworkV2s
+            {
+                HomeworkV2name = "Nom à changer",
+                TeacherId = user.Id,
+                HomeworkTypeId = 1,
+                HomeworkV2date = DateTime.Now
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                // Préparation de la requête update à l'API
+                StringContent httpContent = new StringContent(homeworkV2s.ToJson(), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(_configuration["URLAPI"] + "api/HomeworkV2s", httpContent);
+
+                if (response.StatusCode != HttpStatusCode.Created)
+                {
+                    ModelState.AddModelError(string.Empty, "Erreur à la création d'un devoir, contacter l'administrateur.");
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    int HomeworkV2id = 0;
+                    try
+                    {
+                        HomeworkV2id = int.Parse(response.Headers.Location.Segments[3]);
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError(string.Empty, "Erreur à la dupplication d'un devoir (réception), contacter l'administrateur.");
+                    }
+
+                    // Duplicate theory
+                    Exercice exercice = await JsonSerializer.DeserializeAsync<Exercice>(
+                       await client.GetStreamAsync(_configuration["URLAPI"] + "api/Exercices/" + id),
+                       new JsonSerializerOptions
+                       {
+                           PropertyNameCaseInsensitive = true
+                       }
+                    );
+                    exercice.ExerciceId = 0;
+                    exercice.Theory.TheoryId = 0;
+                    exercice.Theory.HomeworkV2id = HomeworkV2id;
+                    exercice.Teacher = null;
+                    exercice.HomeworkV2students = null;
+
+                    httpContent = new StringContent(exercice.ToJson(), Encoding.UTF8, "application/json");
+                    HttpResponseMessage response2 = await client.PostAsync(_configuration["URLAPI"] + "api/Exercices", httpContent);
+
+                    return RedirectToAction(nameof(Edit), "HomeworkV2s", new { id = HomeworkV2id });
+                }
+            }
+
+            return RedirectToAction(nameof(Index), "Ressources");
+
+        }
     }
 }
