@@ -84,13 +84,24 @@
                                                         <tr class="@color">
                                                             <td>
                                                                 <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
-                                                                    @if (DateTime.Now.Hour >= 17)
+
+                                                                    @if (homework.IsFutur && homework.HomeworkV2date.Date > DateTime.Now.Date)
                                                                     {
-                                                                        <h4 class="card-title text-danger">Corrigé</h4>
+                                                                        <h4 class="card-link">
+                                                                            @homework.HomeworkV2name <br />pour le @homework.HomeworkV2date.ToString("dd MMMM")
+                                                                        </h4>
                                                                     }
-                                                                    <h4 class="card-link">
-                                                                        @homework.HomeworkV2name
-                                                                    </h4>
+                                                                    else
+                                                                    {
+                                                                        @if (DateTime.Now.Hour >= 17)
+                                                                        {
+                                                                            <h4 class="card-title text-danger">Corrigé</h4>
+                                                                        }
+                                                                        <h4 class="card-link font-weight-bold">
+                                                                            @homework.HomeworkV2name
+                                                                        </h4>
+                                                                    }
+
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -148,13 +159,22 @@
                                                         <tr class="@color">
                                                             <td>
                                                                 <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
-                                                                    @if (DateTime.Now.Hour >= 17)
+                                                                    @if (homework.IsFutur && homework.HomeworkV2date.Date > DateTime.Now.Date)
                                                                     {
-                                                                        <h4 class="card-title text-danger">Corrigé</h4>
+                                                                        <h4 class="card-link">
+                                                                            @homework.HomeworkV2name <br />pour le @homework.HomeworkV2date.ToString("dd MMMM")
+                                                                        </h4>
                                                                     }
-                                                                    <h4 class="card-link">
-                                                                        @homework.HomeworkV2name
-                                                                    </h4>
+                                                                    else
+                                                                    {
+                                                                        @if (DateTime.Now.Hour >= 17)
+                                                                        {
+                                                                            <h4 class="card-title text-danger">Corrigé</h4>
+                                                                        }
+                                                                        <h4 class="card-link font-weight-bold">
+                                                                            @homework.HomeworkV2name
+                                                                        </h4>
+                                                                    }
                                                                 </a>
                                                             </td>
                                                         </tr>
