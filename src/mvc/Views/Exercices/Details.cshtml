@@ -120,8 +120,10 @@
                                     }
                                 </div>
                                 <div class="col-md-3">
-
-                                    <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" onclick="rotateImage(this);" />
+                                    <a href="@ViewData["URLAPI"]@homework.HomeworkFile">
+                                        <img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" />
+                                    </a>
+                                    @*<img class="img-fluid" src="@ViewData["URLAPI"]@homework.HomeworkFile" style="max-height:250px;" onclick="rotateImage(this);" />*@
 
                                     <form asp-controller="HomeworkV2students" asp-action="Delete">
                                         <input type="hidden" name="id" value="@homework.HomeworkV2studentId" />
