@@ -76,7 +76,7 @@
                                                             }
                                                             <tr class="@color">
                                                                 <td colspan="3">
-                                                                    <h4 class="card-title">@homework.HomeworkType.HomeworkTypeName</h4>
+                                                                    <h3 class="card-title">@homework.HomeworkType.HomeworkTypeName</h3>
                                                                 </td>
                                                             </tr>
                                                             lastTypeH = homework.HomeworkTypeId;
@@ -87,19 +87,19 @@
 
                                                                     @if (homework.IsFutur && homework.HomeworkV2date.Date > DateTime.Now.Date)
                                                                     {
-                                                                        <h4 class="card-link">
+                                                                        <h3 class="card-link">
                                                                             @homework.HomeworkV2name <br />pour le @homework.HomeworkV2date.ToString("dd MMMM")
-                                                                        </h4>
+                                                                        </h3>
                                                                     }
                                                                     else
                                                                     {
                                                                         @if (DateTime.Now.Hour >= 17)
                                                                         {
-                                                                            <h4 class="card-title text-danger">Corrigé</h4>
+                                                                            <h3 class="card-title text-danger">Corrigé</h3>
                                                                         }
-                                                                        <h4 class="card-link font-weight-bold">
+                                                                        <h3 class="card-link font-weight-bold">
                                                                             @homework.HomeworkV2name
-                                                                        </h4>
+                                                                        </h3>
                                                                     }
 
                                                                 </a>
@@ -151,7 +151,7 @@
                                                             }
                                                             <tr class="@color">
                                                                 <td colspan="3">
-                                                                    <h4 class="card-title">@homework.HomeworkType.HomeworkTypeName</h4>
+                                                                    <h3 class="card-title">@homework.HomeworkType.HomeworkTypeName</h3>
                                                                 </td>
                                                             </tr>
                                                             lastTypeH = homework.HomeworkTypeId;
@@ -161,19 +161,19 @@
                                                                 <a asp-controller="HomeworkV2s" asp-action="Details" asp-route-id="@homework.HomeworkV2id">
                                                                     @if (homework.IsFutur && homework.HomeworkV2date.Date > DateTime.Now.Date)
                                                                     {
-                                                                        <h4 class="card-link">
+                                                                        <h3 class="card-link">
                                                                             @homework.HomeworkV2name <br />pour le @homework.HomeworkV2date.ToString("dd MMMM")
-                                                                        </h4>
+                                                                        </h3>
                                                                     }
                                                                     else
                                                                     {
                                                                         @if (DateTime.Now.Hour >= 17)
                                                                         {
-                                                                            <h4 class="card-title text-danger">Corrigé</h4>
+                                                                            <h3 class="card-title text-danger">Corrigé</h3>
                                                                         }
-                                                                        <h4 class="card-link font-weight-bold">
+                                                                        <h3 class="card-link font-weight-bold">
                                                                             @homework.HomeworkV2name
-                                                                        </h4>
+                                                                        </h3>
                                                                     }
                                                                 </a>
                                                             </td>
