@@ -11,6 +11,7 @@ namespace Api.Models
         public int SessionId { get; set; }
         [Key]
         public string TeacherId { get; set; }
+        public int Order { get; set; }
 
         [ForeignKey(nameof(SessionId))]
         [InverseProperty("SessionTeachers")]

@@ -21,5 +21,7 @@ namespace IdentityServerAspNetIdentity.Models
         public string TeacherId { get; set; }
         [ForeignKey(nameof(TeacherId))]
         public virtual ApplicationUser Teacher { get; set; }
+
+        public int Order { get; set; }
     }
 }

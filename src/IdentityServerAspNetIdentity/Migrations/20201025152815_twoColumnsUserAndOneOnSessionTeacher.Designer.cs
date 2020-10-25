@@ -3,15 +3,17 @@ using System;
 using IdentityServerAspNetIdentity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace IdentityServerAspNetIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201025152815_twoColumnsUserAndOneOnSessionTeacher")]
+    partial class twoColumnsUserAndOneOnSessionTeacher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,6 +98,7 @@ namespace IdentityServerAspNetIdentity.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
@@ -109,6 +112,7 @@ namespace IdentityServerAspNetIdentity.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nationality")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")

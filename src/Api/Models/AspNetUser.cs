@@ -65,6 +65,8 @@ namespace Api.Models
         public bool WantsMoreHomeworks { get; set; }
         public bool HasSeenHelpVideo { get; set; }
         public int? TypeAffiliationId { get; set; }
+        public string Language { get; set; }
+        public string Nationality { get; set; }
 
         [ForeignKey(nameof(GenderId))]
         [InverseProperty("AspNetUsers")]

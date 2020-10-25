@@ -44,5 +44,11 @@ namespace IdentityServerAspNetIdentity.Models
         [ForeignKey(nameof(TypeAffiliationId))]
         public virtual TypeAffiliation TypeAffiliation { get; set; }
 
+        [DisplayName("Nationalité")]
+        public string Nationality { get; set; }
+
+        [DisplayName("Langue")]
+        public string Language { get; set; }
+
     }
 }
