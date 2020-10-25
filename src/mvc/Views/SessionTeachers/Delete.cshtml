@@ -1,7 +1,7 @@
 ﻿@model mvc.Models.SessionTeacher
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Supprimer";
 }
 
 <br />
@@ -36,6 +36,12 @@
                             </dt>
                             <dd class="col-sm-10">
                                 @Model.Teacher.Firstname @Model.Teacher.LastName
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Order)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Model.Order
                             </dd>
                         </dl>
 

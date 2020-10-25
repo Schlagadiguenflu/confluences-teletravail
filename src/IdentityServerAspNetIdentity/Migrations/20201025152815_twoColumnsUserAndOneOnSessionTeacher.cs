@@ -10,7 +10,7 @@ namespace IdentityServerAspNetIdentity.Migrations
                 name: "Order",
                 table: "SessionTeachers",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 10);
 
             migrationBuilder.AddColumn<string>(
                 name: "Language",

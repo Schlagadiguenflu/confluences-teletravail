@@ -206,7 +206,7 @@
                                 <div class="card-body p-0">
                                     <h3 class="title">Mes formatrices et Mes formateurs </h3>
                                     <div class="row">
-                                        @foreach (var sessionTeacher in Model.SessionStudents.First().Session.SessionTeachers.OrderBy(s => s.Teacher.Firstname))
+                                        @foreach (var sessionTeacher in Model.SessionStudents.First().Session.SessionTeachers.OrderBy(s => s.Order))
                                         {
                                             <div class="col-md-4 mx-auto text-center">
                                                 <div class="card card-profile card-plain m-0">

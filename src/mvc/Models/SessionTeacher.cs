@@ -21,5 +21,7 @@ namespace mvc.Models
         [ForeignKey(nameof(TeacherId))]
         [InverseProperty(nameof(AspNetUser.SessionTeachers))]
         public virtual AspNetUser Teacher { get; set; }
+        [DisplayName("Position d'affichage")]
+        public int Order { get; set; }
     }
 }

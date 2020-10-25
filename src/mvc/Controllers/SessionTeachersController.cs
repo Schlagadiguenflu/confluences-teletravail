@@ -86,7 +86,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SessionId,TeacherId")] SessionTeacher sessionTeacher)
+        public async Task<IActionResult> Create([Bind("SessionId,TeacherId,Order")] SessionTeacher sessionTeacher)
         {
             // Préparation de l'appel à l'API
             string accessToken = await HttpContext.GetTokenAsync("access_token");

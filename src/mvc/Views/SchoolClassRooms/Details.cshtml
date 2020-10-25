@@ -57,7 +57,7 @@
                                             </div>
                                             <br />
                                             <div class="row">
-                                                @foreach (SessionTeacher sessionTeacher in session.SessionTeachers.OrderBy(s => s.Teacher.Firstname))
+                                                @foreach (SessionTeacher sessionTeacher in session.SessionTeachers.OrderBy(s => s.Order))
                                                 {
                                                     <div class="col mx-auto text-center">
                                                         @if (sessionTeacher.Teacher.PathImage != null)
