@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="UserName" class="control-label"></label>
-                                        <input asp-for="UserName" class="form-control" disabled/>
+                                        <input asp-for="UserName" class="form-control" disabled />
                                         <span asp-validation-for="UserName" class="text-danger"></span>
                                     </div>
                                     <div class="form-check">
@@ -82,6 +82,16 @@
                                                 <span class="check"></span>
                                             </span>
                                         </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Nationality" class="control-label"></label>
+                                        <input asp-for="Nationality" class="form-control" />
+                                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Language" class="control-label"></label>
+                                        <input asp-for="Language" class="form-control" />
+                                        <span asp-validation-for="Language" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" value="Sauvegarder" class="btn btn-success" />

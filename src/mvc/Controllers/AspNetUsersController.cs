@@ -139,7 +139,7 @@ namespace mvc.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,AccessFailedCount,ConcurrencyStamp,Email,EmailConfirmed,LockoutEnabled,LockoutEnd,NormalizedEmail,NormalizedUserName,PasswordHash,PhoneNumber,PhoneNumberConfirmed,SecurityStamp,TwoFactorEnabled,UserName,Birthday,Firstname,LastName,GenderId, Pictures, WantsMoreHomeworks")] AspNetUser aspNetUser)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,AccessFailedCount,ConcurrencyStamp,Email,EmailConfirmed,LockoutEnabled,LockoutEnd,NormalizedEmail,NormalizedUserName,PasswordHash,PhoneNumber,PhoneNumberConfirmed,SecurityStamp,TwoFactorEnabled,UserName,Birthday,Firstname,LastName,GenderId, Pictures, WantsMoreHomeworks, Nationality, Language")] AspNetUser aspNetUser)
         {
             if (id != aspNetUser.Id)
             {
@@ -173,6 +173,8 @@ namespace mvc.Controllers
             aspNetUserFromApi.GenderId = aspNetUser.GenderId;
             aspNetUserFromApi.Birthday = aspNetUser.Birthday;
             aspNetUserFromApi.WantsMoreHomeworks = aspNetUser.WantsMoreHomeworks;
+            aspNetUserFromApi.Nationality = aspNetUser.Nationality;
+            aspNetUserFromApi.Language = aspNetUser.Language;
 
             if (ModelState.IsValid)
             {

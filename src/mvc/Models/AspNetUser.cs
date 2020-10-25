@@ -66,6 +66,12 @@ namespace mvc.Models
         public bool WantsMoreHomeworks { get; set; }
         [DisplayName("A vu la video d'aide")]
         public bool HasSeenHelpVideo { get; set; }
+
+        [DisplayName("Nationalité")]
+        public string Nationality { get; set; }
+        [DisplayName("Langue")]
+        public string Language { get; set; }
+
         [DisplayName("Genre")]
         [ForeignKey(nameof(GenderId))]
         [InverseProperty("AspNetUsers")]
