@@ -115,14 +115,14 @@ namespace mvc.Controllers
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            AspNetUser user = await System.Text.Json.JsonSerializer.DeserializeAsync<AspNetUser>(
-              await client.GetStreamAsync(_configuration["URLAPI"] + "api/Account/getUserInfo"),
-              new System.Text.Json.JsonSerializerOptions
-              {
-                  PropertyNameCaseInsensitive = true
-              }
-           );
-            appointment.TeacherId = user.Id;
+           // AspNetUser user = await System.Text.Json.JsonSerializer.DeserializeAsync<AspNetUser>(
+           //   await client.GetStreamAsync(_configuration["URLAPI"] + "api/Account/getUserInfo"),
+           //   new System.Text.Json.JsonSerializerOptions
+           //   {
+           //       PropertyNameCaseInsensitive = true
+           //   }
+           //);
+           // appointment.TeacherId = user.Id;
             if (ModelState.IsValid)
             {
                 // Préparation de la requête update à l'API
@@ -200,7 +200,8 @@ namespace mvc.Controllers
                       Text = s.Firstname + " " + s.LastName.ToString()
                   });
 
-            ViewData["TeacherId"] = new SelectList(selectListItemsUsers, "Value", "Text", appointment.TeacherId);
+            //ViewData["TeacherId"] = new SelectList(selectListItemsUsers, "Value", "Text", appointment.TeacherId);
+            ViewData["TeacherId"] = new SelectList(selectListItemsUsers, "Value", "Text");
 
             return View(appointment);
         }
