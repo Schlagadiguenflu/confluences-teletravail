@@ -26,6 +26,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Id
+                                        </th>
+                                        <th>
                                             @Html.DisplayNameFor(model => model.Session.SessionNumberId)
                                         </th>
                                         <th>
@@ -43,94 +46,7 @@
                                         <th class="disabled-sorting text-right"></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    @foreach (var homework in Model)
-                                    {
-                                        @foreach (var item in homework.ExercicesAlones)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.Session.SchoolClassRoom.SchoolClassRoomName)
-                                                    Session
-                                                    @Html.DisplayFor(modelItem => homework.Session.SessionNumberId)
-                                                    @Html.DisplayFor(modelItem => homework.Session.DateStart.Year)
-                                                </td>
-                                                <td>
-                                                    @homework.HomeworkV2date.ToString("yyyy-MM-dd")
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="ExercicesAlones" asp-action="Details" asp-route-id="@item.ExerciceId">@Html.DisplayFor(modelItem => item.ExerciceName)</a>
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.HomeworkType.HomeworkTypeName)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.Teacher.Firstname)
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="ExercicesAlones" asp-action="Details" asp-route-id="@item.ExerciceId">Aperçu</a>
-                                                    <a asp-controller="ExercicesAlones" asp-action="Duppliquer" asp-route-id="@item.ExerciceId">Dupliquer</a>
-                                                </td>
-                                            </tr>
-                                        }
-
-                                        @foreach (var theory in homework.Theories)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.Session.SchoolClassRoom.SchoolClassRoomName)
-                                                    Session
-                                                    @Html.DisplayFor(modelItem => homework.Session.SessionNumberId)
-                                                    @Html.DisplayFor(modelItem => homework.Session.DateStart.Year)
-                                                </td>
-                                                <td>
-                                                    @homework.HomeworkV2date.ToString("yyyy-MM-dd")
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="Theories" asp-action="Details" asp-route-id="@theory.TheoryId">@Html.DisplayFor(modelItem => theory.TheoryName)</a>
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.HomeworkType.HomeworkTypeName)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => homework.Teacher.Firstname)
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="Theories" asp-action="Details" asp-route-id="@theory.TheoryId">Aperçu</a>
-                                                    <a asp-controller="Theories" asp-action="Duppliquer" asp-route-id="@theory.TheoryId">Dupliquer</a>
-                                                </td>
-                                            </tr>
-                                            @foreach (var exercice in theory.Exercices)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => homework.Session.SchoolClassRoom.SchoolClassRoomName)
-                                                        Session
-                                                        @Html.DisplayFor(modelItem => homework.Session.SessionNumberId)
-                                                        @Html.DisplayFor(modelItem => homework.Session.DateStart.Year)
-                                                    </td>
-                                                    <td>
-                                                        @homework.HomeworkV2date.ToString("yyyy-MM-dd")
-                                                    </td>
-                                                    <td>
-                                                        <a asp-controller="Exercices" asp-action="Details" asp-route-id="@exercice.ExerciceId">@Html.DisplayFor(modelItem => exercice.ExerciceName)</a>
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => homework.HomeworkType.HomeworkTypeName)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => homework.Teacher.Firstname)
-                                                    </td>
-                                                    <td>
-                                                        <a asp-controller="Exercices" asp-action="Details" asp-route-id="@exercice.ExerciceId">Aperçu</a>
-                                                        <a asp-controller="Exercices" asp-action="Duppliquer" asp-route-id="@exercice.ExerciceId">Dupliquer</a>
-                                                    </td>
-                                                </tr>
-                                            }
-
-                                        }
-                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -149,6 +65,12 @@
     <script>
         $(document).ready(function () {
             $('#datatables').DataTable({
+                "proccessing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: 'http://localhost:5001/api/RessourcePaginated',
+                    type: 'POST'
+                },
                 "pagingType": "full_numbers",
                 "lengthMenu": [
                     [10, 25, 50, -1],
@@ -159,7 +81,59 @@
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
                 },
-                "order": []
+                "order": [],
+                "columns": [
+                    { "data": "id" },
+                    { "data": "sessionNumber" },
+                    { "data": "date" },
+                    { "data": "name" },
+                    { "data": "homeworkTypeName" },
+                    { "data": "teacher" },
+                    { "data": "ressourceType" }
+                ],
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false
+                    },
+                    {
+                        targets: 2, render: function (data) {
+                            return moment(data).format('YYYY-MM-DD');
+                        }
+                    },
+                    {
+                        targets: 3, render: function (data, type, row, meta) {
+                            var anchor = '';
+                            if (row['ressourceType'] == 'H') { anchor = '<a href = "/Homeworkv2s/Details/' + row['id'] + '">' + data +'</a>' }
+                            else if (row['ressourceType'] == 'T') {
+                                anchor = '<a href = "/Theories/Details/' + row['id'] + '">' + data +'</a>'
+                            }
+                            else if (row['ressourceType'] == 'E') {
+                                anchor = '<a href = "/Exercices/Details/' + row['id'] + '">' + data +'</a>'
+                            }
+                            else if (row['ressourceType'] == 'EA') {
+                                anchor = '<a href = "/ExercicesAlones/Details/' + row['id'] + '">' + data +'</a>'
+                            }
+                            return anchor;
+                        }
+                    },
+                    {
+                        targets: 6, render: function (data, type, row, meta) {
+                            var anchor = '';
+                            if (row['ressourceType'] == 'H') { anchor = '<a href = "/Homeworkv2s/Details/' + row['id']+'">Aperçu</a>' }
+                            else if (row['ressourceType'] == 'T') {
+                                anchor = '<a href = "/Theories/Details/' + row['id'] + '">Aperçu</a><a href="/Theories/Duppliquer/' + row['id'] + '"> Dupliquer</a>'
+                            }
+                            else if (row['ressourceType'] == 'E') {
+                                anchor = '<a href = "/Exercices/Details/' + row['id'] + '">Aperçu</a><a href="/Exercices/Duppliquer/' + row['id'] + '"> Dupliquer</a>'
+                            }
+                            else if (row['ressourceType'] == 'EA') {
+                                anchor = '<a href = "/ExercicesAlones/Details/' + row['id'] + '">Aperçu</a><a href="/ExercicesAlones/Duppliquer/' + row['id'] + '"> Dupliquer</a>'
+                            }
+                            return anchor;
+                        }
+                    }
+                ]
             });
 
             var table = $('#datatable').DataTable();

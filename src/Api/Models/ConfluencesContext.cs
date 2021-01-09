@@ -40,6 +40,7 @@ namespace Api.Models
         public virtual DbSet<HomeworkV2s> HomeworkV2s { get; set; }
         public virtual DbSet<HomeworkV2studentExerciceAlones> HomeworkV2studentExerciceAlones { get; set; }
         public virtual DbSet<HomeworkV2students> HomeworkV2students { get; set; }
+        public virtual DbSet<Ressource> Ressources { get; set; }
         public virtual DbSet<SchoolClassRoom> SchoolClassRooms { get; set; }
         public virtual DbSet<SchoolClassRoomExplanation> SchoolClassRoomExplanations { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
@@ -229,6 +230,11 @@ namespace Api.Models
                 entity.HasIndex(e => e.StudentId);
             });
 
+            modelBuilder.Entity<Ressource>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
             modelBuilder.Entity<SchoolClassRoomExplanation>(entity =>
             {
                 entity.HasIndex(e => e.SchoolClassRoomId);
@@ -258,6 +264,8 @@ namespace Api.Models
                 entity.HasKey(e => new { e.SessionId, e.TeacherId });
 
                 entity.HasIndex(e => e.TeacherId);
+
+                entity.Property(e => e.Order).HasDefaultValueSql("10");
             });
 
             modelBuilder.Entity<Stage>(entity =>

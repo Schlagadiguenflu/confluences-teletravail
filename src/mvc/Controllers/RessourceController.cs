@@ -26,30 +26,7 @@ namespace mvc.Controllers
         // GET: Ressource about homeworks
         public async Task<IActionResult> Homeworks()
         {
-            // Préparation de l'appel à l'API
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            List<HomeworkV2s> homeworks;
-            try
-            {
-                homeworks = await JsonSerializer.DeserializeAsync<List<HomeworkV2s>>(
-                    await client.GetStreamAsync(_configuration["URLAPI"] + "api/Ressource/"),
-                    new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    }
-                );
-            }
-            catch (Exception)
-            {
-                return SignOut("Cookies", "oidc");
-            }
-
-            homeworks = homeworks.OrderByDescending(h => h.HomeworkV2date).ToList();
-
-            return View(homeworks);
+            return View();
         }
     }
 }

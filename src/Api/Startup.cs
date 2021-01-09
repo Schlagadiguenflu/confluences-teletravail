@@ -36,6 +36,12 @@ namespace Api
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins(Configuration["URLMVC"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
 
 
